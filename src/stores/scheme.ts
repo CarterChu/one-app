@@ -18,18 +18,13 @@ function initial(): Scheme {
 export const scheme = ref<Scheme>(initial());
 
 // —— 开发自查用的悬浮开关(仅 ?dev=1 时出现,不影响正式测试链接) ——
-const DEV_KEY = "one-app-dev";
-export const dev = ref<boolean>(localStorage.getItem(DEV_KEY) === "1");
+export const dev = ref<boolean>(false);
 
+// dev 开关只反映当前 URL 的 ?dev=1(不持久化),
+// 保证正式测试链接(不带 ?dev=1)永远不显示悬浮开关。
 export function setDevFromQuery(q: unknown) {
   const v = Array.isArray(q) ? q[0] : q;
-  if (v === "1") {
-    dev.value = true;
-    localStorage.setItem(DEV_KEY, "1");
-  } else if (v === "0") {
-    dev.value = false;
-    localStorage.removeItem(DEV_KEY);
-  }
+  dev.value = v === "1";
 }
 
 export function setScheme(s: Scheme) {

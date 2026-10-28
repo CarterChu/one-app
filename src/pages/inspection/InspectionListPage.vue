@@ -58,7 +58,7 @@
 import { ref, reactive, computed, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { onMounted } from "vue";
-import { setSchemeFromQuery, executeRoute, detailRoute } from "@/stores/scheme";
+import { dev, setSchemeFromQuery, executeRoute, detailRoute } from "@/stores/scheme";
 import { showToast } from "a-design-h5";
 import FilterBar from "./components/FilterBar.vue";
 import InspectionCard from "./components/InspectionCard.vue";
@@ -168,10 +168,13 @@ function onBack() {
   showToast("返回");
 }
 function onDetail(item: Inspection) {
-  router.push({ name: detailRoute(), params: { id: item.id } });
+  router.push({ name: detailRoute(), params: { id: item.id }, query: devQuery() });
 }
 function onExecute(item: Inspection) {
-  router.push({ name: executeRoute(), params: { id: item.id } });
+  router.push({ name: executeRoute(), params: { id: item.id }, query: devQuery() });
+}
+function devQuery() {
+  return dev.value ? { dev: "1" } : undefined;
 }
 </script>
 
