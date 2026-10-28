@@ -139,6 +139,7 @@ import WizardItem from "./execute2/WizardItem.vue";
 import TransferSheet from "./components/TransferSheet.vue";
 import { BASIC_INFO, createSections } from "@/mock/executeInspection";
 import { startTrack, bump, finishTrack } from "@/stores/tracker";
+import { EXPECTED } from "@/mock/scenario";
 import type { ChecklistSection } from "@/types/execute";
 
 type Stage = "basic" | "info" | "wizard" | "preview" | "result";
@@ -266,6 +267,7 @@ function onSubmit() {
   }
   finishTrack({
     answers: allItems.value.map((it) => ({ id: it.id, result: it.result })),
+    expected: EXPECTED,
     result: stats.value.result,
     submitted: true,
   });

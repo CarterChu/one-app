@@ -91,6 +91,7 @@ import TransferSheet from "./components/TransferSheet.vue";
 import { BASIC_INFO, createSections } from "@/mock/executeInspection";
 import type { ChecklistSection } from "@/types/execute";
 import { startTrack, bump, finishTrack } from "@/stores/tracker";
+import { EXPECTED } from "@/mock/scenario";
 
 const STICKY_TOP = 90; // nav(46) + tabs(44)
 
@@ -177,6 +178,7 @@ function onSubmit() {
 function onConfirmSubmit(reviewer: string) {
   finishTrack({
     answers: allItems.value.map((it) => ({ id: it.id, result: it.result })),
+    expected: EXPECTED,
     result: submitStats.value.result,
     submitted: true,
   });

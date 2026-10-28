@@ -20,6 +20,11 @@ export interface TrackSession {
   result: string; // 通过/不通过
   submitted: boolean;
   answers: string; // 每项作答 JSON,供比对剧本算错误率
+  scored: number; // 纳入评分的项数
+  correct: number; // 判定正确项数
+  missedDefect: number; // 漏判:应不合格却判合格/未判
+  falseAlarm: number; // 误判:应合格却判不合格
+  errorRate: string; // 错误率 0-1(三位小数)
 }
 
 type Counter = "reedits" | "backClicks" | "previewOpens" | "jumps";
@@ -67,11 +72,29 @@ export function finishTrack(payload: {
   answers: { id: string; result: string | null }[];
   result: string;
   submitted: boolean;
+  expected?: Record<string, "pass" | "fail">;
 }) {
   if (!current) return;
   const end = Date.now();
   const missedIds = payload.answers.filter((a) => a.result === null).map((a) => a.id);
   const answered = payload.answers.length - missedIds.length;
+
+  // —— 比对测试剧本算错误率 ——
+  let scored = 0,
+    correct = 0,
+    missedDefect = 0,
+    falseAlarm = 0;
+  if (payload.expected) {
+    for (const a of payload.answers) {
+      const exp = payload.expected[a.id];
+      if (!exp) continue;
+      scored++;
+      if (a.result === exp) correct++;
+      else if (exp === "fail") missedDefect++;
+      else if (a.result === "fail") falseAlarm++;
+    }
+  }
+  const errorRate = scored ? ((scored - correct) / scored).toFixed(3) : "";
   const rec: TrackSession = {
     id: current.id,
     scheme: current.scheme,
@@ -91,6 +114,11 @@ export function finishTrack(payload: {
     result: payload.result,
     submitted: payload.submitted,
     answers: JSON.stringify(payload.answers),
+    scored,
+    correct,
+    missedDefect,
+    falseAlarm,
+    errorRate,
   };
   const list = loadSessions();
   list.push(rec);
@@ -119,7 +147,7 @@ export function exportCsv() {
   const cols: (keyof TrackSession)[] = [
     "id", "scheme", "flow", "recordId", "startIso", "endIso", "durationSec",
     "totalItems", "answered", "missed", "missedIds", "reedits", "backClicks",
-    "previewOpens", "jumps", "result", "submitted", "answers",
+    "previewOpens", "jumps", "result", "submitted", "scored", "correct", "missedDefect", "falseAlarm", "errorRate", "answers",
   ];
   const esc = (v: unknown) => {
     const s = String(v ?? "");
