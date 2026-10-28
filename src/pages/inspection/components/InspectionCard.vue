@@ -56,13 +56,12 @@
 
     <!-- 操作按钮 -->
     <div class="ins-card__actions">
-      <a-button variant="tertiary" size="small" radius="16" class="act-btn" @click="$emit('detail', item)">详情</a-button>
+      <a-button variant="tertiary" size="small" class="act-btn" @click="$emit('detail', item)">详情</a-button>
       <a-button
         v-if="item.status === '待检查'"
-        variant="tertiary"
+        variant="primary"
         size="small"
-        radius="16"
-        class="act-btn act-btn--primary"
+        class="act-btn"
         @click="$emit('execute', item)"
         >执行飞检</a-button
       >
@@ -237,11 +236,5 @@ function onNavigate() {
 .act-btn {
   flex: 0 0 auto;
   min-width: 72px;
-}
-
-/* 执行飞检:蓝色描边,覆盖 tertiary 的灰边 */
-.act-btn--primary {
-  --van-button-default-border-color: #3060ff;
-  --van-button-default-color: #3060ff;
 }
 </style>

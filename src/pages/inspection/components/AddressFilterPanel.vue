@@ -53,8 +53,10 @@
 
     <!-- 底部操作 -->
     <div class="panel-footer">
-      <a-button variant="secondary" size="large" radius="8" class="panel-btn" @click="onReset">重置</a-button>
-      <a-button variant="primary" size="large" radius="8" class="panel-btn" @click="onConfirm">确定</a-button>
+      <a-button-group type="white-bg">
+        <a-button variant="secondary" size="large" @click="onReset">重置</a-button>
+        <a-button variant="primary" size="large" @click="onConfirm">确定</a-button>
+      </a-button-group>
     </div>
   </div>
 </template>
@@ -175,14 +177,7 @@ function onConfirm() {
 }
 
 .panel-footer {
-  display: flex;
-  gap: 12px;
-  padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
-  background: #fff;
   border-top: 1px solid #f2f3f5;
-}
-
-.panel-btn {
-  flex: 1;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 </style>

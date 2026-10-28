@@ -43,8 +43,10 @@
       </div>
 
       <div class="sc__footer">
-        <a-button variant="secondary" size="large" radius="8" class="sc__btn" @click="$emit('back')">返回修改</a-button>
-        <a-button variant="primary" size="large" radius="8" class="sc__btn" @click="onConfirm">确认提交</a-button>
+        <a-button-group type="white-bg">
+          <a-button variant="secondary" size="large" @click="$emit('back')">返回修改</a-button>
+          <a-button variant="primary" size="large" @click="onConfirm">确认提交</a-button>
+        </a-button-group>
       </div>
     </div>
 
@@ -225,12 +227,6 @@ function onConfirm() {
 }
 
 .sc__footer {
-  display: flex;
-  gap: 12px;
-  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
-}
-
-.sc__btn {
-  flex: 1;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 </style>

@@ -21,7 +21,9 @@
       </div>
 
       <div class="tf__footer">
-        <a-button variant="primary" size="large" radius="8" class="tf__btn" @click="onConfirm">确认更换</a-button>
+        <a-button-group type="white-bg">
+          <a-button variant="primary" size="large" @click="onConfirm">确认更换</a-button>
+        </a-button-group>
       </div>
     </div>
 
@@ -122,10 +124,6 @@ function onConfirm() {
 }
 
 .tf__footer {
-  padding: 8px 16px calc(12px + env(safe-area-inset-bottom));
-}
-
-.tf__btn {
-  width: 100%;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 </style>

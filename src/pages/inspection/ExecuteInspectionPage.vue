@@ -53,8 +53,8 @@
             <span class="foot-ind__locate" @click="locateUnanswered">点击定位</span>
           </template>
         </div>
-        <a-button variant="secondary" size="large" radius="8" class="foot-btn" @click="onSave">保存</a-button>
-        <a-button variant="primary" size="large" radius="8" class="foot-btn" :disabled="!allDone" @click="onSubmit">提交</a-button>
+        <a-button variant="secondary" size="large" class="foot-btn" @click="onSave">保存</a-button>
+        <a-button variant="primary" size="large" class="foot-btn" :disabled="!allDone" @click="onSubmit">提交</a-button>
       </div>
     </div>
 
