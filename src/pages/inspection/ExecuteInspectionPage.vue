@@ -73,6 +73,9 @@
       @back="showSubmit = false"
       @confirm="onConfirmSubmit"
     />
+
+    <!-- 转办 -->
+    <TransferSheet v-model:show="showTransfer" @confirm="onTransferConfirm" />
   </div>
 </template>
 
@@ -84,6 +87,7 @@ import BasicInfoTab from "./execute/BasicInfoTab.vue";
 import ChecklistTab from "./execute/ChecklistTab.vue";
 import GroupsPopup from "./execute/GroupsPopup.vue";
 import SubmitConfirmSheet, { type SubmitStats } from "./execute/SubmitConfirmSheet.vue";
+import TransferSheet from "./components/TransferSheet.vue";
 import { BASIC_INFO, createSections } from "@/mock/executeInspection";
 import type { ChecklistSection } from "@/types/execute";
 
@@ -97,6 +101,7 @@ const activeSectionKey = ref(sections[0]?.key ?? "");
 const checklistRef = ref<InstanceType<typeof ChecklistTab> | null>(null);
 const showGroups = ref(false);
 const showSubmit = ref(false);
+const showTransfer = ref(false);
 
 function answered(sec: ChecklistSection) {
   return sec.items.filter((it) => it.result !== null).length;
@@ -136,7 +141,11 @@ function onBack() {
   router.back();
 }
 function onTransfer() {
-  showToast("转办");
+  showTransfer.value = true;
+}
+function onTransferConfirm(person: string) {
+  showTransfer.value = false;
+  showToast(`转办成功,新负责人:${person}`);
 }
 function onSave() {
   showToast("已保存");

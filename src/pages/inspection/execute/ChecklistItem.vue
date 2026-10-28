@@ -5,8 +5,8 @@
       <span class="ci__name">{{ index }}. {{ item.name }}</span>
     </div>
 
-    <!-- 合格 / 不合格(自绘切换,不用 a-radio-group) -->
-    <div class="rt-row">
+    <!-- 编辑态:合格 / 不合格(自绘切换,不用 a-radio-group) -->
+    <div v-if="!readonly" class="rt-row">
       <button type="button" class="rt rt--pass" :class="{ 'rt--on': item.result === 'pass' }" @click="setResult('pass')">
         <svg viewBox="0 0 16 16" width="14" height="14">
           <path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
@@ -21,10 +21,24 @@
       </button>
     </div>
 
-    <!-- 不合格时展开:缺陷描述 + 缺陷图片 -->
+    <!-- 只读态:结果文字 -->
+    <div v-else class="result-text" :class="`result-text--${item.result ?? 'none'}`">
+      <template v-if="item.result === 'pass'">
+        <svg viewBox="0 0 16 16" width="14" height="14"><path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        合格
+      </template>
+      <template v-else-if="item.result === 'fail'">
+        <svg viewBox="0 0 16 16" width="14" height="14"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /></svg>
+        不合格
+      </template>
+      <template v-else>–</template>
+    </div>
+
+    <!-- 不合格展开:缺陷描述 + 缺陷图片 -->
     <div v-if="item.result === 'fail'" class="defect">
-      <div class="defect__label"><span class="req">*</span>缺陷描述</div>
-      <div class="defect-field">
+      <div class="defect__label"><span v-if="!readonly" class="req">*</span>缺陷说明</div>
+      <div v-if="readonly" class="defect__text">{{ item.defectDesc || "无" }}</div>
+      <div v-else class="defect-field">
         <a-field
           v-model="item.defectDesc"
           type="textarea"
@@ -36,8 +50,10 @@
         />
       </div>
 
-      <div class="defect__label"><span class="req">*</span>缺陷图片</div>
-      <PhotoUpload v-model="item.defectImages" />
+      <template v-if="readonly ? item.defectImages.length : true">
+        <div class="defect__label"><span v-if="!readonly" class="req">*</span>缺陷图片</div>
+        <PhotoUpload v-model="item.defectImages" :readonly="readonly" />
+      </template>
     </div>
   </div>
 </template>
@@ -46,7 +62,9 @@
 import PhotoUpload from "./PhotoUpload.vue";
 import type { ChecklistItemData, ItemResult } from "@/types/execute";
 
-const props = defineProps<{ item: ChecklistItemData; index: number }>();
+const props = withDefaults(defineProps<{ item: ChecklistItemData; index: number; readonly?: boolean }>(), {
+  readonly: false,
+});
 
 function setResult(r: Exclude<ItemResult, null>) {
   // 再次点击同一项不取消(与设计一致:必须二选一)
@@ -133,6 +151,25 @@ function setResult(r: Exclude<ItemResult, null>) {
   }
 }
 
+.result-text {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 10px;
+  font-size: 15px;
+  font-weight: 500;
+
+  &--pass {
+    color: #00b42a;
+  }
+  &--fail {
+    color: #f53f3f;
+  }
+  &--none {
+    color: #c9cdd4;
+  }
+}
+
 .defect {
   margin-top: 16px;
 }
@@ -141,6 +178,12 @@ function setResult(r: Exclude<ItemResult, null>) {
   font-size: 14px;
   color: #4e5969;
   margin: 14px 0 8px;
+}
+
+.defect__text {
+  font-size: 14px;
+  color: #1d2129;
+  line-height: 22px;
 }
 
 .req {

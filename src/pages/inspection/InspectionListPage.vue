@@ -164,7 +164,7 @@ function onBack() {
   showToast("返回");
 }
 function onDetail(item: Inspection) {
-  showToast(`查看详情:${item.ownerName}`);
+  router.push({ name: "inspection-detail", params: { id: item.id } });
 }
 function onExecute(item: Inspection) {
   router.push({ name: "inspection-execute", params: { id: item.id } });

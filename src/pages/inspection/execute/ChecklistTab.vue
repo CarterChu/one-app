@@ -8,7 +8,7 @@
       :style="{ scrollMarginTop: stickyTop + 'px' }"
     >
       <div class="sec__header" :style="{ top: stickyTop + 'px' }">
-        {{ sec.title }}（{{ answered(sec) }}/{{ sec.items.length }}）
+        {{ sec.title }}<template v-if="!readonly">（{{ answered(sec) }}/{{ sec.items.length }}）</template>
       </div>
       <div class="sec__card">
         <ChecklistItem
@@ -16,6 +16,7 @@
           :key="it.id"
           :item="it"
           :index="i + 1"
+          :readonly="readonly"
         />
       </div>
     </section>
@@ -28,7 +29,10 @@ import { onMounted, onBeforeUnmount } from "vue";
 import ChecklistItem from "./ChecklistItem.vue";
 import type { ChecklistSection } from "@/types/execute";
 
-const props = defineProps<{ sections: ChecklistSection[]; stickyTop: number }>();
+const props = withDefaults(
+  defineProps<{ sections: ChecklistSection[]; stickyTop: number; readonly?: boolean }>(),
+  { readonly: false },
+);
 const emit = defineEmits<{ (e: "active-change", key: string): void }>();
 
 const sectionEls = new Map<string, HTMLElement>();

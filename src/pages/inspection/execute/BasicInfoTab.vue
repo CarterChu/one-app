@@ -5,7 +5,7 @@
     <div class="info-card">
       <div class="info-row">
         <span class="info-row__label">飞检状态</span>
-        <span class="status-tag status-tag--pending">{{ info.status }}</span>
+        <span class="status-tag" :class="statusClass">{{ info.status }}</span>
       </div>
       <div class="info-row">
         <span class="info-row__label">飞检单号</span>
@@ -76,10 +76,22 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue";
 import { showToast } from "a-design-h5";
 import type { ExecuteBasicInfo } from "@/types/execute";
 
 const props = defineProps<{ info: ExecuteBasicInfo }>();
+
+const statusClass = computed(() => {
+  switch (props.info.status) {
+    case "通过":
+      return "status-tag--pass";
+    case "不通过":
+      return "status-tag--fail";
+    default:
+      return "status-tag--pending";
+  }
+});
 
 function onCopy() {
   if (navigator.clipboard?.writeText) {
@@ -169,6 +181,14 @@ function onNavigate() {
   &--pending {
     color: #ff9a2e;
     background: #fff5e8;
+  }
+  &--pass {
+    color: #00b42a;
+    background: #e8ffea;
+  }
+  &--fail {
+    color: #f53f3f;
+    background: #ffece8;
   }
 }
 </style>

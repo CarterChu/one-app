@@ -2,14 +2,14 @@
   <div class="uploader">
     <div v-for="(url, i) in modelValue" :key="i" class="uploader__thumb">
       <img :src="url" alt="缺陷图片" />
-      <span class="uploader__remove" @click="remove(i)">
+      <span v-if="!readonly" class="uploader__remove" @click="remove(i)">
         <svg viewBox="0 0 12 12" width="12" height="12">
           <path d="M3 3l6 6M9 3l-6 6" stroke="#fff" stroke-width="1.4" stroke-linecap="round" />
         </svg>
       </span>
     </div>
 
-    <label class="uploader__add">
+    <label v-if="!readonly" class="uploader__add">
       <svg viewBox="0 0 24 24" width="24" height="24">
         <path d="M12 5v14M5 12h14" fill="none" stroke="#c9cdd4" stroke-width="2" stroke-linecap="round" />
       </svg>
@@ -19,7 +19,9 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{ modelValue: string[] }>();
+const props = withDefaults(defineProps<{ modelValue: string[]; readonly?: boolean }>(), {
+  readonly: false,
+});
 const emit = defineEmits<{ (e: "update:modelValue", v: string[]): void }>();
 
 function onPick(e: Event) {

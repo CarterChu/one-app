@@ -18,6 +18,12 @@ const routes: RouteRecordRaw[] = [
     component: () => import("@/pages/inspection/ExecuteInspectionPage.vue"),
     meta: { title: "执行飞检" },
   },
+  {
+    path: "/inspection/detail/:id",
+    name: "inspection-detail",
+    component: () => import("@/pages/inspection/DetailPage.vue"),
+    meta: { title: "详情" },
+  },
 ];
 
 const router = createRouter({
