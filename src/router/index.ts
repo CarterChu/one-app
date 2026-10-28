@@ -12,6 +12,12 @@ const routes: RouteRecordRaw[] = [
     component: () => import("@/pages/inspection/InspectionListPage.vue"),
     meta: { title: "飞检管理" },
   },
+  {
+    path: "/inspection/execute/:id",
+    name: "inspection-execute",
+    component: () => import("@/pages/inspection/ExecuteInspectionPage.vue"),
+    meta: { title: "执行飞检" },
+  },
 ];
 
 const router = createRouter({

@@ -56,12 +56,14 @@
 
 <script setup lang="ts">
 import { ref, reactive, computed, watch } from "vue";
+import { useRouter } from "vue-router";
 import { showToast } from "a-design-h5";
 import FilterBar from "./components/FilterBar.vue";
 import InspectionCard from "./components/InspectionCard.vue";
 import { ALL_INSPECTIONS, TAB_ITEMS } from "@/mock/inspections";
 import type { Inspection, TabKey } from "@/types/inspection";
 
+const router = useRouter();
 const TODAY = new Date(2026, 9, 28); // 原型基准"今天"
 
 const keyword = ref("");
@@ -165,7 +167,7 @@ function onDetail(item: Inspection) {
   showToast(`查看详情:${item.ownerName}`);
 }
 function onExecute(item: Inspection) {
-  showToast(`执行飞检:${item.ownerName}`);
+  router.push({ name: "inspection-execute", params: { id: item.id } });
 }
 </script>
 
