@@ -80,8 +80,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed } from "vue";
-import { useRouter } from "vue-router";
+import { ref, reactive, computed, onMounted, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { showToast } from "a-design-h5";
 import BasicInfoTab from "./execute/BasicInfoTab.vue";
 import ChecklistTab from "./execute/ChecklistTab.vue";
@@ -90,6 +90,7 @@ import SubmitConfirmSheet, { type SubmitStats } from "./execute/SubmitConfirmShe
 import TransferSheet from "./components/TransferSheet.vue";
 import { BASIC_INFO, createSections } from "@/mock/executeInspection";
 import type { ChecklistSection } from "@/types/execute";
+import { startTrack, bump, finishTrack } from "@/stores/tracker";
 
 const STICKY_TOP = 90; // nav(46) + tabs(44)
 
@@ -108,6 +109,21 @@ function answered(sec: ChecklistSection) {
 }
 
 const allItems = computed(() => sections.flatMap((s) => s.items));
+
+// —— A/B 埋点 ——
+const route = useRoute();
+onMounted(() => startTrack("1", "execute", String(route.params.id ?? ""), allItems.value.length));
+watch(
+  () => allItems.value.map((it) => it.result),
+  (nw, od) => {
+    for (let i = 0; i < nw.length; i++) {
+      if (od[i] != null && nw[i] != null && od[i] !== nw[i]) bump("reedits");
+    }
+  },
+);
+watch(showGroups, (v) => {
+  if (v) bump("previewOpens");
+});
 const totalCount = computed(() => allItems.value.length);
 const answeredCount = computed(() => allItems.value.filter((it) => it.result !== null).length);
 const remaining = computed(() => totalCount.value - answeredCount.value);
@@ -128,6 +144,7 @@ const submitStats = computed<SubmitStats>(() => {
 });
 
 function goSection(key: string) {
+  bump("jumps");
   activeSectionKey.value = key;
   checklistRef.value?.scrollTo(key);
 }
@@ -158,6 +175,11 @@ function onSubmit() {
   showSubmit.value = true;
 }
 function onConfirmSubmit(reviewer: string) {
+  finishTrack({
+    answers: allItems.value.map((it) => ({ id: it.id, result: it.result })),
+    result: submitStats.value.result,
+    submitted: true,
+  });
   showSubmit.value = false;
   showToast(`已提交,复验人:${reviewer}`);
   setTimeout(() => router.back(), 800);

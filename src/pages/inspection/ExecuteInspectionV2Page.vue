@@ -129,8 +129,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed } from "vue";
-import { useRouter } from "vue-router";
+import { ref, reactive, computed, onMounted, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { showToast } from "a-design-h5";
 import BasicInfoTab from "./execute/BasicInfoTab.vue";
 import ChecklistItem from "./execute/ChecklistItem.vue";
@@ -138,6 +138,7 @@ import StationCard from "./execute2/StationCard.vue";
 import WizardItem from "./execute2/WizardItem.vue";
 import TransferSheet from "./components/TransferSheet.vue";
 import { BASIC_INFO, createSections } from "@/mock/executeInspection";
+import { startTrack, bump, finishTrack } from "@/stores/tracker";
 import type { ChecklistSection } from "@/types/execute";
 
 type Stage = "basic" | "info" | "wizard" | "preview" | "result";
@@ -194,6 +195,18 @@ function answered(sec: ChecklistSection) {
   return sec.items.filter((it) => it.result !== null).length;
 }
 
+// —— A/B 埋点 ——
+const route = useRoute();
+onMounted(() => startTrack("2", "execute", String(route.params.id ?? ""), total.value));
+watch(
+  () => allItems.value.map((it) => it.result),
+  (nw, od) => {
+    for (let i = 0; i < nw.length; i++) {
+      if (od[i] != null && nw[i] != null && od[i] !== nw[i]) bump("reedits");
+    }
+  },
+);
+
 function startCheck() {
   currentIndex.value = 0;
   stage.value = "wizard";
@@ -206,19 +219,23 @@ function next() {
   }
 }
 function prev() {
+  bump("backClicks");
   if (currentIndex.value > 0) currentIndex.value -= 1;
   else stage.value = "basic";
 }
 function goPreview() {
+  bump("previewOpens");
   stage.value = "preview";
 }
 function jumpTo(id: string) {
+  bump("jumps");
   const idx = allItems.value.findIndex((it) => it.id === id);
   if (idx >= 0) currentIndex.value = idx;
   stage.value = "wizard";
 }
 function onPreviewAction() {
   if (remaining.value > 0) {
+    bump("jumps");
     const idx = allItems.value.findIndex((it) => it.result === null);
     if (idx >= 0) currentIndex.value = idx;
     stage.value = "wizard";
@@ -247,6 +264,11 @@ function onSubmit() {
     showToast("请选择整改复验人");
     return;
   }
+  finishTrack({
+    answers: allItems.value.map((it) => ({ id: it.id, result: it.result })),
+    result: stats.value.result,
+    submitted: true,
+  });
   showToast(`已提交,复验人:${reviewer.value}`);
   setTimeout(() => router.back(), 800);
 }
