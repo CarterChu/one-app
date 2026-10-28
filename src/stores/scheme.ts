@@ -17,6 +17,26 @@ function initial(): Scheme {
 
 export const scheme = ref<Scheme>(initial());
 
+// —— 开发自查用的悬浮开关(仅 ?dev=1 时出现,不影响正式测试链接) ——
+const DEV_KEY = "one-app-dev";
+export const dev = ref<boolean>(localStorage.getItem(DEV_KEY) === "1");
+
+export function setDevFromQuery(q: unknown) {
+  const v = Array.isArray(q) ? q[0] : q;
+  if (v === "1") {
+    dev.value = true;
+    localStorage.setItem(DEV_KEY, "1");
+  } else if (v === "0") {
+    dev.value = false;
+    localStorage.removeItem(DEV_KEY);
+  }
+}
+
+export function setScheme(s: Scheme) {
+  scheme.value = s;
+  localStorage.setItem(STORAGE_KEY, s);
+}
+
 /** 列表页按 URL query 设置方案(?scheme=2) */
 export function setSchemeFromQuery(q: unknown) {
   const v = Array.isArray(q) ? q[0] : q;
