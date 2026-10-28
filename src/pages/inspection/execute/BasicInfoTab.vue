@@ -24,7 +24,7 @@
         <span class="info-row__value">{{ info.reviewer }}</span>
       </div>
       <div class="info-row">
-        <span class="info-row__label">飞检时间</span>
+        <span class="info-row__label">{{ timeLabel }}</span>
         <span class="info-row__value">{{ info.inspectTime }}</span>
       </div>
     </div>
@@ -80,7 +80,9 @@ import { computed } from "vue";
 import { showToast } from "a-design-h5";
 import type { ExecuteBasicInfo } from "@/types/execute";
 
-const props = defineProps<{ info: ExecuteBasicInfo }>();
+const props = withDefaults(defineProps<{ info: ExecuteBasicInfo; timeLabel?: string }>(), {
+  timeLabel: "飞检时间",
+});
 
 const statusClass = computed(() => {
   switch (props.info.status) {

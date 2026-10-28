@@ -56,7 +56,9 @@
 
 <script setup lang="ts">
 import { ref, reactive, computed, watch } from "vue";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
+import { onMounted } from "vue";
+import { setSchemeFromQuery, executeRoute, detailRoute } from "@/stores/scheme";
 import { showToast } from "a-design-h5";
 import FilterBar from "./components/FilterBar.vue";
 import InspectionCard from "./components/InspectionCard.vue";
@@ -64,6 +66,8 @@ import { ALL_INSPECTIONS, TAB_ITEMS } from "@/mock/inspections";
 import type { Inspection, TabKey } from "@/types/inspection";
 
 const router = useRouter();
+const route = useRoute();
+onMounted(() => setSchemeFromQuery(route.query.scheme));
 const TODAY = new Date(2026, 9, 28); // 原型基准"今天"
 
 const keyword = ref("");
@@ -164,10 +168,10 @@ function onBack() {
   showToast("返回");
 }
 function onDetail(item: Inspection) {
-  router.push({ name: "inspection-detail", params: { id: item.id } });
+  router.push({ name: detailRoute(), params: { id: item.id } });
 }
 function onExecute(item: Inspection) {
-  router.push({ name: "inspection-execute", params: { id: item.id } });
+  router.push({ name: executeRoute(), params: { id: item.id } });
 }
 </script>
 
