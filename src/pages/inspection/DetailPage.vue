@@ -24,22 +24,24 @@
 
     <!-- 检查项目 tab 底部:仅分组锚点(只读,无保存/提交) -->
     <div v-if="activeTab === 'checklist'" class="detail-footer">
-      <div class="anchors__scroll">
-        <div
-          v-for="sec in data.sections"
-          :key="sec.key"
-          class="anchor"
-          :class="{ 'anchor--on': sec.key === activeSectionKey }"
-          :ref="(el) => setAnchorRef(sec.key, el)"
-          @click="goSection(sec.key)"
-        >
-          {{ sec.title }}<span class="anchor__count">{{ answered(sec) }}/{{ sec.items.length }}</span>
+      <div class="anchors-pill">
+        <div class="anchors__scroll">
+          <div
+            v-for="sec in data.sections"
+            :key="sec.key"
+            class="anchor"
+            :class="{ 'anchor--on': sec.key === activeSectionKey }"
+            :ref="(el) => setAnchorRef(sec.key, el)"
+            @click="goSection(sec.key)"
+          >
+            <span class="anchor__label">{{ sec.title }}</span><span class="anchor__count">{{ answered(sec) }}/{{ sec.items.length }}</span>
+          </div>
         </div>
-      </div>
-      <div class="anchors__menu" @click="showGroups = true">
-        <svg viewBox="0 0 20 20" width="20" height="20">
-          <path d="M3 5h14M3 10h14M3 15h14" fill="none" stroke="#767282" stroke-width="1.6" stroke-linecap="round" />
-        </svg>
+        <div class="anchors__menu" @click="showGroups = true">
+          <svg viewBox="0 0 20 20" width="20" height="20">
+            <path d="M3 5h14M3 10h14M3 15h14" fill="none" stroke="#767282" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+        </div>
       </div>
     </div>
 
@@ -116,59 +118,74 @@ function onBack() {
   z-index: 30;
   max-width: 480px;
   margin: 0 auto;
+  padding: 8px 16px calc(10px + env(safe-area-inset-bottom));
+  background: linear-gradient(to bottom, rgba(243, 243, 245, 0), #f3f3f5 55%);
+}
+
+.anchors-pill {
   display: flex;
   align-items: center;
-  background: #fff;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
-  padding-bottom: env(safe-area-inset-bottom);
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(4px);
+  border-radius: 100px;
+  box-shadow: 0 3px 20px rgba(10, 10, 10, 0.06);
+  overflow: hidden;
 }
 
 .anchors__scroll {
   flex: 1;
   display: flex;
-  gap: 18px;
   overflow-x: auto;
-  padding: 12px;
+  padding: 0 4px;
   scrollbar-width: none;
 }
 
 .anchor {
   flex-shrink: 0;
-  position: relative;
-  font-size: 14px;
-  color: #767282;
-  padding-bottom: 4px;
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+  padding: 11px 8px;
   white-space: nowrap;
+}
 
-  &__count {
-    color: #a7a5b0;
-    margin-left: 3px;
-  }
+.anchor__label {
+  position: relative;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 600;
+  color: #767282;
+}
 
-  &--on {
-    color: #007bfe;
-    font-weight: 500;
+.anchor__count {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  color: #bab9c4;
+}
 
-    &::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 24px;
-      height: 2px;
-      border-radius: 2px;
-      background: #007bfe;
-    }
+.anchor--on .anchor__label {
+  color: #2f2d33;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 1px;
+    height: 4px;
+    border-radius: 20px;
+    background: #007bfe;
   }
 }
 
 .anchors__menu {
   flex-shrink: 0;
-  width: 44px;
+  width: 42px;
   align-self: stretch;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-left: 1px solid #f3f3f5;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), #fff 45%);
 }
 </style>
