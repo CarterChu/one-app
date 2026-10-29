@@ -58,8 +58,8 @@
       </div>
     </section>
 
-    <!-- 测试数据 -->
-    <section class="grp">
+    <!-- 测试数据(仅测试环境显示) -->
+    <section v-if="env === 'test'" class="grp">
       <div class="grp__head"><span class="grp__title">测试数据</span><span class="grp__tag">已记录 {{ count }} 条</span></div>
       <div class="data">
         <a-button-group type="white-bg">
@@ -236,5 +236,6 @@ function onClear() {
   background: #fff;
   border-radius: 12px;
   padding: 4px 0;
+  overflow: hidden;
 }
 </style>
