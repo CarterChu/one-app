@@ -84,8 +84,6 @@ function onNavigate() {
 
 .station__addr {
   color: #2f2d33;
-  flex: 1;
-  min-width: 0;
 }
 
 .station__icon {
@@ -103,7 +101,5 @@ function onNavigate() {
   margin-left: 6px;
 }
 
-.station__addr + .station__icon {
-  margin-left: auto;
-}
+
 </style>
