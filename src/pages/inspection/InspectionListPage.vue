@@ -12,14 +12,17 @@
         @update:model-value="onSearch"
       />
 
-      <a-tabs v-model:active="activeTab" line-width="20px" @change="onTabChange">
-        <a-tab
+      <div class="tabs">
+        <div
           v-for="t in TAB_ITEMS"
           :key="t.key"
-          :name="t.key"
-          :title="`${t.label} ${t.count}`"
-        />
-      </a-tabs>
+          class="tab"
+          :class="{ 'tab--on': activeTab === t.key }"
+          @click="activeTab = t.key"
+        >
+          <span class="tab__label">{{ t.label }}</span><span class="tab__count">{{ t.count }}</span>
+        </div>
+      </div>
 
       <FilterBar
         ref="filterBarRef"
@@ -198,14 +201,48 @@ function devQuery() {
   }
 }
 
-.tab-title {
-  font-size: 15px;
+.tabs {
+  display: flex;
+  gap: 20px;
+  padding: 0 16px;
+  height: 44px;
+  align-items: center;
+  background: #fff;
+}
 
-  &__count {
-    margin-left: 4px;
-    font-size: 13px;
-    color: inherit;
-    opacity: 0.6;
+.tab {
+  position: relative;
+  height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.tab__label {
+  position: relative;
+  font-size: 16px;
+  color: #767282;
+}
+
+.tab__count {
+  font-size: 13px;
+  color: #a7a5b0;
+  margin-left: 3px;
+}
+
+.tab--on .tab__label {
+  color: #2f2d33;
+  font-weight: 600;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -9px;
+    transform: translateX(-50%);
+    width: 16px;
+    height: 3px;
+    border-radius: 2px;
+    background: #007bfe;
   }
 }
 
