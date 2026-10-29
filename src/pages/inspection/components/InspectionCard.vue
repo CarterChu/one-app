@@ -56,12 +56,12 @@
 
     <!-- 操作按钮 -->
     <div class="ins-card__actions">
-      <a-button variant="tertiary" size="small" class="act-btn" @click="$emit('detail', item)">详情</a-button>
+      <a-button variant="tertiary" size="small" class="act-btn act-btn--detail" @click="$emit('detail', item)">详情</a-button>
       <a-button
         v-if="item.status === '待检查'"
         variant="primary"
         size="small"
-        class="act-btn"
+        class="act-btn act-btn--exec"
         @click="$emit('execute', item)"
         >执行飞检</a-button
       >
@@ -125,8 +125,10 @@ function onNavigate() {
 }
 
 .ins-card__name {
-  font-size: 18px;
+  font-size: 20px;
+  line-height: 28px;
   font-weight: 600;
+  letter-spacing: -1px;
   color: #2f2d33;
 }
 
@@ -156,7 +158,7 @@ function onNavigate() {
   margin-top: 12px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .field {
@@ -174,11 +176,6 @@ function onNavigate() {
 
 .field__value {
   color: #2f2d33;
-
-  &--addr {
-    flex: 1;
-    min-width: 0;
-  }
 }
 
 .field__link {
@@ -189,12 +186,8 @@ function onNavigate() {
 .field__icon {
   display: inline-flex;
   align-items: center;
-  margin-left: 6px;
+  margin-left: 8px;
   cursor: pointer;
-
-  &--nav {
-    margin-left: auto;
-  }
 }
 
 .defects {
@@ -230,11 +223,18 @@ function onNavigate() {
   margin-top: 16px;
   display: flex;
   justify-content: flex-end;
-  gap: 12px;
+  gap: 8px;
 }
 
 .act-btn {
   flex: 0 0 auto;
-  min-width: 72px;
+  --van-button-small-height: 36px;
+
+  &--detail {
+    width: 72px;
+  }
+  &--exec {
+    width: 104px;
+  }
 }
 </style>
