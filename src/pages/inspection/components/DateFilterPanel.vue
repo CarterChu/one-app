@@ -1,19 +1,6 @@
 <template>
   <div class="date-panel">
-    <!-- 选日期时面板内直接显示日期选择器(无 popup/teleport,确保可见) -->
-    <van-date-picker
-      v-if="showPicker"
-      v-model="pickerValue"
-      :columns-type="['year', 'month', 'day']"
-      :title="pickingField === 'start' ? '选择开始时间' : '选择结束时间'"
-      :min-date="minDate"
-      :max-date="maxDate"
-      @confirm="onDateConfirm"
-      @cancel="showPicker = false"
-    />
-
-    <template v-else>
-      <div class="date-body">
+    <div class="date-body">
       <!-- 周期选择(自绘分段,不用 a-radio-group) -->
       <div class="section-title">周期选择</div>
       <div class="seg-row">
@@ -44,14 +31,26 @@
       </div>
     </div>
 
-      <!-- 底部操作 -->
-      <div class="panel-footer">
-        <a-button-group type="white-bg">
-          <a-button variant="secondary" size="large" @click="onReset">重置</a-button>
-          <a-button variant="primary" size="large" @click="onConfirm">确定</a-button>
-        </a-button-group>
-      </div>
-    </template>
+    <!-- 底部操作 -->
+    <div class="panel-footer">
+      <a-button-group type="white-bg">
+        <a-button variant="secondary" size="large" @click="onReset">重置</a-button>
+        <a-button variant="primary" size="large" @click="onConfirm">确定</a-button>
+      </a-button-group>
+    </div>
+
+    <!-- 日期选择器:从底部弹出(Vant 原生 popup) -->
+    <van-popup v-model:show="showPicker" round position="bottom" teleport="body" :z-index="3000">
+      <van-date-picker
+        v-model="pickerValue"
+        :columns-type="['year', 'month', 'day']"
+        :title="pickingField === 'start' ? '选择开始时间' : '选择结束时间'"
+        :min-date="minDate"
+        :max-date="maxDate"
+        @confirm="onDateConfirm"
+        @cancel="showPicker = false"
+      />
+    </van-popup>
   </div>
 </template>
 
