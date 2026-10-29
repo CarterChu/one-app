@@ -81,7 +81,7 @@ function setResult(r: Exclude<ItemResult, null>) {
   padding: 16px 0;
 
   & + & {
-    border-top: 1px solid #f2f3f5;
+    border-top: 1px solid #f3f3f5;
   }
 }
 
@@ -100,22 +100,22 @@ function setResult(r: Exclude<ItemResult, null>) {
   font-weight: 600;
 
   &--CR {
-    color: #f53f3f;
+    color: #eb372a;
     background: #ffece8;
   }
   &--MA {
-    color: #ff9a2e;
-    background: #fff5e8;
+    color: #fa9607;
+    background: #fff7e0;
   }
   &--MI {
-    color: #86909c;
-    background: #f2f3f5;
+    color: #767282;
+    background: #f3f3f5;
   }
 }
 
 .ci__name {
   font-size: 15px;
-  color: #1d2129;
+  color: #2f2d33;
   font-weight: 500;
 }
 
@@ -135,17 +135,17 @@ function setResult(r: Exclude<ItemResult, null>) {
   min-width: 92px;
   font-size: 14px;
   border-radius: 8px;
-  border: 1px solid #e5e6eb;
+  border: 1px solid #cccbd1;
   background: #fff;
-  color: #c9cdd4;
+  color: #a7a5b0;
 
   &--pass.rt--on {
-    color: #00b42a;
+    color: #28ba4f;
     border-color: #b7f0c2;
     background: #e8ffea;
   }
   &--fail.rt--on {
-    color: #f53f3f;
+    color: #eb372a;
     border-color: #fbc4bc;
     background: #ffece8;
   }
@@ -160,13 +160,13 @@ function setResult(r: Exclude<ItemResult, null>) {
   font-weight: 500;
 
   &--pass {
-    color: #00b42a;
+    color: #28ba4f;
   }
   &--fail {
-    color: #f53f3f;
+    color: #eb372a;
   }
   &--none {
-    color: #c9cdd4;
+    color: #a7a5b0;
   }
 }
 
@@ -176,23 +176,23 @@ function setResult(r: Exclude<ItemResult, null>) {
 
 .defect__label {
   font-size: 14px;
-  color: #4e5969;
+  color: #767282;
   margin: 14px 0 8px;
 }
 
 .defect__text {
   font-size: 14px;
-  color: #1d2129;
+  color: #2f2d33;
   line-height: 22px;
 }
 
 .req {
-  color: #f53f3f;
+  color: #eb372a;
   margin-right: 2px;
 }
 
 .defect-field {
-  border: 1px solid #e5e6eb;
+  border: 1px solid #cccbd1;
   border-radius: 8px;
   overflow: hidden;
 

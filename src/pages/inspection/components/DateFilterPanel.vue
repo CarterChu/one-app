@@ -21,13 +21,13 @@
         <span :class="tempStart ? 'date-field__val' : 'date-field__ph'">
           {{ tempStart || "开始时间" }}
         </span>
-        <van-icon name="arrow" color="#c9cdd4" />
+        <van-icon name="arrow" color="#a7a5b0" />
       </div>
       <div class="date-field" @click="openPicker('end')">
         <span :class="tempEnd ? 'date-field__val' : 'date-field__ph'">
           {{ tempEnd || "结束时间" }}
         </span>
-        <van-icon name="arrow" color="#c9cdd4" />
+        <van-icon name="arrow" color="#a7a5b0" />
       </div>
     </div>
 
@@ -154,7 +154,7 @@ function onConfirm() {
 .section-title {
   font-size: 15px;
   font-weight: 600;
-  color: #1d2129;
+  color: #2f2d33;
   margin-bottom: 12px;
 
   &:not(:first-child) {
@@ -173,14 +173,14 @@ function onConfirm() {
   line-height: 40px;
   text-align: center;
   font-size: 14px;
-  color: #4e5969;
+  color: #767282;
   background: #fff;
-  border: 1px solid #e5e6eb;
+  border: 1px solid #cccbd1;
   border-radius: 8px;
 
   &--active {
-    color: #3060ff;
-    border-color: #3060ff;
+    color: #007bfe;
+    border-color: #007bfe;
     background: #ecf2ff;
     font-weight: 500;
   }
@@ -192,7 +192,7 @@ function onConfirm() {
   justify-content: space-between;
   height: 48px;
   padding: 0 14px;
-  background: #f2f3f5;
+  background: #f3f3f5;
   border-radius: 8px;
 
   & + & {
@@ -200,17 +200,17 @@ function onConfirm() {
   }
 
   &__ph {
-    color: #c9cdd4;
+    color: #a7a5b0;
     font-size: 14px;
   }
   &__val {
-    color: #1d2129;
+    color: #2f2d33;
     font-size: 14px;
   }
 }
 
 .panel-footer {
-  border-top: 1px solid #f2f3f5;
+  border-top: 1px solid #f3f3f5;
   padding-bottom: env(safe-area-inset-bottom);
 }
 </style>

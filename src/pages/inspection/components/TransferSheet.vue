@@ -5,7 +5,7 @@
         <span class="tf__title">转办</span>
         <span class="tf__close" @click="close">
           <svg viewBox="0 0 16 16" width="18" height="18">
-            <path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="#86909c" stroke-width="1.5" stroke-linecap="round" />
+            <path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="#767282" stroke-width="1.5" stroke-linecap="round" />
           </svg>
         </span>
       </div>
@@ -16,7 +16,7 @@
           <span :class="person ? 'tf-field__val' : 'tf-field__ph'">
             {{ person || "请选择" }}
           </span>
-          <van-icon name="arrow" color="#c9cdd4" />
+          <van-icon name="arrow" color="#a7a5b0" />
         </div>
       </div>
 
@@ -81,7 +81,7 @@ function onConfirm() {
 .tf__title {
   font-size: 18px;
   font-weight: 600;
-  color: #1d2129;
+  color: #2f2d33;
 }
 
 .tf__close {
@@ -95,12 +95,12 @@ function onConfirm() {
 
 .tf__label {
   font-size: 14px;
-  color: #4e5969;
+  color: #767282;
   margin-bottom: 10px;
 }
 
 .req {
-  color: #f53f3f;
+  color: #eb372a;
   margin-right: 2px;
 }
 
@@ -114,11 +114,11 @@ function onConfirm() {
   border-radius: 8px;
 
   &__ph {
-    color: #c9cdd4;
+    color: #a7a5b0;
     font-size: 14px;
   }
   &__val {
-    color: #1d2129;
+    color: #2f2d33;
     font-size: 14px;
   }
 }

@@ -13,8 +13,8 @@
         <span class="field__link">{{ item.stationNo }}</span>
         <span class="field__icon" @click.stop="onCopy">
           <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
-            <rect x="5" y="5" width="8.5" height="9" rx="1.6" fill="none" stroke="#86909C" stroke-width="1.2" />
-            <path d="M10.5 5V3.6A1.6 1.6 0 0 0 8.9 2H3.6A1.6 1.6 0 0 0 2 3.6v6.3A1.6 1.6 0 0 0 3.6 11.5H5" fill="none" stroke="#86909C" stroke-width="1.2" />
+            <rect x="5" y="5" width="8.5" height="9" rx="1.6" fill="none" stroke="#767282" stroke-width="1.2" />
+            <path d="M10.5 5V3.6A1.6 1.6 0 0 0 8.9 2H3.6A1.6 1.6 0 0 0 2 3.6v6.3A1.6 1.6 0 0 0 3.6 11.5H5" fill="none" stroke="#767282" stroke-width="1.2" />
           </svg>
         </span>
       </div>
@@ -24,7 +24,7 @@
         <span class="field__value field__value--addr">{{ item.address }}</span>
         <span class="field__icon field__icon--nav" @click.stop="onNavigate">
           <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
-            <path d="M14 2 2 7.2l5 1.8 1.8 5L14 2Z" fill="none" stroke="#3060FF" stroke-width="1.3" stroke-linejoin="round" />
+            <path d="M14 2 2 7.2l5 1.8 1.8 5L14 2Z" fill="none" stroke="#007bfe" stroke-width="1.3" stroke-linejoin="round" />
           </svg>
         </span>
       </div>
@@ -127,7 +127,7 @@ function onNavigate() {
 .ins-card__name {
   font-size: 18px;
   font-weight: 600;
-  color: #1d2129;
+  color: #2f2d33;
 }
 
 /* 状态标签:浅色底 + 同色系文字 */
@@ -139,15 +139,15 @@ function onNavigate() {
   font-weight: 500;
 
   &--pending {
-    color: #ff9a2e;
-    background: #fff5e8;
+    color: #fa9607;
+    background: #fff7e0;
   }
   &--pass {
-    color: #00b42a;
+    color: #28ba4f;
     background: #e8ffea;
   }
   &--fail {
-    color: #f53f3f;
+    color: #eb372a;
     background: #ffece8;
   }
 }
@@ -167,13 +167,13 @@ function onNavigate() {
 }
 
 .field__label {
-  color: #86909c;
+  color: #767282;
   margin-right: 8px;
   flex-shrink: 0;
 }
 
 .field__value {
-  color: #1d2129;
+  color: #2f2d33;
 
   &--addr {
     flex: 1;
@@ -182,7 +182,7 @@ function onNavigate() {
 }
 
 .field__link {
-  color: #3060ff;
+  color: #007bfe;
   text-decoration: underline;
 }
 
@@ -221,8 +221,8 @@ function onNavigate() {
     background: #fbf3cf;
   }
   &--zero {
-    color: #c9cdd4;
-    background: #f2f3f5;
+    color: #a7a5b0;
+    background: #f3f3f5;
   }
 }
 

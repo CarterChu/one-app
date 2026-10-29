@@ -60,7 +60,7 @@
               class="prev-row"
               @click="jumpTo(it.id)"
             >
-              <van-icon class="prev-row__arrow" name="arrow" color="#c9cdd4" />
+              <van-icon class="prev-row__arrow" name="arrow" color="#a7a5b0" />
               <ChecklistItem :item="it" :index="i + 1" readonly />
             </div>
           </div>
@@ -108,7 +108,7 @@
         <div class="reviewer-label"><span class="req">*</span>整改复验人</div>
         <div class="reviewer" @click="showReviewer = true">
           <span :class="reviewer ? 'reviewer__val' : 'reviewer__ph'">{{ reviewer || "请选择后续复验人" }}</span>
-          <van-icon name="arrow" color="#c9cdd4" />
+          <van-icon name="arrow" color="#a7a5b0" />
         </div>
       </div>
       <div class="v2-footer">
@@ -327,11 +327,11 @@ function onTransferConfirm(person: string) {
 
 .progress__num {
   font-size: 13px;
-  color: #86909c;
+  color: #767282;
 
   b {
     font-size: 18px;
-    color: #1d2129;
+    color: #2f2d33;
   }
 }
 
@@ -339,14 +339,14 @@ function onTransferConfirm(person: string) {
   margin-top: 8px;
   height: 4px;
   border-radius: 2px;
-  background: #e5e6eb;
+  background: #cccbd1;
   overflow: hidden;
 }
 
 .progress__fill {
   height: 100%;
   border-radius: 2px;
-  background: #3060ff;
+  background: #007bfe;
   transition: width 0.25s;
 }
 
@@ -355,8 +355,8 @@ function onTransferConfirm(person: string) {
   margin: 18px 0 14px;
   padding: 3px 10px;
   font-size: 13px;
-  color: #4e5969;
-  background: #f2f3f5;
+  color: #767282;
+  background: #f3f3f5;
   border-radius: 6px;
 }
 
@@ -367,7 +367,7 @@ function onTransferConfirm(person: string) {
 .prev-sec__title {
   font-size: 17px;
   font-weight: 600;
-  color: #1d2129;
+  color: #2f2d33;
   margin-bottom: 10px;
 }
 
@@ -391,7 +391,7 @@ function onTransferConfirm(person: string) {
 .sec-title {
   font-size: 17px;
   font-weight: 600;
-  color: #1d2129;
+  color: #2f2d33;
   margin: 24px 0 12px;
 }
 
@@ -403,7 +403,7 @@ function onTransferConfirm(person: string) {
 
 .result-card__tip {
   font-size: 12px;
-  color: #86909c;
+  color: #767282;
 }
 
 .result-card__value {
@@ -415,10 +415,10 @@ function onTransferConfirm(person: string) {
   margin: 4px 0 16px;
 
   &.is-pass {
-    color: #00b42a;
+    color: #28ba4f;
   }
   &.is-fail {
-    color: #f53f3f;
+    color: #eb372a;
   }
 }
 
@@ -435,18 +435,18 @@ function onTransferConfirm(person: string) {
 
 .stat__k {
   font-size: 13px;
-  color: #86909c;
+  color: #767282;
 }
 
 .stat__v {
   font-size: 20px;
   font-weight: 700;
-  color: #1d2129;
+  color: #2f2d33;
 
   em {
     font-size: 12px;
     font-weight: 400;
-    color: #86909c;
+    color: #767282;
     font-style: normal;
     margin-left: 2px;
   }
@@ -469,18 +469,18 @@ function onTransferConfirm(person: string) {
 
 .dcard__k {
   font-size: 12px;
-  color: #86909c;
+  color: #767282;
 }
 
 .dcard__v {
   font-size: 20px;
   font-weight: 700;
-  color: #1d2129;
+  color: #2f2d33;
 
   em {
     font-size: 12px;
     font-weight: 400;
-    color: #86909c;
+    color: #767282;
     font-style: normal;
     margin-left: 2px;
   }
@@ -488,12 +488,12 @@ function onTransferConfirm(person: string) {
 
 .reviewer-label {
   font-size: 14px;
-  color: #4e5969;
+  color: #767282;
   margin: 24px 0 10px;
 }
 
 .req {
-  color: #f53f3f;
+  color: #eb372a;
   margin-right: 2px;
 }
 
@@ -507,11 +507,11 @@ function onTransferConfirm(person: string) {
   border-radius: 8px;
 
   &__ph {
-    color: #c9cdd4;
+    color: #a7a5b0;
     font-size: 14px;
   }
   &__val {
-    color: #1d2129;
+    color: #2f2d33;
     font-size: 14px;
   }
 }

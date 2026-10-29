@@ -71,7 +71,7 @@ function onBack() {
 .sec__title {
   font-size: 17px;
   font-weight: 600;
-  color: #1d2129;
+  color: #2f2d33;
   margin-bottom: 10px;
 }
 

@@ -85,14 +85,14 @@ function onClear() {
 .sw__seg {
   padding: 6px 10px;
   font-size: 12px;
-  color: #c9cdd4;
+  color: #a7a5b0;
   text-align: center;
   border-radius: 8px;
   white-space: nowrap;
 
   &--on {
     color: #fff;
-    background: #3060ff;
+    background: #007bfe;
     font-weight: 500;
   }
 }

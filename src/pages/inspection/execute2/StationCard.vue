@@ -2,15 +2,15 @@
   <div class="station" @click="$emit('open')">
     <div class="station__head">
       <span class="station__name">{{ info.ownerName }}</span>
-      <van-icon name="arrow" color="#86909c" />
+      <van-icon name="arrow" color="#767282" />
     </div>
     <div class="station__row">
       <span class="station__label">电站编号</span>
       <span class="station__link">{{ info.stationNo }}</span>
       <span class="station__icon" @click.stop="onCopy">
         <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
-          <rect x="5" y="5" width="8.5" height="9" rx="1.6" fill="none" stroke="#86909C" stroke-width="1.2" />
-          <path d="M10.5 5V3.6A1.6 1.6 0 0 0 8.9 2H3.6A1.6 1.6 0 0 0 2 3.6v6.3A1.6 1.6 0 0 0 3.6 11.5H5" fill="none" stroke="#86909C" stroke-width="1.2" />
+          <rect x="5" y="5" width="8.5" height="9" rx="1.6" fill="none" stroke="#767282" stroke-width="1.2" />
+          <path d="M10.5 5V3.6A1.6 1.6 0 0 0 8.9 2H3.6A1.6 1.6 0 0 0 2 3.6v6.3A1.6 1.6 0 0 0 3.6 11.5H5" fill="none" stroke="#767282" stroke-width="1.2" />
         </svg>
       </span>
     </div>
@@ -19,7 +19,7 @@
       <span class="station__addr">{{ info.address }}</span>
       <span class="station__icon" @click.stop="onNavigate">
         <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
-          <path d="M14 2 2 7.2l5 1.8 1.8 5L14 2Z" fill="none" stroke="#3060FF" stroke-width="1.3" stroke-linejoin="round" />
+          <path d="M14 2 2 7.2l5 1.8 1.8 5L14 2Z" fill="none" stroke="#007bfe" stroke-width="1.3" stroke-linejoin="round" />
         </svg>
       </span>
     </div>
@@ -61,7 +61,7 @@ function onNavigate() {
 .station__name {
   font-size: 17px;
   font-weight: 600;
-  color: #1d2129;
+  color: #2f2d33;
 }
 
 .station__row {
@@ -72,18 +72,18 @@ function onNavigate() {
 }
 
 .station__label {
-  color: #86909c;
+  color: #767282;
   margin-right: 12px;
   flex-shrink: 0;
 }
 
 .station__link {
-  color: #3060ff;
+  color: #007bfe;
   text-decoration: underline;
 }
 
 .station__addr {
-  color: #1d2129;
+  color: #2f2d33;
   flex: 1;
   min-width: 0;
 }

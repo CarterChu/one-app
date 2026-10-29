@@ -90,7 +90,7 @@ defineExpose({ scrollTo });
   background: #f7f8fa;
   font-size: 17px;
   font-weight: 600;
-  color: #1d2129;
+  color: #2f2d33;
   padding: 10px 0;
 }
 

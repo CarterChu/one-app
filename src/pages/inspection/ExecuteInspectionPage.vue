@@ -35,7 +35,7 @@
         </div>
         <div class="anchors__menu" @click="showGroups = true">
           <svg viewBox="0 0 20 20" width="20" height="20">
-            <path d="M3 5h14M3 10h14M3 15h14" fill="none" stroke="#4e5969" stroke-width="1.6" stroke-linecap="round" />
+            <path d="M3 5h14M3 10h14M3 15h14" fill="none" stroke="#767282" stroke-width="1.6" stroke-linecap="round" />
           </svg>
         </div>
       </div>
@@ -44,7 +44,7 @@
         <div class="foot-ind">
           <template v-if="allDone">
             <span class="foot-ind__done">
-              <svg viewBox="0 0 16 16" width="16" height="16"><circle cx="8" cy="8" r="8" fill="#00b42a" /><path d="M4.5 8.2 7 10.5l4-4.8" fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
+              <svg viewBox="0 0 16 16" width="16" height="16"><circle cx="8" cy="8" r="8" fill="#28ba4f" /><path d="M4.5 8.2 7 10.5l4-4.8" fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
               全部完成
             </span>
           </template>
@@ -219,7 +219,7 @@ function onConfirmSubmit(reviewer: string) {
 .anchors {
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #f2f3f5;
+  border-bottom: 1px solid #f3f3f5;
 }
 
 .anchors__scroll {
@@ -235,17 +235,17 @@ function onConfirmSubmit(reviewer: string) {
   flex-shrink: 0;
   position: relative;
   font-size: 14px;
-  color: #4e5969;
+  color: #767282;
   padding-bottom: 4px;
   white-space: nowrap;
 
   &__count {
-    color: #c9cdd4;
+    color: #a7a5b0;
     margin-left: 3px;
   }
 
   &--on {
-    color: #3060ff;
+    color: #007bfe;
     font-weight: 500;
 
     &::after {
@@ -256,7 +256,7 @@ function onConfirmSubmit(reviewer: string) {
       width: 24px;
       height: 2px;
       border-radius: 2px;
-      background: #3060ff;
+      background: #007bfe;
     }
   }
 }
@@ -267,7 +267,7 @@ function onConfirmSubmit(reviewer: string) {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-left: 1px solid #f2f3f5;
+  border-left: 1px solid #f3f3f5;
   align-self: stretch;
 }
 
@@ -288,16 +288,16 @@ function onConfirmSubmit(reviewer: string) {
 }
 
 .foot-ind__remain {
-  color: #86909c;
+  color: #767282;
 }
 .foot-ind__locate {
-  color: #3060ff;
+  color: #007bfe;
 }
 .foot-ind__done {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  color: #00b42a;
+  color: #28ba4f;
   font-size: 13px;
 }
 

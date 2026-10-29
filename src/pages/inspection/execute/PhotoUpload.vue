@@ -11,7 +11,7 @@
 
     <label v-if="!readonly" class="uploader__add">
       <svg viewBox="0 0 24 24" width="24" height="24">
-        <path d="M12 5v14M5 12h14" fill="none" stroke="#c9cdd4" stroke-width="2" stroke-linecap="round" />
+        <path d="M12 5v14M5 12h14" fill="none" stroke="#a7a5b0" stroke-width="2" stroke-linecap="round" />
       </svg>
       <input type="file" accept="image/*" multiple hidden @change="onPick" />
     </label>
@@ -81,7 +81,7 @@ function remove(i: number) {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f2f3f5;
+  background: #f3f3f5;
   border-radius: 8px;
   cursor: pointer;
 }

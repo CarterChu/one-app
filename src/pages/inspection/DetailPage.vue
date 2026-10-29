@@ -34,7 +34,7 @@
       </div>
       <div class="anchors__menu" @click="showGroups = true">
         <svg viewBox="0 0 20 20" width="20" height="20">
-          <path d="M3 5h14M3 10h14M3 15h14" fill="none" stroke="#4e5969" stroke-width="1.6" stroke-linecap="round" />
+          <path d="M3 5h14M3 10h14M3 15h14" fill="none" stroke="#767282" stroke-width="1.6" stroke-linecap="round" />
         </svg>
       </div>
     </div>
@@ -122,17 +122,17 @@ function onBack() {
   flex-shrink: 0;
   position: relative;
   font-size: 14px;
-  color: #4e5969;
+  color: #767282;
   padding-bottom: 4px;
   white-space: nowrap;
 
   &__count {
-    color: #c9cdd4;
+    color: #a7a5b0;
     margin-left: 3px;
   }
 
   &--on {
-    color: #3060ff;
+    color: #007bfe;
     font-weight: 500;
 
     &::after {
@@ -143,7 +143,7 @@ function onBack() {
       width: 24px;
       height: 2px;
       border-radius: 2px;
-      background: #3060ff;
+      background: #007bfe;
     }
   }
 }
@@ -155,6 +155,6 @@ function onBack() {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-left: 1px solid #f2f3f5;
+  border-left: 1px solid #f3f3f5;
 }
 </style>

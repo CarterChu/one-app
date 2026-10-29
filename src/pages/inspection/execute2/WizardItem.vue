@@ -62,7 +62,7 @@ function setResult(r: Exclude<ItemResult, null>) {
 .num {
   font-size: 16px;
   font-weight: 600;
-  color: #1d2129;
+  color: #2f2d33;
 }
 
 .sev {
@@ -74,23 +74,23 @@ function setResult(r: Exclude<ItemResult, null>) {
   font-weight: 600;
 
   &--CR {
-    color: #f53f3f;
+    color: #eb372a;
     background: #ffece8;
   }
   &--MA {
-    color: #ff9a2e;
-    background: #fff5e8;
+    color: #fa9607;
+    background: #fff7e0;
   }
   &--MI {
-    color: #86909c;
-    background: #f2f3f5;
+    color: #767282;
+    background: #f3f3f5;
   }
 }
 
 .wi__name {
   font-size: 16px;
   font-weight: 600;
-  color: #1d2129;
+  color: #2f2d33;
 }
 
 .opt {
@@ -103,17 +103,17 @@ function setResult(r: Exclude<ItemResult, null>) {
   margin-bottom: 12px;
   font-size: 15px;
   border-radius: 10px;
-  border: 1px solid #e5e6eb;
+  border: 1px solid #cccbd1;
   background: #fff;
-  color: #4e5969;
+  color: #767282;
 
   &--pass.opt--on {
-    color: #00b42a;
+    color: #28ba4f;
     border-color: #b7f0c2;
     background: #e8ffea;
   }
   &--fail.opt--on {
-    color: #f53f3f;
+    color: #eb372a;
     border-color: #fbc4bc;
     background: #ffece8;
   }
@@ -125,17 +125,17 @@ function setResult(r: Exclude<ItemResult, null>) {
 
 .defect__label {
   font-size: 14px;
-  color: #4e5969;
+  color: #767282;
   margin: 14px 0 8px;
 }
 
 .req {
-  color: #f53f3f;
+  color: #eb372a;
   margin-right: 2px;
 }
 
 .defect-field {
-  border: 1px solid #e5e6eb;
+  border: 1px solid #cccbd1;
   border-radius: 8px;
   overflow: hidden;
 

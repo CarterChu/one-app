@@ -5,7 +5,7 @@
         <span class="groups__title">全部分组</span>
         <span class="groups__close" @click="$emit('update:show', false)">
           <svg viewBox="0 0 16 16" width="18" height="18">
-            <path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="#86909c" stroke-width="1.5" stroke-linecap="round" />
+            <path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="#767282" stroke-width="1.5" stroke-linecap="round" />
           </svg>
         </span>
       </div>
@@ -19,7 +19,7 @@
           <span class="grow__name">{{ sec.title }}</span>
           <span class="grow__count">{{ answered(sec) }}/{{ sec.items.length }}</span>
           <svg v-if="sec.key === activeKey" class="grow__check" viewBox="0 0 16 16" width="16" height="16">
-            <path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="#3060FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="#007bfe" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </div>
       </div>
@@ -65,7 +65,7 @@ function onSelect(key: string) {
 .groups__title {
   font-size: 18px;
   font-weight: 600;
-  color: #1d2129;
+  color: #2f2d33;
 }
 
 .groups__close {
@@ -76,18 +76,18 @@ function onSelect(key: string) {
   display: flex;
   align-items: center;
   height: 54px;
-  border-bottom: 1px solid #f2f3f5;
+  border-bottom: 1px solid #f3f3f5;
 }
 
 .grow__name {
   font-size: 15px;
-  color: #1d2129;
+  color: #2f2d33;
 }
 
 .grow__count {
   margin-left: auto;
   font-size: 15px;
-  color: #c9cdd4;
+  color: #a7a5b0;
 }
 
 .grow__check {

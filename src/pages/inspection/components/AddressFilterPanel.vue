@@ -30,7 +30,7 @@
         >
           <span>{{ opt.label }}</span>
           <svg v-if="opt.label === tempProvince" class="check" viewBox="0 0 16 16" width="16" height="16">
-            <path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="#3060FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="#007bfe" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </div>
       </template>
@@ -45,7 +45,7 @@
         >
           <span>{{ city }}</span>
           <svg v-if="city === tempCity" class="check" viewBox="0 0 16 16" width="16" height="16">
-            <path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="#3060FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="#007bfe" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </div>
       </template>
@@ -131,11 +131,11 @@ function onConfirm() {
 .addr-tab {
   position: relative;
   font-size: 15px;
-  color: #1d2129;
+  color: #2f2d33;
   padding-bottom: 6px;
 
   &--active {
-    color: #3060ff;
+    color: #007bfe;
     font-weight: 500;
 
     &::after {
@@ -147,12 +147,12 @@ function onConfirm() {
       width: 20px;
       height: 3px;
       border-radius: 2px;
-      background: #3060ff;
+      background: #007bfe;
     }
   }
 
   &--disabled {
-    color: #c9cdd4;
+    color: #a7a5b0;
   }
 }
 
@@ -168,16 +168,16 @@ function onConfirm() {
   justify-content: space-between;
   height: 48px;
   font-size: 15px;
-  color: #1d2129;
-  border-bottom: 1px solid #f2f3f5;
+  color: #2f2d33;
+  border-bottom: 1px solid #f3f3f5;
 
   &--selected {
-    color: #3060ff;
+    color: #007bfe;
   }
 }
 
 .panel-footer {
-  border-top: 1px solid #f2f3f5;
+  border-top: 1px solid #f3f3f5;
   padding-bottom: env(safe-area-inset-bottom);
 }
 </style>

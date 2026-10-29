@@ -5,7 +5,7 @@
         <span class="sc__title">确认提交飞检结果</span>
         <span class="sc__close" @click="$emit('update:show', false)">
           <svg viewBox="0 0 16 16" width="18" height="18">
-            <path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="#86909c" stroke-width="1.5" stroke-linecap="round" />
+            <path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="#767282" stroke-width="1.5" stroke-linecap="round" />
           </svg>
         </span>
       </div>
@@ -38,7 +38,7 @@
           <span :class="reviewer ? 'reviewer__val' : 'reviewer__ph'">
             {{ reviewer || "请选择后续复验人" }}
           </span>
-          <van-icon name="arrow" color="#c9cdd4" />
+          <van-icon name="arrow" color="#a7a5b0" />
         </div>
       </div>
 
@@ -122,7 +122,7 @@ function onConfirm() {
 .sc__title {
   font-size: 18px;
   font-weight: 600;
-  color: #1d2129;
+  color: #2f2d33;
 }
 
 .sc__close {
@@ -138,18 +138,18 @@ function onConfirm() {
 .sec-title {
   font-size: 16px;
   font-weight: 600;
-  color: #1d2129;
+  color: #2f2d33;
   margin: 18px 0 10px;
 
   &--req {
     font-size: 14px;
     font-weight: 400;
-    color: #4e5969;
+    color: #767282;
   }
 }
 
 .req {
-  color: #f53f3f;
+  color: #eb372a;
   margin-right: 2px;
 }
 
@@ -161,7 +161,7 @@ function onConfirm() {
 
 .stat-card__tip {
   font-size: 12px;
-  color: #86909c;
+  color: #767282;
 }
 
 .stat-card__result {
@@ -170,10 +170,10 @@ function onConfirm() {
   margin: 2px 0 14px;
 
   &.is-fail {
-    color: #1d2129;
+    color: #2f2d33;
   }
   &.is-pass {
-    color: #00b42a;
+    color: #28ba4f;
   }
 }
 
@@ -190,18 +190,18 @@ function onConfirm() {
 
 .stat__k {
   font-size: 13px;
-  color: #86909c;
+  color: #767282;
 }
 
 .stat__v {
   font-size: 20px;
   font-weight: 700;
-  color: #1d2129;
+  color: #2f2d33;
 
   em {
     font-size: 12px;
     font-weight: 400;
-    color: #86909c;
+    color: #767282;
     font-style: normal;
     margin-left: 2px;
   }
@@ -217,11 +217,11 @@ function onConfirm() {
   border-radius: 8px;
 
   &__ph {
-    color: #c9cdd4;
+    color: #a7a5b0;
     font-size: 14px;
   }
   &__val {
-    color: #1d2129;
+    color: #2f2d33;
     font-size: 14px;
   }
 }

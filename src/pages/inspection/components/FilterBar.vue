@@ -132,10 +132,10 @@ defineExpose({ close });
   align-items: center;
   gap: 2px;
   font-size: 14px;
-  color: #4e5969;
+  color: #767282;
 
   &--active {
-    color: #3060ff;
+    color: #007bfe;
   }
 }
 
