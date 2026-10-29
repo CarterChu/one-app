@@ -31,9 +31,9 @@
     <!-- 角色二:整改 -->
     <section class="grp">
       <div class="grp__head"><span class="grp__role">角色二</span><span class="grp__title">整改</span></div>
-      <div class="ecard ecard--soon" @click="soon">
+      <div class="ecard" @click="goRectify">
         <div class="ecard__main"><span class="ecard__k">进入整改</span><span class="ecard__d">单一方案</span></div>
-        <span class="soon-badge">开发中</span>
+        <van-icon name="arrow" color="#a7a5b0" />
       </div>
     </section>
 
@@ -83,6 +83,9 @@ const count = ref(sessionCount());
 
 function go(query: Record<string, string>) {
   router.push({ name: "inspection-list", query });
+}
+function goRectify() {
+  router.push({ name: "rectify-list" });
 }
 function soon() {
   showToast("开发中,敬请期待");

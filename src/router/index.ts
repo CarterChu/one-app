@@ -38,6 +38,12 @@ const routes: RouteRecordRaw[] = [
     component: () => import("@/pages/inspection/DetailV2Page.vue"),
     meta: { title: "详情" },
   },
+  {
+    path: "/rectify",
+    name: "rectify-list",
+    component: () => import("@/pages/inspection/RectifyListPage.vue"),
+    meta: { title: "整改管理" },
+  },
 ];
 
 const router = createRouter({
