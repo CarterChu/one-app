@@ -44,6 +44,18 @@ const routes: RouteRecordRaw[] = [
     component: () => import("@/pages/inspection/RectifyListPage.vue"),
     meta: { title: "整改管理" },
   },
+  {
+    path: "/rectify/execute/:id",
+    name: "rectify-execute",
+    component: () => import("@/pages/inspection/RectifyExecutePage.vue"),
+    meta: { title: "执行整改" },
+  },
+  {
+    path: "/rectify/detail/:id",
+    name: "rectify-detail",
+    component: () => import("@/pages/inspection/RectifyDetailPage.vue"),
+    meta: { title: "整改详情" },
+  },
 ];
 
 const router = createRouter({
