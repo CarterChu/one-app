@@ -44,13 +44,13 @@ function remove(i: number) {
 .uploader {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 8px;
 }
 
 .uploader__thumb {
   position: relative;
-  width: 72px;
-  height: 72px;
+  width: 96px;
+  height: 96px;
   border-radius: 8px;
   overflow: hidden;
 
@@ -76,8 +76,8 @@ function remove(i: number) {
 }
 
 .uploader__add {
-  width: 72px;
-  height: 72px;
+  width: 96px;
+  height: 96px;
   display: flex;
   align-items: center;
   justify-content: center;

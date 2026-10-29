@@ -88,10 +88,11 @@ defineExpose({ scrollTo });
   position: sticky;
   z-index: 5;
   background: #f7f8fa;
-  font-size: 17px;
+  font-size: 18px;
+  line-height: 26px;
   font-weight: 600;
   color: #2f2d33;
-  padding: 10px 0;
+  padding: 10px 0 8px;
 }
 
 .sec__card {

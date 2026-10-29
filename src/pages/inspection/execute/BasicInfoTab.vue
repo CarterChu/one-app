@@ -113,10 +113,11 @@ function onNavigate() {
 }
 
 .block-title {
-  font-size: 17px;
+  font-size: 18px;
+  line-height: 26px;
   font-weight: 600;
   color: #2f2d33;
-  margin: 8px 0 12px;
+  margin: 4px 0 8px;
 
   &:not(:first-child) {
     margin-top: 24px;
@@ -126,15 +127,15 @@ function onNavigate() {
 .info-card {
   background: #fff;
   border-radius: 12px;
-  padding: 4px 16px;
+  padding: 0 16px;
 }
 
 .info-row {
   display: flex;
   align-items: center;
   min-height: 52px;
-  padding: 10px 0;
-  font-size: 15px;
+  font-size: 16px;
+  line-height: 24px;
 
   & + & {
     border-top: 1px solid #f3f3f5;

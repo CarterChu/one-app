@@ -1,8 +1,8 @@
 <template>
   <div class="ci">
     <div class="ci__head">
-      <span class="sev" :class="`sev--${item.severity}`">{{ item.severity }}</span>
       <span class="ci__name">{{ index }}. {{ item.name }}</span>
+      <span class="sev" :class="`sev--${item.severity}`">{{ item.severity }}</span>
     </div>
 
     <!-- 编辑态:合格 / 不合格(自绘切换,不用 a-radio-group) -->
@@ -79,10 +79,6 @@ function setResult(r: Exclude<ItemResult, null>) {
 <style lang="scss" scoped>
 .ci {
   padding: 16px 0;
-
-  & + & {
-    border-top: 1px solid #f3f3f5;
-  }
 }
 
 .ci__head {
@@ -91,11 +87,16 @@ function setResult(r: Exclude<ItemResult, null>) {
   gap: 8px;
 }
 
+.ci__name {
+  flex: 1;
+  min-width: 0;
+}
+
 .sev {
   flex-shrink: 0;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 16px;
-  padding: 1px 5px;
+  padding: 2px 6px;
   border-radius: 4px;
   font-weight: 600;
 
@@ -114,15 +115,16 @@ function setResult(r: Exclude<ItemResult, null>) {
 }
 
 .ci__name {
-  font-size: 15px;
+  font-size: 16px;
+  line-height: 24px;
   color: #2f2d33;
   font-weight: 500;
 }
 
 .rt-row {
   display: flex;
-  gap: 12px;
-  margin-top: 12px;
+  gap: 8px;
+  margin-top: 8px;
 }
 
 .rt {
@@ -130,9 +132,8 @@ function setResult(r: Exclude<ItemResult, null>) {
   align-items: center;
   justify-content: center;
   gap: 4px;
-  height: 36px;
-  padding: 0 18px;
-  min-width: 92px;
+  width: 104px;
+  height: 40px;
   font-size: 14px;
   border-radius: 8px;
   border: 1px solid #cccbd1;
@@ -171,7 +172,7 @@ function setResult(r: Exclude<ItemResult, null>) {
 }
 
 .defect {
-  margin-top: 16px;
+  margin-top: 20px;
 }
 
 .defect__label {
