@@ -1,6 +1,6 @@
 import type { Inspection, InspectStatus, TabItem } from "@/types/inspection";
 
-/** 顶部状态 Tab 及计数(与设计稿一致) */
+/** 顶部状态 Tab 及计数 */
 export const TAB_ITEMS: TabItem[] = [
   { key: "all", label: "全部", count: 200 },
   { key: "pending", label: "待检查", count: 150 },
@@ -17,139 +17,69 @@ export const REGION_OPTIONS: { label: string; children: string[] }[] = [
   { label: "河南省", children: ["郑州市", "洛阳市", "开封市", "南阳市"] },
 ];
 
-const ADDRESS = "兰山区兰山街道响河屯河村748";
-const STATION_NO = "210310673373";
-
-// 设计稿首屏逐卡还原 + 其余按分布生成,保证原型数据贴近真实。
-const SEED: Inspection[] = [
-  {
-    id: "1",
-    ownerName: "李四",
-    status: "待检查",
-    stationNo: STATION_NO,
-    address: ADDRESS,
-    inspectDate: "2026-10-12",
-    region: ["浙江省", "杭州市"],
-  },
-  {
-    id: "2",
-    ownerName: "张三",
-    status: "不通过",
-    stationNo: STATION_NO,
-    address: ADDRESS,
-    inspectDate: "2026-10-12",
-    region: ["浙江省", "宁波市"],
-    defects: { cr: 1, ma: 2, mi: 2 },
-    rectifyStatus: "待整改",
-  },
-  {
-    id: "3",
-    ownerName: "张三",
-    status: "不通过",
-    stationNo: STATION_NO,
-    address: ADDRESS,
-    inspectDate: "2026-10-12",
-    region: ["浙江省", "温州市"],
-    defects: { cr: 1, ma: 2, mi: 2 },
-    rectifyStatus: "待复验",
-  },
-  {
-    id: "4",
-    ownerName: "张三",
-    status: "通过",
-    stationNo: STATION_NO,
-    address: ADDRESS,
-    inspectDate: "2026-10-12",
-    region: ["浙江省", "杭州市"],
-    defects: { cr: 0, ma: 1, mi: 0 },
-    rectifyStatus: "待整改",
-  },
-  {
-    id: "5",
-    ownerName: "张三",
-    status: "通过",
-    stationNo: STATION_NO,
-    address: ADDRESS,
-    inspectDate: "2026-10-12",
-    region: ["江苏省", "南京市"],
-    defects: { cr: 0, ma: 0, mi: 2 },
-    rectifyStatus: "待复验",
-  },
-  {
-    id: "6",
-    ownerName: "张三",
-    status: "通过",
-    stationNo: STATION_NO,
-    address: ADDRESS,
-    inspectDate: "2026-10-12",
-    region: ["江苏省", "苏州市"],
-    defects: { cr: 0, ma: 0, mi: 2 },
-    rectifyStatus: "整改通过",
-  },
-  {
-    id: "7",
-    ownerName: "张三",
-    status: "通过",
-    stationNo: STATION_NO,
-    address: ADDRESS,
-    inspectDate: "2026-10-12",
-    region: ["安徽省", "合肥市"],
-    defects: { cr: 0, ma: 0, mi: 0 },
-    rectifyStatus: "无缺陷",
-  },
+const SURNAMES = "陈刘王李张周黄吴徐孙马郑高林何郭罗宋谢韩唐冯董萧程曹袁".split("");
+const GIVEN = [
+  "建国", "志强", "秀兰", "国栋", "海燕", "志明", "桂芳", "文涛", "晓红", "建军",
+  "俊杰", "淑珍", "国华", "玉梅", "永强", "春梅", "立新", "红梅", "金龙", "凤英",
+  "卫东", "丽娟", "海峰", "秀英", "德海", "艳辉",
 ];
+const DISTRICTS = [
+  "高新区", "经开区", "城关区", "新城区", "鼓楼区", "滨江区",
+  "莲都区", "吴兴区", "柯桥区", "浔阳区", "雨花区", "相城区",
+];
+const STREETS = [
+  "建设路", "人民大道", "迎宾大道", "光明路", "振兴街", "通达路",
+  "科技一路", "文化西路", "滨河路", "朝阳街", "富民路", "和平北路",
+];
+const RECTIFY = ["待整改", "待复验", "整改通过", "无缺陷"] as const;
 
-const OWNERS = ["张三", "李四", "王五", "赵六", "孙七", "周八"];
-
-function pick<T>(arr: T[], i: number): T {
-  return arr[i % arr.length];
+function nameAt(i: number) {
+  return SURNAMES[i % SURNAMES.length] + GIVEN[(i * 7) % GIVEN.length];
+}
+function stationAt(i: number) {
+  return String(210310670000 + i * 911 + (i % 9) * 7);
+}
+function addressAt(i: number, city: string) {
+  return `${city}${DISTRICTS[(i * 3) % DISTRICTS.length]}${STREETS[(i * 5) % STREETS.length]}${((i * 37) % 880) + 12}号`;
+}
+function dateDaysAgo(days: number) {
+  const b = new Date(2026, 9, 28);
+  b.setDate(b.getDate() - days);
+  const m = String(b.getMonth() + 1).padStart(2, "0");
+  const d = String(b.getDate()).padStart(2, "0");
+  return `${b.getFullYear()}-${m}-${d}`;
 }
 
-/** 以 2026-10-28 为"今天",往前推若干天生成日期 */
-function dateDaysAgo(days: number): string {
-  const base = new Date(2026, 9, 28); // 月份 0-based
-  base.setDate(base.getDate() - days);
-  const y = base.getFullYear();
-  const m = String(base.getMonth() + 1).padStart(2, "0");
-  const d = String(base.getDate()).padStart(2, "0");
-  return `${y}-${m}-${d}`;
+// 首屏状态混排(待检/不通过/通过都有),之后按分布
+const HEAD: InspectStatus[] = ["待检查", "不通过", "不通过", "通过", "通过", "通过", "通过"];
+function statusAt(i: number): InspectStatus {
+  if (i < HEAD.length) return HEAD[i];
+  const r = i % 10;
+  if (r === 9) return "不通过";
+  if (r >= 6) return "通过";
+  return "待检查";
 }
 
-/** 生成补充数据,凑够可下拉加载的量 */
-function generateMore(start: number, count: number): Inspection[] {
-  const list: Inspection[] = [];
-  for (let i = 0; i < count; i++) {
-    const idx = start + i;
-    // 大致按 待检查 > 通过 > 不通过 分布
-    const r = idx % 10;
-    let status: InspectStatus = "待检查";
-    if (r >= 7 && r <= 8) status = "通过";
-    else if (r === 9) status = "不通过";
-
-    const prov = pick(REGION_OPTIONS, idx);
-    const city = pick(prov.children, idx);
-
-    const item: Inspection = {
-      id: String(idx + 1),
-      ownerName: pick(OWNERS, idx),
-      status,
-      stationNo: STATION_NO,
-      address: ADDRESS,
-      inspectDate: dateDaysAgo((idx * 3) % 40), // 0~39 天前,让日期筛选可用
-      region: [prov.label, city],
+export const ALL_INSPECTIONS: Inspection[] = Array.from({ length: 66 }, (_, i) => {
+  const status = statusAt(i);
+  const prov = REGION_OPTIONS[i % REGION_OPTIONS.length];
+  const city = prov.children[(i * 2) % prov.children.length];
+  const it: Inspection = {
+    id: String(i + 1),
+    ownerName: nameAt(i),
+    status,
+    stationNo: stationAt(i),
+    address: addressAt(i, city),
+    inspectDate: dateDaysAgo((i * 3) % 40),
+    region: [prov.label, city],
+  };
+  if (status !== "待检查") {
+    it.defects = {
+      cr: status === "不通过" ? 1 + (i % 2) : 0,
+      ma: i % 3,
+      mi: i % 2 === 0 ? 2 : 0,
     };
-    if (status !== "待检查") {
-      const cr = status === "不通过" ? 1 : 0;
-      const ma = idx % 3;
-      const mi = idx % 2 === 0 ? 2 : 0;
-      item.defects = { cr, ma, mi };
-      const rs = ["待整改", "待复验", "整改通过", "无缺陷"] as const;
-      item.rectifyStatus = pick([...rs], idx);
-    }
-    list.push(item);
+    it.rectifyStatus = RECTIFY[i % RECTIFY.length];
   }
-  return list;
-}
-
-/** 全量 mock 数据源 */
-export const ALL_INSPECTIONS: Inspection[] = [...SEED, ...generateMore(SEED.length, 60)];
+  return it;
+});

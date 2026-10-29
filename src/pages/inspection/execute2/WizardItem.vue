@@ -16,6 +16,9 @@
       不合格
     </button>
 
+    <!-- 非不合格:分类插画(点不合格收起) -->
+    <CategoryIllustration v-if="item.result !== 'fail'" :category="sectionKey" />
+
     <!-- 不合格展开 -->
     <div v-if="item.result === 'fail'" class="defect">
       <div class="defect__label"><span class="req">*</span>缺陷描述</div>
@@ -38,9 +41,10 @@
 
 <script setup lang="ts">
 import PhotoUpload from "../execute/PhotoUpload.vue";
+import CategoryIllustration from "./CategoryIllustration.vue";
 import type { ChecklistItemData, ItemResult } from "@/types/execute";
 
-const props = defineProps<{ item: ChecklistItemData; index: number }>();
+const props = defineProps<{ item: ChecklistItemData; index: number; sectionKey: string }>();
 
 function setResult(r: Exclude<ItemResult, null>) {
   props.item.result = r;
@@ -101,21 +105,28 @@ function setResult(r: Exclude<ItemResult, null>) {
   height: 52px;
   padding: 0 16px;
   margin-bottom: 12px;
-  font-size: 15px;
+  font-size: 16px;
   border-radius: 10px;
-  border: 1px solid #cccbd1;
+  border: 1px solid #e6e6eb;
   background: #fff;
   color: #767282;
 
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
   &--pass.opt--on {
-    color: #28ba4f;
-    border-color: #b7f0c2;
-    background: #e8ffea;
+    color: #1fa948;
+    border-color: #9beba8;
+    background: #f0fff0;
+    font-weight: 500;
   }
   &--fail.opt--on {
     color: #eb372a;
-    border-color: #fbc4bc;
-    background: #ffece8;
+    border-color: #fcac9c;
+    background: #fff5f2;
+    font-weight: 500;
   }
 }
 

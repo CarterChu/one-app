@@ -32,28 +32,24 @@ defineEmits<{ (e: "update:modelValue", v: string): void }>();
   height: 44px;
   display: flex;
   align-items: center;
-}
-
-.ptab__label {
-  position: relative;
   font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
   color: #767282;
 }
 
-.ptab--on .ptab__label {
+.ptab--on {
   color: #2f2d33;
-  font-weight: 600;
+}
 
-  &::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    bottom: -9px;
-    transform: translateX(-50%);
-    width: 16px;
-    height: 3px;
-    border-radius: 2px;
-    background: #007bfe;
-  }
+.ptab--on::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 28.5px;
+  transform: translateX(-50%);
+  width: 37.33px;
+  height: 7px;
+  background: url("@/assets/icons/tab-underline.svg") no-repeat center / contain;
 }
 </style>

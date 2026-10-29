@@ -11,7 +11,7 @@
           @click-right="showTransfer = true"
         />
       </div>
-      <BasicInfoTab :info="BASIC_INFO" time-label="飞检截止时间" />
+      <BasicInfoTab :info="basicInfo" time-label="飞检截止时间" />
       <div v-if="stage === 'basic'" class="v2-footer">
         <a-button-group type="white-bg">
           <a-button variant="primary" size="large" @click="startCheck">开始检查</a-button>
@@ -25,13 +25,13 @@
         <a-nav-bar title="执行飞检" left-arrow right-text="预览" @click-left="onBack" @click-right="goPreview" />
       </div>
       <div class="v2__body">
-        <StationCard :info="BASIC_INFO" @open="openInfo" />
+        <StationCard :info="basicInfo" @open="openInfo" />
         <div class="progress">
           <div class="progress__num"><b>{{ currentIndex + 1 }}</b><span>/{{ total }}</span></div>
           <div class="progress__bar"><div class="progress__fill" :style="{ width: progressPct }" /></div>
         </div>
         <div class="sec-chip">{{ locate.section.title }} {{ answered(locate.section) }}/{{ locate.section.items.length }}</div>
-        <WizardItem :item="currentItem" :index="locate.localIndex + 1" />
+        <WizardItem :item="currentItem" :index="locate.localIndex + 1" :section-key="locate.section.key" />
       </div>
       <div class="v2-footer">
         <a-button-group type="white-bg">
@@ -81,7 +81,7 @@
         <a-nav-bar title="执行飞检" left-arrow right-text="预览" @click-left="stage = 'wizard'" @click-right="goPreview" />
       </div>
       <div class="v2__body">
-        <StationCard :info="BASIC_INFO" @open="openInfo" />
+        <StationCard :info="basicInfo" @open="openInfo" />
 
         <div class="sec-title">飞检结果</div>
         <div class="result-card">
@@ -137,7 +137,7 @@ import ChecklistItem from "./execute/ChecklistItem.vue";
 import StationCard from "./execute2/StationCard.vue";
 import WizardItem from "./execute2/WizardItem.vue";
 import TransferSheet from "./components/TransferSheet.vue";
-import { BASIC_INFO, createSections } from "@/mock/executeInspection";
+import { createExecuteBasicInfo, createSections } from "@/mock/executeInspection";
 import { startTrack, bump, finishTrack } from "@/stores/tracker";
 import { EXPECTED } from "@/mock/scenario";
 import type { ChecklistSection } from "@/types/execute";
@@ -198,6 +198,7 @@ function answered(sec: ChecklistSection) {
 
 // —— A/B 埋点 ——
 const route = useRoute();
+const basicInfo = createExecuteBasicInfo(String(route.params.id ?? ""));
 onMounted(() => startTrack("2", "execute", String(route.params.id ?? ""), total.value));
 watch(
   () => allItems.value.map((it) => it.result),

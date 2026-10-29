@@ -134,21 +134,29 @@ function setResult(r: Exclude<ItemResult, null>) {
   gap: 4px;
   width: 104px;
   height: 40px;
-  font-size: 14px;
+  font-size: 16px;
+  line-height: 20px;
   border-radius: 8px;
-  border: 1px solid #cccbd1;
+  border: 1px solid #e6e6eb;
   background: #fff;
-  color: #a7a5b0;
+  color: #767282;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
 
   &--pass.rt--on {
-    color: #28ba4f;
-    border-color: #b7f0c2;
-    background: #e8ffea;
+    color: #1fa948;
+    border-color: #9beba8;
+    background: #f0fff0;
+    font-weight: 500;
   }
   &--fail.rt--on {
     color: #eb372a;
-    border-color: #fbc4bc;
-    background: #ffece8;
+    border-color: #fcac9c;
+    background: #fff5f2;
+    font-weight: 500;
   }
 }
 

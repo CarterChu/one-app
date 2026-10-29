@@ -13,7 +13,7 @@
     </div>
 
     <!-- 内容 -->
-    <BasicInfoTab v-show="activeTab === 'basic'" :info="BASIC_INFO" />
+    <BasicInfoTab v-show="activeTab === 'basic'" :info="basicInfo" />
     <ChecklistTab
       v-show="activeTab === 'checklist'"
       ref="checklistRef"
@@ -31,6 +31,7 @@
             :key="sec.key"
             class="anchor"
             :class="{ 'anchor--on': sec.key === activeSectionKey }"
+            :ref="(el) => setAnchorRef(sec.key, el)"
             @click="goSection(sec.key)"
           >
             {{ sec.title }}<span class="anchor__count">{{ answered(sec) }}/{{ sec.items.length }}</span>
@@ -92,7 +93,7 @@ import GroupsPopup from "./execute/GroupsPopup.vue";
 import SubmitConfirmSheet, { type SubmitStats } from "./execute/SubmitConfirmSheet.vue";
 import TransferSheet from "./components/TransferSheet.vue";
 import PageTabs from "./components/PageTabs.vue";
-import { BASIC_INFO, createSections } from "@/mock/executeInspection";
+import { createExecuteBasicInfo, createSections } from "@/mock/executeInspection";
 import type { ChecklistSection } from "@/types/execute";
 import { startTrack, bump, finishTrack } from "@/stores/tracker";
 import { EXPECTED } from "@/mock/scenario";
@@ -105,6 +106,16 @@ const sections = reactive<ChecklistSection[]>(createSections());
 const activeSectionKey = ref(sections[0]?.key ?? "");
 
 const checklistRef = ref<InstanceType<typeof ChecklistTab> | null>(null);
+
+// 底部分组锚点:当前分组变化时自动横向滚到可见
+const anchorEls = new Map<string, HTMLElement>();
+function setAnchorRef(key: string, el: unknown) {
+  if (el) anchorEls.set(key, el as HTMLElement);
+  else anchorEls.delete(key);
+}
+watch(activeSectionKey, (k) => {
+  anchorEls.get(k)?.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
+});
 const showGroups = ref(false);
 const showSubmit = ref(false);
 const showTransfer = ref(false);
@@ -117,6 +128,7 @@ const allItems = computed(() => sections.flatMap((s) => s.items));
 
 // —— A/B 埋点 ——
 const route = useRoute();
+const basicInfo = createExecuteBasicInfo(String(route.params.id ?? ""));
 onMounted(() => startTrack("1", "execute", String(route.params.id ?? ""), allItems.value.length));
 watch(
   () => allItems.value.map((it) => it.result),

@@ -5,11 +5,10 @@
       <div class="hero__sub">ONE App 代理商端 · 两套方案 A/B 测试</div>
     </div>
 
-    <!-- 测试入口 -->
     <section class="grp">
       <div class="grp__head">
-        <span class="grp__title">测试入口</span>
-        <span class="grp__tag grp__tag--clean">给受访者 · 无切换开关</span>
+        <span class="grp__title">选择方案</span>
+        <span class="grp__tag">点击进入对应方案</span>
       </div>
       <div class="cards">
         <div class="ecard" @click="go({})">
@@ -29,31 +28,6 @@
       </div>
     </section>
 
-    <!-- 开发入口 -->
-    <section class="grp">
-      <div class="grp__head">
-        <span class="grp__title">开发入口</span>
-        <span class="grp__tag grp__tag--dev">带悬浮方案开关 · 随时切换</span>
-      </div>
-      <div class="cards">
-        <div class="ecard ecard--dev" @click="go({ dev: '1' })">
-          <div class="ecard__main">
-            <span class="ecard__k">方案一</span>
-            <span class="ecard__d">总览 / 列表式</span>
-          </div>
-          <van-icon name="arrow" color="#a7a5b0" />
-        </div>
-        <div class="ecard ecard--dev" @click="go({ scheme: '2', dev: '1' })">
-          <div class="ecard__main">
-            <span class="ecard__k">方案二</span>
-            <span class="ecard__d">引导 / 向导式</span>
-          </div>
-          <van-icon name="arrow" color="#a7a5b0" />
-        </div>
-      </div>
-    </section>
-
-    <!-- 测试数据 -->
     <section class="grp">
       <div class="grp__head">
         <span class="grp__title">测试数据</span>
@@ -137,13 +111,6 @@ function onClear() {
 .grp__tag {
   font-size: 12px;
   color: #767282;
-
-  &--clean {
-    color: #28ba4f;
-  }
-  &--dev {
-    color: #007bfe;
-  }
 }
 
 .cards {
@@ -159,12 +126,6 @@ function onClear() {
   padding: 16px;
   background: #fff;
   border-radius: 12px;
-  border: 1px solid transparent;
-
-  &--dev {
-    border-color: #cfe3ff;
-    background: #f5f9ff;
-  }
 }
 
 .ecard__main {

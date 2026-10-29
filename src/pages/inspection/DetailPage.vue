@@ -30,6 +30,7 @@
           :key="sec.key"
           class="anchor"
           :class="{ 'anchor--on': sec.key === activeSectionKey }"
+          :ref="(el) => setAnchorRef(sec.key, el)"
           @click="goSection(sec.key)"
         >
           {{ sec.title }}<span class="anchor__count">{{ answered(sec) }}/{{ sec.items.length }}</span>
@@ -52,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import BasicInfoTab from "./execute/BasicInfoTab.vue";
 import ChecklistTab from "./execute/ChecklistTab.vue";
@@ -70,6 +71,15 @@ const data = createDetailData(String(route.params.id ?? ""));
 const activeTab = ref<"basic" | "checklist">("basic");
 const activeSectionKey = ref(data.sections[0]?.key ?? "");
 const checklistRef = ref<InstanceType<typeof ChecklistTab> | null>(null);
+
+const anchorEls = new Map<string, HTMLElement>();
+function setAnchorRef(key: string, el: unknown) {
+  if (el) anchorEls.set(key, el as HTMLElement);
+  else anchorEls.delete(key);
+}
+watch(activeSectionKey, (k) => {
+  anchorEls.get(k)?.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
+});
 const showGroups = ref(false);
 
 function answered(sec: ChecklistSection) {

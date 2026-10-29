@@ -28,3 +28,12 @@ html {
   scrollbar-width: none;
   scrollbar-color: transparent transparent;
 }
+
+/* 底部 Drawer(Vant bottom popup)约束在移动端容器宽度内(≤480 居中),
+   即使不在手机外壳 iframe 里也不铺满浏览器。保留滑入动画 */
+.van-popup--bottom {
+  max-width: 480px;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}

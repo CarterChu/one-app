@@ -61,7 +61,7 @@
 import { ref, reactive, computed, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { onMounted } from "vue";
-import { dev, setSchemeFromQuery, executeRoute, detailRoute } from "@/stores/scheme";
+import { setSchemeFromQuery, executeRoute, detailRoute } from "@/stores/scheme";
 import FilterBar from "./components/FilterBar.vue";
 import InspectionCard from "./components/InspectionCard.vue";
 import { ALL_INSPECTIONS, TAB_ITEMS } from "@/mock/inspections";
@@ -170,13 +170,10 @@ function onBack() {
   router.push({ name: "home" });
 }
 function onDetail(item: Inspection) {
-  router.push({ name: detailRoute(), params: { id: item.id }, query: devQuery() });
+  router.push({ name: detailRoute(), params: { id: item.id } });
 }
 function onExecute(item: Inspection) {
-  router.push({ name: executeRoute(), params: { id: item.id }, query: devQuery() });
-}
-function devQuery() {
-  return dev.value ? { dev: "1" } : undefined;
+  router.push({ name: executeRoute(), params: { id: item.id } });
 }
 </script>
 
@@ -214,35 +211,26 @@ function devQuery() {
   height: 44px;
   display: flex;
   align-items: center;
-}
-
-.tab__label {
-  position: relative;
+  gap: 2px;
   font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
   color: #767282;
 }
 
-.tab__count {
-  font-size: 13px;
-  color: #a7a5b0;
-  margin-left: 3px;
+.tab--on {
+  color: #2f2d33;
 }
 
-.tab--on .tab__label {
-  color: #2f2d33;
-  font-weight: 600;
-
-  &::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    bottom: -9px;
-    transform: translateX(-50%);
-    width: 16px;
-    height: 3px;
-    border-radius: 2px;
-    background: #007bfe;
-  }
+.tab--on::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 28.5px;
+  transform: translateX(-50%);
+  width: 37.33px;
+  height: 7px;
+  background: url("@/assets/icons/tab-underline.svg") no-repeat center / contain;
 }
 
 .page__content {

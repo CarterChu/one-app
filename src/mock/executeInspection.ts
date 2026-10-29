@@ -1,4 +1,5 @@
 import type { ChecklistSection, ExecuteBasicInfo, Severity } from "@/types/execute";
+import { ALL_INSPECTIONS } from "./inspections";
 
 /** 基本信息(mock) */
 export const BASIC_INFO: ExecuteBasicInfo = {
@@ -8,9 +9,9 @@ export const BASIC_INFO: ExecuteBasicInfo = {
   engineer: "王国栋",
   reviewer: "-",
   inspectTime: "2026-11-01",
-  stationNo: "20250313258",
-  ownerName: "李四",
-  address: "兰山区兰山街道响河屯河村748号",
+  stationNo: "210310673451",
+  ownerName: "周海燕",
+  address: "杭州市余杭区文一西路288号",
   stationType: "金顶宝",
   capacity: "15.4kWp",
   agent: "山东祺泰新能源科技有限公司",
@@ -107,4 +108,12 @@ export function createSections(): ChecklistSection[] {
       ],
     },
   ];
+}
+
+/** 按点击的飞检记录构造执行页基本信息(业主/电站号/地址跟随记录) */
+export function createExecuteBasicInfo(id: string): ExecuteBasicInfo {
+  const r = ALL_INSPECTIONS.find((it) => it.id === id);
+  return r
+    ? { ...BASIC_INFO, ownerName: r.ownerName, stationNo: r.stationNo, address: r.address }
+    : BASIC_INFO;
 }

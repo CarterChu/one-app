@@ -24,7 +24,7 @@
         <span class="field__value field__value--addr">{{ item.address }}</span>
         <span class="field__icon field__icon--nav" @click.stop="onNavigate">
           <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
-            <path d="M14 2 2 7.2l5 1.8 1.8 5L14 2Z" fill="none" stroke="#007bfe" stroke-width="1.3" stroke-linejoin="round" />
+            <path d="M13.7358 1.6374C13.4692 1.54833 13.224 1.61364 13.1123 1.64608C12.9891 1.68186 12.8437 1.73864 12.7037 1.79332L2.61931 5.7287C2.46268 5.78979 2.30522 5.8512 2.18253 5.91187C2.07878 5.96317 1.83365 6.08796 1.69579 6.35334C1.54653 6.64065 1.54673 6.9827 1.69633 7.26984C1.83451 7.53505 2.07978 7.65955 2.18359 7.71073C2.30635 7.77125 2.46387 7.83248 2.62057 7.89339L6.57077 9.42957L8.10697 13.3798C8.16787 13.5365 8.2291 13.694 8.28962 13.8168C8.3408 13.9206 8.4653 14.1658 8.73051 14.304C9.01765 14.4536 9.3597 14.4538 9.64701 14.3046C9.91238 14.1667 10.0372 13.9216 10.0885 13.8178C10.1491 13.6951 10.2106 13.5377 10.2716 13.3811L14.207 3.29664C14.2617 3.15661 14.3185 3.01121 14.3543 2.88802C14.3867 2.77634 14.452 2.53116 14.3629 2.26452C14.2641 1.96855 14.0318 1.73628 13.7358 1.6374Z" fill="#007bfe" />
           </svg>
         </span>
       </div>
@@ -56,15 +56,15 @@
 
     <!-- 操作按钮 -->
     <div class="ins-card__actions">
-      <a-button variant="tertiary" size="small" class="act-btn act-btn--detail" @click="$emit('detail', item)">详情</a-button>
-      <a-button
+      <button type="button" class="act-btn act-btn--detail" @click="$emit('detail', item)">详情</button>
+      <button
         v-if="item.status === '待检查'"
-        variant="tertiary"
-        size="small"
+        type="button"
         class="act-btn act-btn--exec"
         @click="$emit('execute', item)"
-        >执行飞检</a-button
       >
+        执行飞检
+      </button>
     </div>
   </div>
 </template>
@@ -228,17 +228,22 @@ function onNavigate() {
 
 .act-btn {
   flex: 0 0 auto;
-  --van-button-small-height: 36px;
-  --van-button-radius: 18px; /* 胶囊:高36的一半 */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 20px;
+  border: 1px solid #cccbd1;
+  border-radius: 100px;
+  background: #fff;
+  font-size: 16px;
+  line-height: 24px;
+  color: #2f2d33;
+  white-space: nowrap;
+  cursor: pointer;
 
-  &--detail {
-    width: 72px;
-  }
   &--exec {
-    width: 104px;
-    /* 白底蓝描边蓝字(Figma 列表主操作样式) */
-    --van-button-default-border-color: #007bfe;
-    --van-button-default-color: #007bfe;
+    border-color: #007bfe;
+    color: #007bfe;
   }
 }
 </style>
