@@ -27,6 +27,8 @@ export interface TrackSession {
   errorRate: string; // 错误率 0-1(三位小数)
 }
 
+import { isTest } from "./env";
+
 type Counter = "reedits" | "backClicks" | "previewOpens" | "jumps";
 
 interface Draft {
@@ -75,6 +77,11 @@ export function finishTrack(payload: {
   expected?: Record<string, "pass" | "fail">;
 }) {
   if (!current) return;
+  if (!isTest()) {
+    // 开发环境:不记录,避免污染测试数据
+    current = null;
+    return;
+  }
   const end = Date.now();
   const missedIds = payload.answers.filter((a) => a.result === null).map((a) => a.id);
   const answered = payload.answers.length - missedIds.length;
