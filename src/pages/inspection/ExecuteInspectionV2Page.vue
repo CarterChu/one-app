@@ -30,8 +30,8 @@
           <div class="progress__num"><b>{{ currentIndex + 1 }}</b><span>/{{ total }}</span></div>
           <div class="progress__bar"><div class="progress__fill" :style="{ width: progressPct }" /></div>
         </div>
-        <div class="sec-chip">{{ locate.section.title }} {{ answered(locate.section) }}/{{ locate.section.items.length }}</div>
-        <WizardItem :item="currentItem" :index="locate.localIndex + 1" :section-key="locate.section.key" />
+        <div class="sec-chip">{{ locate.section.title }}</div>
+        <WizardItem :item="currentItem" :index="locate.localIndex + 1" />
       </div>
       <div class="v2-footer">
         <a-button-group type="white-bg">

@@ -45,3 +45,8 @@ html {
   --van-button-default-background-color: #e6e6eb;
   --van-button-default-border-color: #e6e6eb;
 }
+
+/* 导航栏右侧文字按钮(转办/预览)加粗 */
+.van-nav-bar__text {
+  font-weight: 600;
+}

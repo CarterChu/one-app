@@ -1,9 +1,8 @@
 <template>
   <div class="wi">
     <div class="wi__head">
-      <span class="num">{{ index }}.</span>
-      <span class="sev" :class="`sev--${item.severity}`">{{ item.severity }}</span>
       <span class="wi__name">{{ item.name }}</span>
+      <span class="sev" :class="`sev--${item.severity}`">{{ item.severity }}</span>
     </div>
 
     <!-- 合格 / 不合格:上下全宽选项(自绘) -->
@@ -15,9 +14,6 @@
       <svg viewBox="0 0 16 16" width="16" height="16"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /></svg>
       不合格
     </button>
-
-    <!-- 非不合格:分类插画(点不合格收起) -->
-    <CategoryIllustration v-if="item.result !== 'fail'" :category="sectionKey" />
 
     <!-- 不合格展开 -->
     <div v-if="item.result === 'fail'" class="defect">
@@ -41,10 +37,9 @@
 
 <script setup lang="ts">
 import PhotoUpload from "../execute/PhotoUpload.vue";
-import CategoryIllustration from "./CategoryIllustration.vue";
 import type { ChecklistItemData, ItemResult } from "@/types/execute";
 
-const props = defineProps<{ item: ChecklistItemData; index: number; sectionKey: string }>();
+const props = defineProps<{ item: ChecklistItemData; index: number }>();
 
 function setResult(r: Exclude<ItemResult, null>) {
   props.item.result = r;
@@ -61,12 +56,6 @@ function setResult(r: Exclude<ItemResult, null>) {
   align-items: center;
   gap: 6px;
   margin-bottom: 16px;
-}
-
-.num {
-  font-size: 16px;
-  font-weight: 600;
-  color: #2f2d33;
 }
 
 .sev {
