@@ -4,7 +4,9 @@ import { createRouter, createWebHashHistory, type RouteRecordRaw } from "vue-rou
 const routes: RouteRecordRaw[] = [
   {
     path: "/",
-    redirect: "/inspection",
+    name: "home",
+    component: () => import("@/pages/HomePortal.vue"),
+    meta: { title: "原型入口" },
   },
   {
     path: "/inspection",

@@ -62,7 +62,6 @@ import { ref, reactive, computed, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { onMounted } from "vue";
 import { dev, setSchemeFromQuery, executeRoute, detailRoute } from "@/stores/scheme";
-import { showToast } from "a-design-h5";
 import FilterBar from "./components/FilterBar.vue";
 import InspectionCard from "./components/InspectionCard.vue";
 import { ALL_INSPECTIONS, TAB_ITEMS } from "@/mock/inspections";
@@ -168,7 +167,7 @@ function onApplyFilter(
 }
 
 function onBack() {
-  showToast("返回");
+  router.push({ name: "home" });
 }
 function onDetail(item: Inspection) {
   router.push({ name: detailRoute(), params: { id: item.id }, query: devQuery() });
