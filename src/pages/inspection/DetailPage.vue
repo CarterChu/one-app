@@ -3,10 +3,13 @@
     <!-- 吸顶头部 -->
     <div class="detail__header">
       <a-nav-bar title="详情" left-arrow @click-left="onBack" />
-      <a-tabs v-model:active="activeTab" line-width="20px">
-        <a-tab name="basic" title="基本信息" />
-        <a-tab name="checklist" title="检查项目" />
-      </a-tabs>
+      <PageTabs
+        v-model="activeTab"
+        :tabs="[
+          { key: 'basic', label: '基本信息' },
+          { key: 'checklist', label: '检查项目' },
+        ]"
+      />
     </div>
 
     <BasicInfoTab v-show="activeTab === 'basic'" :info="data.info" />
@@ -54,6 +57,7 @@ import { useRoute, useRouter } from "vue-router";
 import BasicInfoTab from "./execute/BasicInfoTab.vue";
 import ChecklistTab from "./execute/ChecklistTab.vue";
 import GroupsPopup from "./execute/GroupsPopup.vue";
+import PageTabs from "./components/PageTabs.vue";
 import { createDetailData } from "@/mock/detailInspection";
 import type { ChecklistSection } from "@/types/execute";
 

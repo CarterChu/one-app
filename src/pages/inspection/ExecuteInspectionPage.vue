@@ -3,10 +3,13 @@
     <!-- 吸顶头部:导航 + tabs -->
     <div class="exec__header">
       <a-nav-bar title="执行飞检" left-arrow right-text="转办" @click-left="onBack" @click-right="onTransfer" />
-      <a-tabs v-model:active="activeTab" line-width="20px">
-        <a-tab name="basic" title="基本信息" />
-        <a-tab name="checklist" title="检查项目" />
-      </a-tabs>
+      <PageTabs
+        v-model="activeTab"
+        :tabs="[
+          { key: 'basic', label: '基本信息' },
+          { key: 'checklist', label: '检查项目' },
+        ]"
+      />
     </div>
 
     <!-- 内容 -->
@@ -88,6 +91,7 @@ import ChecklistTab from "./execute/ChecklistTab.vue";
 import GroupsPopup from "./execute/GroupsPopup.vue";
 import SubmitConfirmSheet, { type SubmitStats } from "./execute/SubmitConfirmSheet.vue";
 import TransferSheet from "./components/TransferSheet.vue";
+import PageTabs from "./components/PageTabs.vue";
 import { BASIC_INFO, createSections } from "@/mock/executeInspection";
 import type { ChecklistSection } from "@/types/execute";
 import { startTrack, bump, finishTrack } from "@/stores/tracker";
