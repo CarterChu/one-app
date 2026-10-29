@@ -2,7 +2,7 @@
   <a-popup :show="show" round position="bottom" teleport="body" @update:show="$emit('update:show', $event)">
     <div class="pp">
       <div class="pp__head">
-        <span class="pp__title">选择新负责人</span>
+        <span class="pp__title">{{ title }}</span>
         <span class="pp__close" @click="$emit('update:show', false)">
           <svg viewBox="0 0 16 16" width="18" height="18">
             <path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="#767282" stroke-width="1.5" stroke-linecap="round" />
@@ -35,7 +35,9 @@
 import { ref, computed, watch } from "vue";
 import { PEOPLE } from "@/mock/people";
 
-const props = defineProps<{ show: boolean; selected: string }>();
+const props = withDefaults(defineProps<{ show: boolean; selected: string; title?: string }>(), {
+  title: "选择新负责人",
+});
 const emit = defineEmits<{
   (e: "update:show", v: boolean): void;
   (e: "select", name: string): void;

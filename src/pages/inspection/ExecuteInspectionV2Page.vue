@@ -118,9 +118,12 @@
         </a-button-group>
       </div>
 
-      <a-popup v-model:show="showReviewer" round position="bottom" teleport="body">
-        <a-picker :columns="reviewerColumns" title="选择复验人" @confirm="onReviewerConfirm" @cancel="showReviewer = false" />
-      </a-popup>
+      <PersonPickerSheet
+        v-model:show="showReviewer"
+        :selected="reviewer"
+        title="选择复验人"
+        @select="reviewer = $event"
+      />
     </template>
 
     <!-- 转办(共享) -->
@@ -137,6 +140,7 @@ import ChecklistItem from "./execute/ChecklistItem.vue";
 import StationCard from "./execute2/StationCard.vue";
 import WizardItem from "./execute2/WizardItem.vue";
 import TransferSheet from "./components/TransferSheet.vue";
+import PersonPickerSheet from "./components/PersonPickerSheet.vue";
 import { createExecuteBasicInfo, createSections } from "@/mock/executeInspection";
 import { startTrack, bump, finishTrack } from "@/stores/tracker";
 import { EXPECTED } from "@/mock/scenario";
@@ -153,12 +157,6 @@ const currentIndex = ref(0);
 const showTransfer = ref(false);
 const showReviewer = ref(false);
 const reviewer = ref("");
-const reviewerColumns = [
-  { text: "张伟", value: "张伟" },
-  { text: "刘洋", value: "刘洋" },
-  { text: "陈晓", value: "陈晓" },
-  { text: "赵强", value: "赵强" },
-];
 
 const allItems = computed(() => sections.flatMap((s) => s.items));
 const total = computed(() => allItems.value.length);
@@ -257,10 +255,6 @@ function onBack() {
   router.back();
 }
 
-function onReviewerConfirm(payload: { selectedOptions: { text: string }[] }) {
-  reviewer.value = payload.selectedOptions[0]?.text ?? "";
-  showReviewer.value = false;
-}
 function onSubmit() {
   if (!reviewer.value) {
     showToast("请选择整改复验人");

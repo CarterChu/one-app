@@ -50,20 +50,19 @@
       </div>
     </div>
 
-    <a-popup v-model:show="showPicker" round position="bottom" teleport="body">
-      <a-picker
-        :columns="reviewerColumns"
-        title="选择复验人"
-        @confirm="onReviewerConfirm"
-        @cancel="showPicker = false"
-      />
-    </a-popup>
+    <PersonPickerSheet
+      v-model:show="showPicker"
+      :selected="reviewer"
+      title="选择复验人"
+      @select="reviewer = $event"
+    />
   </a-popup>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
 import { showToast } from "a-design-h5";
+import PersonPickerSheet from "../components/PersonPickerSheet.vue";
 
 export interface SubmitStats {
   result: "通过" | "不通过";
@@ -84,18 +83,6 @@ const emit = defineEmits<{
 
 const reviewer = ref("");
 const showPicker = ref(false);
-const reviewerColumns = [
-  { text: "张伟", value: "张伟" },
-  { text: "刘洋", value: "刘洋" },
-  { text: "陈晓", value: "陈晓" },
-  { text: "赵强", value: "赵强" },
-];
-
-function onReviewerConfirm(payload: { selectedOptions: { text: string }[] }) {
-  reviewer.value = payload.selectedOptions[0]?.text ?? "";
-  showPicker.value = false;
-}
-
 function onConfirm() {
   if (!reviewer.value) {
     showToast("请选择整改复验人");
