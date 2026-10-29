@@ -37,3 +37,11 @@ html {
   margin-left: auto;
   margin-right: auto;
 }
+
+/* 次级按钮填充用 Figma 的 #e6e6eb(组件默认 #f3f3f5 在浅底上几乎不可见) */
+.a-button--secondary {
+  /* a-design 把变量名写成了 -background-color(Vant 实为 -background),导致填充不生效 */
+  --van-button-default-background: #e6e6eb;
+  --van-button-default-background-color: #e6e6eb;
+  --van-button-default-border-color: #e6e6eb;
+}

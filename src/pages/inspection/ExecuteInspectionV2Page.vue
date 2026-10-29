@@ -1,5 +1,5 @@
 <template>
-  <div class="v2">
+  <div class="v2" :class="{ 'v2--wizard': stage === 'wizard' }">
     <!-- ========== 基本信息(落地页) ========== -->
     <template v-if="stage === 'basic' || stage === 'info'">
       <div class="v2__header">
@@ -286,6 +286,10 @@ function onTransferConfirm(person: string) {
   min-height: 100vh;
   background: #f7f8fa;
   padding-bottom: 96px;
+}
+
+.v2--wizard {
+  background: #fff;
 }
 
 .v2__header {

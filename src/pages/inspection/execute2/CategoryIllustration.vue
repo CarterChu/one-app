@@ -96,10 +96,7 @@ const cap = computed(() => CAPS[props.category] ?? "检查示意");
 
 <style lang="scss" scoped>
 .illus {
-  margin-top: 20px;
-  background: #fafbfd;
-  border-radius: 12px;
-  padding: 16px;
+  margin-top: 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
