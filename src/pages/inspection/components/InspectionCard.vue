@@ -59,7 +59,7 @@
       <a-button variant="tertiary" size="small" class="act-btn act-btn--detail" @click="$emit('detail', item)">详情</a-button>
       <a-button
         v-if="item.status === '待检查'"
-        variant="primary"
+        variant="tertiary"
         size="small"
         class="act-btn act-btn--exec"
         @click="$emit('execute', item)"
@@ -229,12 +229,16 @@ function onNavigate() {
 .act-btn {
   flex: 0 0 auto;
   --van-button-small-height: 36px;
+  --van-button-radius: 18px; /* 胶囊:高36的一半 */
 
   &--detail {
     width: 72px;
   }
   &--exec {
     width: 104px;
+    /* 白底蓝描边蓝字(Figma 列表主操作样式) */
+    --van-button-default-border-color: #007bfe;
+    --van-button-default-color: #007bfe;
   }
 }
 </style>
