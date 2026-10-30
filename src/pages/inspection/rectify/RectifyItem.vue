@@ -9,7 +9,9 @@
     <!-- 原缺陷(只读) -->
     <div class="blk__label">缺陷说明</div>
     <div class="blk__text">{{ item.defectDesc }}</div>
-    <PhotoUpload v-if="item.defectImages.length" :model-value="item.defectImages" readonly />
+    <PhotoUpload v-if="item.defectImages.length" :model-value="item.defectImages" readonly class="blk__photos" />
+
+    <div class="ri__divider"></div>
 
     <!-- 整改说明 -->
     <div class="blk__label"><span v-if="!readonly" class="req">*</span>整改说明</div>
@@ -29,7 +31,7 @@
     <!-- 整改后图片 -->
     <template v-if="!readonly || item.rectifyImages.length">
       <div class="blk__label"><span v-if="!readonly" class="req">*</span>整改后图片</div>
-      <PhotoUpload v-model="item.rectifyImages" :readonly="readonly" />
+      <PhotoUpload v-model="item.rectifyImages" :readonly="readonly" class="blk__photos" />
     </template>
 
     <!-- 复验结果 -->
@@ -53,8 +55,10 @@ withDefaults(defineProps<{ item: RectifyItemData; index: number; readonly?: bool
 
 <style lang="scss" scoped>
 .ri {
-  padding: 16px 0;
-  & + & { border-top: 1px solid #f3f3f5; }
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
 }
 .ri__head { display: flex; align-items: center; gap: 6px; }
 .num { font-size: 16px; font-weight: 600; color: #2f2d33; }
@@ -65,9 +69,11 @@ withDefaults(defineProps<{ item: RectifyItemData; index: number; readonly?: bool
   &--MA { color: #fa9607; background: #fff7e0; }
   &--MI { color: #767282; background: #f3f3f5; }
 }
-.blk__label { font-size: 14px; color: #767282; margin: 14px 0 8px; }
+.blk__label { font-size: 14px; color: #767282; margin: 16px 0 8px; }
 .blk__text { font-size: 14px; color: #2f2d33; line-height: 22px; }
+.blk__photos { margin-top: 12px; }
 .req { color: #eb372a; margin-right: 2px; }
+.ri__divider { height: 1px; background: #f0f0f2; margin: 16px 0 0; }
 .field-box {
   border: 1px solid #cccbd1; border-radius: 8px; overflow: hidden;
   :deep(.van-cell) { background: transparent; }

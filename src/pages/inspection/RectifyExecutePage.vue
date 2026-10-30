@@ -83,7 +83,7 @@ function onSubmit() {
 .section__head { display: flex; align-items: baseline; gap: 4px; padding: 10px 16px 6px; }
 .section__title { font-size: 18px; line-height: 26px; font-weight: 600; color: #2f2d33; }
 .section__count { font-size: 14px; color: #a7a5b0; }
-.section__body { background: #fff; padding: 0 16px; }
+.section__body { padding: 0 16px; }
 .bottom-bar {
   flex-shrink: 0; padding: 8px 16px calc(8px + env(safe-area-inset-bottom));
   background: #fff; border-top: 1px solid #f3f3f5;

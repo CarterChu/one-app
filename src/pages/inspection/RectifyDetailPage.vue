@@ -10,7 +10,7 @@
       <div class="card-wrap"><StationCard :info="basic" @open="stage = 'info'" /></div>
 
       <div v-for="sec in sections" :key="sec.key" class="section">
-        <div class="section__band">{{ sec.title }}</div>
+        <div class="section__title">{{ sec.title }}</div>
         <div class="section__body">
           <RectifyItem v-for="(it, i) in sec.items" :key="it.id" :item="it" :index="i + 1" readonly />
         </div>
@@ -42,13 +42,13 @@ function onBack() {
 </script>
 
 <style lang="scss" scoped>
-.page { display: flex; flex-direction: column; height: 100%; background: #fff; }
+.page { display: flex; flex-direction: column; height: 100%; background: #f3f3f5; }
 .scroll { flex: 1; overflow-y: auto; }
 .scroll--pad { padding-bottom: 24px; }
 .card-wrap { padding: 12px 16px 4px; }
-.section__band {
-  background: #f3f3f5; color: #2f2d33; font-size: 15px; font-weight: 600;
-  padding: 8px 16px;
+.section__title {
+  font-size: 18px; line-height: 26px; font-weight: 600; color: #2f2d33;
+  padding: 12px 16px 10px;
 }
 .section__body { padding: 0 16px; }
 </style>
