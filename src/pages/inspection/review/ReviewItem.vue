@@ -155,9 +155,9 @@ function pick(opt: string) {
 }
 .picker-field {
   display: flex; align-items: center; justify-content: space-between;
-  height: 48px; padding: 0 14px; background: #f3f3f5; border-radius: 8px;
-  &__ph { color: #a7a5b0; font-size: 14px; }
-  &__val { color: #2f2d33; font-size: 14px; }
+  height: 44px; padding: 0; border-bottom: 1px solid #ebedf0;
+  &__ph { color: #a7a5b0; font-size: 15px; }
+  &__val { color: #2f2d33; font-size: 15px; }
 }
 
 .sheet { padding-bottom: env(safe-area-inset-bottom); }
