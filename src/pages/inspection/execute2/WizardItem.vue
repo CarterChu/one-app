@@ -116,7 +116,7 @@ function setResult(r: Exclude<ItemResult, null>) {
     props.item.abnormalType = "";
     props.item.defectDesc = "";
     props.item.defectImages = [];
-    emit("pass");
+    setTimeout(() => emit("pass"), 400);
   } else {
     showDefectSheet.value = true;
   }
