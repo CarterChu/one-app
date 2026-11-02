@@ -9,13 +9,6 @@
         <rect x="10" y="3" width="3" height="9" rx="1" fill="#1a1a1a" />
         <rect x="15" y="0.5" width="3" height="11.5" rx="1" fill="#1a1a1a" />
       </svg>
-      <!-- wifi -->
-      <svg viewBox="0 0 16 12" width="16" height="12" aria-hidden="true">
-        <path d="M8 10.2a1.2 1.2 0 1 0 0 .01Z" fill="#1a1a1a" />
-        <path d="M2 4.4a9 9 0 0 1 12 0" fill="none" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round" />
-        <path d="M4.3 6.8a5.6 5.6 0 0 1 7.4 0" fill="none" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round" />
-        <circle cx="8" cy="9.6" r="1.1" fill="#1a1a1a" />
-      </svg>
       <!-- 电量 -->
       <div class="statusbar__battery">
         <div class="statusbar__battery-body"><div class="statusbar__battery-fill" /></div>
