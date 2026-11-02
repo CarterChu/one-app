@@ -42,7 +42,7 @@ import type { ReviewRecord, ReviewTabKey } from "@/types/review";
 
 const router = useRouter();
 const keyword = ref("");
-const activeTab = ref<ReviewTabKey>("all");
+const activeTab = ref<ReviewTabKey>("review");
 
 const filtered = computed<ReviewRecord[]>(() =>
   ALL_REVIEW.filter((it) => {
