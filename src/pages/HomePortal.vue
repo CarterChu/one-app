@@ -40,9 +40,9 @@
     <!-- 角色三:复验 -->
     <section class="grp">
       <div class="grp__head"><span class="grp__role">角色三</span><span class="grp__title">复验</span></div>
-      <div class="ecard ecard--soon" @click="soon">
+      <div class="ecard" @click="goReview">
         <div class="ecard__main"><span class="ecard__k">进入复验</span><span class="ecard__d">单一方案</span></div>
-        <span class="soon-badge">开发中</span>
+        <van-icon name="arrow" color="#a7a5b0" />
       </div>
     </section>
 
@@ -86,6 +86,9 @@ function go(query: Record<string, string>) {
 }
 function goRectify() {
   router.push({ name: "rectify-list" });
+}
+function goReview() {
+  router.push({ name: "review-list" });
 }
 function soon() {
   showToast("开发中,敬请期待");

@@ -56,6 +56,24 @@ const routes: RouteRecordRaw[] = [
     component: () => import("@/pages/inspection/RectifyDetailPage.vue"),
     meta: { title: "整改详情" },
   },
+  {
+    path: "/review",
+    name: "review-list",
+    component: () => import("@/pages/inspection/ReviewListPage.vue"),
+    meta: { title: "整改复验" },
+  },
+  {
+    path: "/review/execute/:id",
+    name: "review-execute",
+    component: () => import("@/pages/inspection/ReviewExecutePage.vue"),
+    meta: { title: "整改复验" },
+  },
+  {
+    path: "/review/detail/:id",
+    name: "review-detail",
+    component: () => import("@/pages/inspection/ReviewDetailPage.vue"),
+    meta: { title: "复验详情" },
+  },
 ];
 
 const router = createRouter({
