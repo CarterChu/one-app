@@ -40,8 +40,8 @@
       </div>
     </template>
 
-    <!-- ========== 预览全部检查项 ========== -->
-    <template v-else-if="stage === 'preview'">
+    <!-- ========== 预览全部检查项(result 时也保持此页为背景) ========== -->
+    <template v-else-if="stage === 'preview' || stage === 'result'">
       <div class="v2__header">
         <AppNavBar title="预览全部检查项" @back="stage = 'wizard'" />
         <div class="progress progress--inline">
@@ -74,59 +74,72 @@
       </div>
     </template>
 
-    <!-- ========== 飞检结果(提交确认整页) ========== -->
-    <template v-else>
-      <div class="v2__header">
-        <AppNavBar title="执行飞检" right="预览" @back="stage = 'wizard'" @right-click="goPreview" />
-      </div>
-      <div class="v2__body">
-        <StationCard :info="basicInfo" @open="openInfo" />
-
-        <div class="sec-title">飞检结果</div>
-        <div class="result-card">
-          <div class="result-card__tip">本单检查结果</div>
-          <div class="result-card__value" :class="stats.result === '通过' ? 'is-pass' : 'is-fail'">
-            <svg v-if="stats.result === '通过'" viewBox="0 0 16 16" width="18" height="18"><path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>
-            <svg v-else viewBox="0 0 16 16" width="18" height="18"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
-            {{ stats.result }}
-          </div>
-          <div class="stat-grid">
-            <div class="stat"><span class="stat__k">检查项</span><span class="stat__v">{{ stats.total }}<em>项</em></span></div>
-            <div class="stat"><span class="stat__k">合格项</span><span class="stat__v">{{ stats.pass }}<em>项</em></span></div>
-            <div class="stat"><span class="stat__k">不合格项</span><span class="stat__v">{{ stats.fail }}<em>项</em></span></div>
-          </div>
-        </div>
-
-        <div class="sec-title">缺陷统计</div>
-        <div class="defect-cards">
-          <div class="dcard"><span class="dcard__k">CR(严重)</span><span class="dcard__v">{{ stats.cr }}<em>项</em></span></div>
-          <div class="dcard"><span class="dcard__k">MA(主要)</span><span class="dcard__v">{{ stats.ma }}<em>项</em></span></div>
-          <div class="dcard"><span class="dcard__k">MI(轻微)</span><span class="dcard__v">{{ stats.mi }}<em>项</em></span></div>
-        </div>
-
-        <div class="reviewer-label"><span class="req">*</span>整改复验人</div>
-        <div class="reviewer" @click="showReviewer = true">
-          <span :class="reviewer ? 'reviewer__val' : 'reviewer__ph'">{{ reviewer || "请选择后续复验人" }}</span>
-          <van-icon name="arrow" color="#a7a5b0" />
-        </div>
-      </div>
-      <div class="v2-footer">
-        <a-button-group type="white-bg">
-          <a-button variant="secondary" size="large" @click="stage = 'wizard'">返回</a-button>
-          <a-button variant="primary" size="large" @click="onSubmit">确认提交</a-button>
-        </a-button-group>
-      </div>
-
-      <PersonPickerSheet
-        v-model:show="showReviewer"
-        :selected="reviewer"
-        title="选择复验人"
-        @select="reviewer = $event"
-      />
-    </template>
-
     <!-- 转办(共享) -->
     <TransferSheet v-model:show="showTransfer" @confirm="onTransferConfirm" />
+
+    <!-- ========== 飞检结果弹窗 ========== -->
+    <van-popup
+      v-model:show="resultVisible"
+      position="bottom"
+      round
+      :close-on-click-overlay="false"
+      teleport="body"
+      :z-index="2000"
+    >
+      <div class="rs">
+        <div class="rs__head">
+          <span class="rs__title">飞检结果</span>
+          <button class="rs__close" @click="stage = 'preview'">
+            <svg viewBox="0 0 16 16" width="16" height="16"><path d="M3 3l10 10M13 3L3 13" fill="none" stroke="#767282" stroke-width="1.8" stroke-linecap="round" /></svg>
+          </button>
+        </div>
+
+        <div class="rs__card">
+          <div class="rs__card-label">本单检查结果</div>
+          <div class="rs__card-value" :class="stats.result === '通过' ? 'rs__card-value--pass' : 'rs__card-value--fail'">
+            {{ stats.result }}
+          </div>
+          <div class="rs__divider" />
+          <div class="rs__stats">
+            <div class="rs__stat">
+              <span class="rs__stat-k">CR(严重)</span>
+              <span class="rs__stat-v">{{ stats.cr }}<em>个</em></span>
+            </div>
+            <div class="rs__stat">
+              <span class="rs__stat-k">MA(主要)</span>
+              <span class="rs__stat-v">{{ stats.ma }}<em>个</em></span>
+            </div>
+            <div class="rs__stat">
+              <span class="rs__stat-k">MI(轻微)</span>
+              <span class="rs__stat-v">{{ stats.mi }}<em>个</em></span>
+            </div>
+          </div>
+          <div class="rs__formula">{{ formula }}</div>
+        </div>
+
+        <div class="rs__reviewer" @click="showReviewer = true">
+          <span class="rs__reviewer-label"><span class="req">*</span>整改复验人</span>
+          <div class="rs__reviewer-right">
+            <span :class="reviewer ? 'rs__reviewer-val' : 'rs__reviewer-ph'">{{ reviewer || "请选择后续复验人" }}</span>
+            <van-icon name="arrow" color="#a7a5b0" />
+          </div>
+        </div>
+
+        <div class="rs__foot">
+          <a-button-group type="white-bg">
+            <a-button variant="secondary" size="large" @click="stage = 'wizard'">返回修改</a-button>
+            <a-button variant="primary" size="large" @click="onSubmit">确认提交</a-button>
+          </a-button-group>
+        </div>
+      </div>
+    </van-popup>
+
+    <PersonPickerSheet
+      v-model:show="showReviewer"
+      :selected="reviewer"
+      title="选择复验人"
+      @select="reviewer = $event"
+    />
   </div>
 </template>
 
@@ -195,6 +208,19 @@ const stats = computed(() => {
   };
 });
 
+const resultVisible = computed({
+  get: () => stage.value === "result",
+  set: (v: boolean) => { if (!v) stage.value = "preview"; },
+});
+
+const formula = computed(() => {
+  const { cr, ma, mi } = stats.value;
+  const raw = cr * 1 + ma * 0.5 + mi * 0.33;
+  const score = parseFloat(raw.toFixed(2));
+  const isPassing = stats.value.result === "通过";
+  return `${cr}(CR)×1 + ${ma}(MA)×0.5 + ${mi}(MI)×0.33=${score}，得分${isPassing ? "＜" : "≥"}1 ，飞检状态为【${stats.value.result}】。`;
+});
+
 function answered(sec: ChecklistSection) {
   return sec.items.filter((it) => it.result !== null).length;
 }
@@ -221,7 +247,7 @@ function next() {
   if (currentIndex.value < total.value - 1) {
     currentIndex.value += 1;
   } else {
-    stage.value = remaining.value === 0 ? "result" : "preview";
+    stage.value = "preview";
   }
 }
 function prev() {
@@ -403,131 +429,154 @@ function onTransferConfirm(person: string) {
   z-index: 1;
 }
 
-.sec-title {
-  font-size: 17px;
-  font-weight: 600;
-  color: #2f2d33;
-  margin: 24px 0 12px;
+// ===== 飞检结果弹窗 =====
+.rs {
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
-.result-card {
+.rs__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 0 16px;
+  border-bottom: 1px solid #f3f3f5;
+}
+
+.rs__title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2f2d33;
+}
+
+.rs__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: #f3f3f5;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+}
+
+.rs__card {
+  margin: 12px 16px 0;
   background: #fff;
+  border: 1px solid #ebedf0;
   border-radius: 12px;
   padding: 16px;
 }
 
-.result-card__tip {
+.rs__card-label {
+  font-size: 12px;
+  color: #767282;
+  margin-bottom: 6px;
+}
+
+.rs__card-value {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 16px;
+
+  &--pass { color: #28ba4f; }
+  &--fail { color: #eb372a; }
+}
+
+.rs__divider {
+  height: 1px;
+  background: #f0f0f2;
+  margin-bottom: 16px;
+}
+
+.rs__stats {
+  display: flex;
+  margin-bottom: 16px;
+}
+
+.rs__stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  &:not(:last-child) {
+    border-right: 1px solid #f0f0f2;
+    margin-right: 16px;
+    padding-right: 16px;
+  }
+}
+
+.rs__stat-k {
   font-size: 12px;
   color: #767282;
 }
 
-.result-card__value {
+.rs__stat-v {
+  font-size: 20px;
+  font-weight: 700;
+  color: #2f2d33;
+
+  em {
+    font-size: 12px;
+    font-weight: 400;
+    color: #767282;
+    font-style: normal;
+    margin-left: 2px;
+  }
+}
+
+.rs__formula {
+  font-size: 12px;
+  color: #767282;
+  line-height: 1.6;
+  background: #f7f8fa;
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+.rs__reviewer {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 20px;
-  font-weight: 700;
-  margin: 4px 0 16px;
-
-  &.is-pass {
-    color: #28ba4f;
-  }
-  &.is-fail {
-    color: #eb372a;
-  }
-}
-
-.stat-grid {
-  display: flex;
-}
-
-.stat {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.stat__k {
-  font-size: 13px;
-  color: #767282;
-}
-
-.stat__v {
-  font-size: 20px;
-  font-weight: 700;
-  color: #2f2d33;
-
-  em {
-    font-size: 12px;
-    font-weight: 400;
-    color: #767282;
-    font-style: normal;
-    margin-left: 2px;
-  }
-}
-
-.defect-cards {
-  display: flex;
-  gap: 12px;
-}
-
-.dcard {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+  justify-content: space-between;
+  margin: 12px 16px 0;
+  padding: 14px 16px;
   background: #fff;
+  border: 1px solid #ebedf0;
   border-radius: 10px;
-  padding: 14px 12px;
 }
 
-.dcard__k {
-  font-size: 12px;
-  color: #767282;
-}
-
-.dcard__v {
-  font-size: 20px;
-  font-weight: 700;
+.rs__reviewer-label {
+  font-size: 15px;
+  font-weight: 500;
   color: #2f2d33;
-
-  em {
-    font-size: 12px;
-    font-weight: 400;
-    color: #767282;
-    font-style: normal;
-    margin-left: 2px;
-  }
 }
 
-.reviewer-label {
+.rs__reviewer-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.rs__reviewer-ph {
   font-size: 14px;
-  color: #767282;
-  margin: 24px 0 10px;
+  color: #a7a5b0;
+}
+
+.rs__reviewer-val {
+  font-size: 14px;
+  color: #2f2d33;
+}
+
+.rs__foot {
+  padding: 8px 16px;
+  margin-top: 12px;
+  border-top: 1px solid #f0f0f2;
 }
 
 .req {
   color: #eb372a;
   margin-right: 2px;
-}
-
-.reviewer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 48px;
-  padding: 0 14px;
-  background: #fff;
-  border-radius: 8px;
-
-  &__ph {
-    color: #a7a5b0;
-    font-size: 14px;
-  }
-  &__val {
-    color: #2f2d33;
-    font-size: 14px;
-  }
 }
 </style>
