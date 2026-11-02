@@ -60,14 +60,16 @@ import RectifyItem from "./rectify/RectifyItem.vue";
 import RectifyBasicTab from "./rectify/RectifyBasicTab.vue";
 import TransferSheet from "./components/TransferSheet.vue";
 import { createRectifyBasic, createRectifyDetail } from "@/mock/rectify";
+import { flow, commitRectify } from "@/stores/flow";
 import type { RectifySection, RectifyItemData } from "@/types/rectify";
 
 const route = useRoute();
 const router = useRouter();
 const id = String(route.params.id ?? "1");
+const isFlow = id === "flow";
 
-const basic = createRectifyBasic(id);
-const sections = ref<RectifySection[]>(createRectifyDetail(id));
+const basic = createRectifyBasic(isFlow ? "1" : id);
+const sections = ref<RectifySection[]>(isFlow ? flow.rectifySections : createRectifyDetail(id));
 const stage = ref<"list" | "info">("list");
 const showTransfer = ref(false);
 
@@ -79,9 +81,11 @@ function setSecRef(key: string, el: unknown) {
 }
 
 function doneOf(sec: RectifySection) {
-  return sec.items.filter((it: RectifyItemData) => it.rectifyDesc.trim() && it.rectifyImages.length).length;
+  return sec.items.filter((it: RectifyItemData) => isDone(it)).length;
 }
 function isDone(it: RectifyItemData) {
+  // flow 模式只要求整改说明(不强制图片),方便演示
+  if (isFlow) return it.rectifyDesc.trim().length > 0;
   return it.rectifyDesc.trim() && it.rectifyImages.length;
 }
 const remaining = computed(() =>
@@ -103,7 +107,12 @@ function onTransferConfirm(person: string) {
 }
 function onSubmit() {
   if (remaining.value > 0) {
-    showToast(`还有 ${remaining.value} 项未填写整改说明/图片`);
+    showToast(isFlow ? `还有 ${remaining.value} 项未填写整改说明` : `还有 ${remaining.value} 项未填写整改说明/图片`);
+    return;
+  }
+  if (isFlow) {
+    commitRectify();
+    router.push({ name: "review-execute", params: { id: "flow" } });
     return;
   }
   showToast("提交成功");

@@ -74,6 +74,12 @@ const routes: RouteRecordRaw[] = [
     component: () => import("@/pages/inspection/ReviewDetailPage.vue"),
     meta: { title: "复验详情" },
   },
+  {
+    path: "/flow/done",
+    name: "flow-done",
+    component: () => import("@/pages/inspection/FlowDonePage.vue"),
+    meta: { title: "流程完成" },
+  },
 ];
 
 const router = createRouter({

@@ -131,7 +131,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, onMounted, watch } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { showToast } from "a-design-h5";
 import BasicInfoTab from "./execute/BasicInfoTab.vue";
@@ -141,17 +141,22 @@ import StationCard from "./execute2/StationCard.vue";
 import WizardItem from "./execute2/WizardItem.vue";
 import TransferSheet from "./components/TransferSheet.vue";
 import PersonPickerSheet from "./components/PersonPickerSheet.vue";
-import { createExecuteBasicInfo, createSections } from "@/mock/executeInspection";
+import { createExecuteBasicInfo, createSections, BASIC_INFO } from "@/mock/executeInspection";
 import { startTrack, bump, finishTrack } from "@/stores/tracker";
 import { EXPECTED } from "@/mock/scenario";
+import { flow, commitInspect } from "@/stores/flow";
 import type { ChecklistSection } from "@/types/execute";
 
 type Stage = "basic" | "info" | "wizard" | "preview" | "result";
 
+const route = useRoute();
 const router = useRouter();
+const isFlow = route.query.flow === "1";
+
 const stage = ref<Stage>("basic");
 const infoReturn = ref<Stage>("wizard");
-const sections = reactive<ChecklistSection[]>(createSections());
+// flow 模式复用 flow.inspectSections(已在 startFlow 里初始化为 reactive)
+const sections: ChecklistSection[] = isFlow ? flow.inspectSections : (createSections() as unknown as ChecklistSection[]);
 const currentIndex = ref(0);
 
 const showTransfer = ref(false);
@@ -195,9 +200,10 @@ function answered(sec: ChecklistSection) {
 }
 
 // —— A/B 埋点 ——
-const route = useRoute();
-const basicInfo = createExecuteBasicInfo(String(route.params.id ?? ""));
-onMounted(() => startTrack("2", "execute", String(route.params.id ?? ""), total.value));
+const basicInfo = isFlow ? BASIC_INFO : createExecuteBasicInfo(String(route.params.id ?? ""));
+onMounted(() => {
+  if (!isFlow) startTrack("2", "execute", String(route.params.id ?? ""), total.value);
+});
 watch(
   () => allItems.value.map((it) => it.result),
   (nw, od) => {
@@ -258,6 +264,16 @@ function onBack() {
 function onSubmit() {
   if (!reviewer.value) {
     showToast("请选择整改复验人");
+    return;
+  }
+  if (isFlow) {
+    commitInspect();
+    if (flow.rectifySections.length === 0) {
+      // 全部合格,无需整改
+      router.push({ name: "flow-done" });
+    } else {
+      router.push({ name: "rectify-execute", params: { id: "flow" } });
+    }
     return;
   }
   finishTrack({

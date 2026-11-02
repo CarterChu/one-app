@@ -58,14 +58,16 @@ import ReviewItem from "./review/ReviewItem.vue";
 import ReviewBasicTab from "./review/ReviewBasicTab.vue";
 import TransferSheet from "./components/TransferSheet.vue";
 import { createReviewBasic, createReviewDetail } from "@/mock/review";
+import { flow } from "@/stores/flow";
 import type { ReviewSection, ReviewItemData } from "@/types/review";
 
 const route = useRoute();
 const router = useRouter();
 const id = String(route.params.id ?? "1");
+const isFlow = id === "flow";
 
-const basic = createReviewBasic(id);
-const sections = ref<ReviewSection[]>(createReviewDetail(id));
+const basic = createReviewBasic(isFlow ? "1" : id);
+const sections = ref<ReviewSection[]>(isFlow ? flow.reviewSections : createReviewDetail(id));
 const stage = ref<"list" | "info">("list");
 const showTransfer = ref(false);
 
@@ -106,6 +108,10 @@ function onSubmit() {
   );
   if (badFail) {
     showToast("不合格项请填写异常分类和缺陷说明");
+    return;
+  }
+  if (isFlow) {
+    router.push({ name: "flow-done" });
     return;
   }
   showToast("提交成功");

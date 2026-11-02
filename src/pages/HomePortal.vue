@@ -50,12 +50,12 @@
     <!-- 整体流程体验 -->
     <section class="grp">
       <div class="grp__head"><span class="grp__title">整体流程体验</span></div>
-      <div class="ecard ecard--soon ecard--flow" @click="soon">
+      <div class="ecard ecard--flow" @click="goFlow">
         <div class="ecard__main">
           <span class="ecard__k">飞检(方案二) → 整改 → 复验</span>
           <span class="ecard__d">一个用户串起三个角色的完整流程</span>
         </div>
-        <span class="soon-badge">开发中</span>
+        <van-icon name="arrow" color="#a7a5b0" />
       </div>
     </section>
 
@@ -79,6 +79,7 @@ import { useRouter } from "vue-router";
 import { showToast } from "a-design-h5";
 import { env, setEnv } from "@/stores/env";
 import { exportCsv, sessionCount, clearSessions } from "@/stores/tracker";
+import { startFlow } from "@/stores/flow";
 
 const router = useRouter();
 const count = ref(sessionCount());
@@ -92,8 +93,9 @@ function goRectify() {
 function goReview() {
   router.push({ name: "review-list" });
 }
-function soon() {
-  showToast("开发中,敬请期待");
+function goFlow() {
+  startFlow();
+  router.push({ name: "inspection-execute-v2", params: { id: "flow" }, query: { flow: "1" } });
 }
 function onExport() {
   if (sessionCount() === 0) return;
