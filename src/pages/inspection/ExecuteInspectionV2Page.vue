@@ -118,7 +118,7 @@
             <div class="rs__formula">{{ formula }}</div>
           </div>
 
-          <div class="rs__reviewer" @click="showReviewer = true">
+          <div v-if="stats.result === '不通过'" class="rs__reviewer" @click="showReviewer = true">
             <div class="rs__reviewer-label"><span class="req">*</span>整改复验人</div>
             <div class="rs__reviewer-row">
               <span :class="reviewer ? 'rs__reviewer-val' : 'rs__reviewer-ph'">{{ reviewer || "请选择后续复验人" }}</span>
@@ -305,7 +305,7 @@ function onBack() {
 }
 
 function onSubmit() {
-  if (!reviewer.value) {
+  if (stats.value.result === "不通过" && !reviewer.value) {
     showToast("请选择整改复验人");
     return;
   }
