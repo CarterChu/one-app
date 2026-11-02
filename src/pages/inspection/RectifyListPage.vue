@@ -42,7 +42,7 @@ import type { RectifyRecord, RectifyTabKey } from "@/types/rectify";
 
 const router = useRouter();
 const keyword = ref("");
-const activeTab = ref<RectifyTabKey>("all");
+const activeTab = ref<RectifyTabKey>("pending");
 
 const filtered = computed<RectifyRecord[]>(() =>
   ALL_RECTIFY.filter((it) => {
