@@ -4,16 +4,20 @@
     <div class="statusbar__right">
       <!-- 信号 -->
       <svg viewBox="0 0 18 12" width="18" height="12" aria-hidden="true">
-        <rect x="0" y="8" width="3" height="4" rx="1" fill="#1a1a1a" />
-        <rect x="5" y="5.5" width="3" height="6.5" rx="1" fill="#1a1a1a" />
-        <rect x="10" y="3" width="3" height="9" rx="1" fill="#1a1a1a" />
-        <rect x="15" y="0.5" width="3" height="11.5" rx="1" fill="#1a1a1a" />
+        <rect x="0" y="8" width="3" height="4" rx="1" fill="currentColor" />
+        <rect x="5" y="5.5" width="3" height="6.5" rx="1" fill="currentColor" />
+        <rect x="10" y="3" width="3" height="9" rx="1" fill="currentColor" />
+        <rect x="15" y="0.5" width="3" height="11.5" rx="1" fill="currentColor" />
       </svg>
       <!-- 电量 -->
-      <div class="statusbar__battery">
-        <div class="statusbar__battery-body"><div class="statusbar__battery-fill" /></div>
-        <div class="statusbar__battery-cap" />
-      </div>
+      <svg viewBox="0 0 25 12" width="25" height="12" aria-hidden="true" class="statusbar__battery-svg">
+        <!-- body outline -->
+        <rect x="0.5" y="0.5" width="21" height="11" rx="3.5" fill="none" stroke="currentColor" stroke-opacity="0.35" stroke-width="1" />
+        <!-- fill ~80% -->
+        <rect x="2" y="2" width="15" height="8" rx="2" fill="currentColor" />
+        <!-- nub -->
+        <path d="M22.5 4.5 C23.6 4.5 24.5 5.1 24.5 6 L24.5 6 C24.5 6.9 23.6 7.5 22.5 7.5 Z" fill="currentColor" fill-opacity="0.4" />
+      </svg>
     </div>
   </div>
 </template>
@@ -30,51 +34,21 @@ defineProps<{ light?: boolean }>();
   height: 44px;
   padding: 0 20px 0 24px;
   background: inherit;
+  color: #1a1a1a;
   user-select: none;
 }
 .statusbar__time {
   font-size: 15px;
   font-weight: 600;
   letter-spacing: 0.5px;
-  color: #1a1a1a;
+  color: inherit;
 }
 .statusbar__right {
   display: flex;
   align-items: center;
   gap: 6px;
 }
-.statusbar__battery {
-  display: flex;
-  align-items: center;
-  gap: 1px;
-}
-.statusbar__battery-body {
-  width: 22px;
-  height: 11px;
-  border: 1px solid rgba(26, 26, 26, 0.4);
-  border-radius: 3px;
-  padding: 1px;
-}
-.statusbar__battery-fill {
-  width: 100%;
-  height: 100%;
-  background: #1a1a1a;
-  border-radius: 1px;
-}
-.statusbar__battery-cap {
-  width: 1.5px;
-  height: 4px;
-  margin-left: 1px;
-  background: rgba(26, 26, 26, 0.4);
-  border-radius: 0 1px 1px 0;
-}
-
 .statusbar--light {
-  .statusbar__time { color: #fff; }
-  svg rect, svg path, svg circle { fill: #fff; stroke: #fff; }
-  svg path[fill="none"] { fill: none; }
-  .statusbar__battery-body { border-color: rgba(255,255,255,0.5); }
-  .statusbar__battery-fill { background: #fff; }
-  .statusbar__battery-cap { background: rgba(255,255,255,0.5); }
+  color: #fff;
 }
 </style>
