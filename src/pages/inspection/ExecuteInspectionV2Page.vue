@@ -32,9 +32,9 @@
         <div class="sec-chip">{{ locate.section.title }}</div>
         <WizardItem :item="currentItem" :index="locate.localIndex + 1" @pass="next" />
       </div>
-      <div class="v2-footer">
-        <a-button-group type="white-bg">
-          <a-button variant="secondary" size="large" @click="prev">返回</a-button>
+      <div class="v2-footer v2-footer--bare">
+        <a-button-group>
+          <a-button variant="secondary" size="large" @click="prev">上一项</a-button>
           <a-button variant="primary" size="large" @click="next">下一项</a-button>
         </a-button-group>
       </div>
@@ -355,6 +355,11 @@ function onTransferConfirm(person: string) {
   margin: 0 auto;
   background: #fff;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+
+  &--bare {
+    background: transparent;
+    box-shadow: none;
+  }
   padding-bottom: env(safe-area-inset-bottom);
 }
 
