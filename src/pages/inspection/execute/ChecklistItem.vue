@@ -43,7 +43,7 @@
         <van-icon name="arrow" color="#a7a5b0" />
       </div>
 
-      <div class="defect__label"><span v-if="!readonly" class="req">*</span>缺陷说明</div>
+      <div class="defect__label">缺陷说明</div>
       <div v-if="readonly" class="defect__text">{{ item.defectDesc || "无" }}</div>
       <div v-else class="defect-field">
         <a-field
@@ -58,7 +58,7 @@
       </div>
 
       <template v-if="readonly ? item.defectImages.length : true">
-        <div class="defect__label"><span v-if="!readonly" class="req">*</span>缺陷图片</div>
+        <div class="defect__label">缺陷图片</div>
         <PhotoUpload v-model="item.defectImages" :readonly="readonly" />
       </template>
     </div>
