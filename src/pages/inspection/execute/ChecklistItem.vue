@@ -256,10 +256,9 @@ function pick(opt: string) {
   align-items: center;
   justify-content: space-between;
   height: 44px;
-  padding: 0 12px;
-  border: 1px solid #cccbd1;
-  border-radius: 8px;
-  background: #fff;
+  padding: 0 0;
+  border-bottom: 1px solid #cccbd1;
+  background: transparent;
   cursor: pointer;
 
   &__val {
