@@ -239,7 +239,7 @@ function pick(opt: string) {
 }
 
 .defect-field {
-  border: 1px solid #cccbd1;
+  border: 1px solid #e6e6eb;
   border-radius: 8px;
   overflow: hidden;
 
