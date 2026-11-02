@@ -144,7 +144,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from "vue";
+import { ref, computed, onMounted, watch, reactive } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { showToast } from "a-design-h5";
 import BasicInfoTab from "./execute/BasicInfoTab.vue";
@@ -168,8 +168,7 @@ const isFlow = route.query.flow === "1";
 
 const stage = ref<Stage>("basic");
 const infoReturn = ref<Stage>("wizard");
-// flow 模式复用 flow.inspectSections(已在 startFlow 里初始化为 reactive)
-const sections: ChecklistSection[] = isFlow ? flow.inspectSections : (createSections() as unknown as ChecklistSection[]);
+const sections: ChecklistSection[] = isFlow ? flow.inspectSections : reactive(createSections());
 const currentIndex = ref(0);
 
 const showTransfer = ref(false);
@@ -324,9 +323,6 @@ function onTransferConfirm(person: string) {
   padding-bottom: 96px;
 }
 
-.v2--wizard {
-  background: #fff;
-}
 
 .v2__header {
   position: sticky;
