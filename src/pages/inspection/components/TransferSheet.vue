@@ -110,7 +110,7 @@ function onConfirm() {
   justify-content: space-between;
   height: 48px;
   padding: 0 2px;
-  border-bottom: 1px solid #cccbd1;
+  border-bottom: 1px solid #e6e6eb;
 
   &__ph {
     color: #a7a5b0;

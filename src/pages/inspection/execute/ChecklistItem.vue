@@ -257,7 +257,7 @@ function pick(opt: string) {
   justify-content: space-between;
   height: 44px;
   padding: 0 0;
-  border-bottom: 1px solid #cccbd1;
+  border-bottom: 1px solid #e6e6eb;
   background: transparent;
   cursor: pointer;
 
