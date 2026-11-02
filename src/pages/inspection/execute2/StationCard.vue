@@ -47,7 +47,8 @@ function onNavigate() {
 
 <style lang="scss" scoped>
 .station {
-  background: #eaf1ff;
+  background: #fff;
+  border: 1px solid #ebedf0;
   border-radius: 12px;
   padding: 14px 16px;
 }

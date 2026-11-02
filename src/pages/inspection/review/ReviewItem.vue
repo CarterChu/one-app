@@ -18,6 +18,8 @@
     <div class="blk__text">{{ item.rectifyDesc }}</div>
     <PhotoUpload v-if="item.rectifyImages.length" :model-value="item.rectifyImages" readonly class="blk__photos" />
 
+    <div class="ri__divider"></div>
+
     <!-- 复验结果:编辑态=合格/不合格切换 -->
     <div v-if="!readonly" class="rt-row">
       <button type="button" class="rt rt--pass" :class="{ 'rt--on': item.result === 'pass' }" @click="setResult('pass')">

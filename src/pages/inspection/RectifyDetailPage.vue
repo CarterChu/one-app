@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <van-nav-bar :title="stage === 'info' ? '基本信息' : '详情'" left-arrow @click-left="onBack" />
+    <AppNavBar :title="stage === 'info' ? '基本信息' : '详情'" @back="onBack" />
 
     <div v-if="stage === 'info'" class="scroll">
       <RectifyBasicTab :info="basic" />
@@ -22,6 +22,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import AppNavBar from "./components/AppNavBar.vue";
 import StationCard from "./execute2/StationCard.vue";
 import RectifyItem from "./rectify/RectifyItem.vue";
 import RectifyBasicTab from "./rectify/RectifyBasicTab.vue";
@@ -42,7 +43,7 @@ function onBack() {
 </script>
 
 <style lang="scss" scoped>
-.page { display: flex; flex-direction: column; height: 100%; background: #f3f3f5; }
+.page { display: flex; flex-direction: column; height: 100dvh; background: #f3f3f5; }
 .scroll { flex: 1; overflow-y: auto; }
 .scroll--pad { padding-bottom: 24px; }
 .card-wrap { padding: 12px 16px 4px; }

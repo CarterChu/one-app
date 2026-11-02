@@ -3,12 +3,11 @@
     <!-- ========== 基本信息(落地页) ========== -->
     <template v-if="stage === 'basic' || stage === 'info'">
       <div class="v2__header">
-        <a-nav-bar
+        <AppNavBar
           :title="stage === 'info' ? '基本信息' : '执行飞检'"
-          left-arrow
-          :right-text="stage === 'basic' ? '转办' : ''"
-          @click-left="onBasicBack"
-          @click-right="showTransfer = true"
+          :right="stage === 'basic' ? '转办' : undefined"
+          @back="onBasicBack"
+          @right-click="showTransfer = true"
         />
       </div>
       <BasicInfoTab :info="basicInfo" time-label="飞检截止时间" />
@@ -22,7 +21,7 @@
     <!-- ========== 向导逐项 ========== -->
     <template v-else-if="stage === 'wizard'">
       <div class="v2__header">
-        <a-nav-bar title="执行飞检" left-arrow right-text="预览" @click-left="onBack" @click-right="goPreview" />
+        <AppNavBar title="执行飞检" right="预览" @back="onBack" @right-click="goPreview" />
       </div>
       <div class="v2__body">
         <StationCard :info="basicInfo" @open="openInfo" />
@@ -44,7 +43,7 @@
     <!-- ========== 预览全部检查项 ========== -->
     <template v-else-if="stage === 'preview'">
       <div class="v2__header">
-        <a-nav-bar title="预览全部检查项" left-arrow @click-left="stage = 'wizard'" />
+        <AppNavBar title="预览全部检查项" @back="stage = 'wizard'" />
         <div class="progress progress--inline">
           <div class="progress__num"><b>{{ answeredCount }}</b><span>/{{ total }}</span></div>
           <div class="progress__bar"><div class="progress__fill" :style="{ width: answeredPct }" /></div>
@@ -78,7 +77,7 @@
     <!-- ========== 飞检结果(提交确认整页) ========== -->
     <template v-else>
       <div class="v2__header">
-        <a-nav-bar title="执行飞检" left-arrow right-text="预览" @click-left="stage = 'wizard'" @click-right="goPreview" />
+        <AppNavBar title="执行飞检" right="预览" @back="stage = 'wizard'" @right-click="goPreview" />
       </div>
       <div class="v2__body">
         <StationCard :info="basicInfo" @open="openInfo" />
@@ -137,6 +136,7 @@ import { useRoute, useRouter } from "vue-router";
 import { showToast } from "a-design-h5";
 import BasicInfoTab from "./execute/BasicInfoTab.vue";
 import ChecklistItem from "./execute/ChecklistItem.vue";
+import AppNavBar from "./components/AppNavBar.vue";
 import StationCard from "./execute2/StationCard.vue";
 import WizardItem from "./execute2/WizardItem.vue";
 import TransferSheet from "./components/TransferSheet.vue";

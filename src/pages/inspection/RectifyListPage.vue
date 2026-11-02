@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div class="page__header">
-      <a-nav-bar title="整改管理" left-arrow @click-left="onBack" />
+      <AppNavBar title="整改管理" @back="onBack" />
       <a-search v-model="keyword" placeholder="搜索电站编号/业主姓名" shape="round" @update:model-value="resetPaging" />
       <div class="tabs">
         <div
@@ -35,6 +35,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import AppNavBar from "./components/AppNavBar.vue";
 import RectifyCard from "./rectify/RectifyCard.vue";
 import { ALL_RECTIFY, RECTIFY_TABS } from "@/mock/rectify";
 import type { RectifyRecord, RectifyTabKey } from "@/types/rectify";

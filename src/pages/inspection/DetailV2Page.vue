@@ -1,7 +1,7 @@
 <template>
   <div class="dv2">
     <div class="dv2__header">
-      <a-nav-bar :title="stage === 'info' ? '基本信息' : '详情'" left-arrow @click-left="onBack" />
+      <AppNavBar :title="stage === 'info' ? '基本信息' : '详情'" @back="onBack" />
     </div>
 
     <!-- 基本信息二级页 -->
@@ -29,6 +29,7 @@
 </template>
 
 <script setup lang="ts">
+import AppNavBar from "./components/AppNavBar.vue";
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import BasicInfoTab from "./execute/BasicInfoTab.vue";

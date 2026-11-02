@@ -2,7 +2,7 @@
   <div class="detail">
     <!-- 吸顶头部 -->
     <div class="detail__header">
-      <a-nav-bar title="详情" left-arrow @click-left="onBack" />
+      <AppNavBar title="详情" @back="onBack" />
       <PageTabs
         v-model="activeTab"
         :tabs="[
@@ -55,6 +55,7 @@
 </template>
 
 <script setup lang="ts">
+import AppNavBar from "./components/AppNavBar.vue";
 import { ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import BasicInfoTab from "./execute/BasicInfoTab.vue";
@@ -64,7 +65,7 @@ import PageTabs from "./components/PageTabs.vue";
 import { createDetailData } from "@/mock/detailInspection";
 import type { ChecklistSection } from "@/types/execute";
 
-const STICKY_TOP = 90;
+const STICKY_TOP = 134; // statusbar(44)+nav(46)+tabs(44)
 
 const route = useRoute();
 const router = useRouter();

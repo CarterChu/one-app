@@ -1,6 +1,7 @@
 <template>
   <div class="portal">
     <div class="hero">
+      <StatusBar light />
       <div class="hero__title">飞检管理 · 原型入口</div>
       <div class="hero__sub">ONE App 代理商端 · 飞检 / 整改 / 复验</div>
       <!-- 环境切换 -->
@@ -72,6 +73,7 @@
 </template>
 
 <script setup lang="ts">
+import StatusBar from "./inspection/components/StatusBar.vue";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { showToast } from "a-design-h5";
@@ -112,7 +114,7 @@ function onClear() {
 }
 
 .hero {
-  padding: calc(22px + env(safe-area-inset-top)) 20px 20px;
+  padding: 4px 20px 20px;
   background: linear-gradient(135deg, #007bfe, #37a0ff);
   color: #fff;
 }

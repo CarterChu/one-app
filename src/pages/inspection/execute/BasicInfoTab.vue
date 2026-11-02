@@ -155,7 +155,7 @@ function onNavigate() {
   text-align: right;
 
   &--addr {
-    font-weight: 400;
+    font-weight: 500;
   }
 }
 

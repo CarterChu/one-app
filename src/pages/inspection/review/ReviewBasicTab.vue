@@ -61,7 +61,7 @@ function onNav() { showToast("打开导航"); }
 .info-card { background: #fff; border-radius: 12px; padding: 0 16px; }
 .info-row { display: flex; align-items: center; min-height: 52px; font-size: 16px; line-height: 24px; & + & { border-top: 1px solid #f3f3f5; } }
 .info-row__label { color: #767282; flex-shrink: 0; margin-right: 16px; }
-.info-row__value { margin-left: auto; color: #2f2d33; font-weight: 500; text-align: right; &--addr { font-weight: 400; } }
+.info-row__value { margin-left: auto; color: #2f2d33; font-weight: 500; text-align: right; &--addr { font-weight: 500; } }
 .info-row__link { margin-left: auto; color: #007bfe; font-weight: 500; text-decoration: underline; }
 .info-row__icon { display: inline-flex; align-items: center; margin-left: 6px; flex-shrink: 0; }
 .status-tag {

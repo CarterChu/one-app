@@ -2,7 +2,7 @@
   <div class="exec">
     <!-- 吸顶头部:导航 + tabs -->
     <div class="exec__header">
-      <a-nav-bar title="执行飞检" left-arrow right-text="转办" @click-left="onBack" @click-right="onTransfer" />
+      <AppNavBar title="执行飞检" right="转办" @back="onBack" @right-click="onTransfer" />
       <PageTabs
         v-model="activeTab"
         :tabs="[
@@ -89,6 +89,7 @@
 import { ref, reactive, computed, onMounted, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { showToast } from "a-design-h5";
+import AppNavBar from "./components/AppNavBar.vue";
 import BasicInfoTab from "./execute/BasicInfoTab.vue";
 import ChecklistTab from "./execute/ChecklistTab.vue";
 import GroupsPopup from "./execute/GroupsPopup.vue";
@@ -100,7 +101,7 @@ import type { ChecklistSection } from "@/types/execute";
 import { startTrack, bump, finishTrack } from "@/stores/tracker";
 import { EXPECTED } from "@/mock/scenario";
 
-const STICKY_TOP = 90; // nav(46) + tabs(44)
+const STICKY_TOP = 134; // statusbar(44) + nav(46) + tabs(44)
 
 const router = useRouter();
 const activeTab = ref<"basic" | "checklist">("checklist");

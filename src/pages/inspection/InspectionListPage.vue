@@ -2,7 +2,7 @@
   <div class="page">
     <!-- 吸顶头部 -->
     <div class="page__header">
-      <a-nav-bar title="飞检管理" left-arrow @click-left="onBack" />
+      <AppNavBar title="飞检管理" @back="onBack" />
 
       <a-search
         v-model="keyword"
@@ -58,6 +58,7 @@
 </template>
 
 <script setup lang="ts">
+import AppNavBar from "./components/AppNavBar.vue";
 import { ref, reactive, computed, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { onMounted } from "vue";
