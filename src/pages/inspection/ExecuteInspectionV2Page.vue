@@ -172,6 +172,7 @@ const stage = ref<Stage>("basic");
 const infoReturn = ref<Stage>("wizard");
 const sections: ChecklistSection[] = isFlow ? flow.inspectSections : reactive(createSections());
 const currentIndex = ref(0);
+const resumeMode = ref(false);
 
 const showTransfer = ref(false);
 const showReviewer = ref(false);
@@ -246,13 +247,23 @@ watch(
 
 function startCheck() {
   currentIndex.value = 0;
+  resumeMode.value = false;
   stage.value = "wizard";
 }
 function next() {
-  if (currentIndex.value < total.value - 1) {
-    currentIndex.value += 1;
+  if (resumeMode.value) {
+    const idx = allItems.value.findIndex((it, i) => i > currentIndex.value && it.result === null);
+    if (idx >= 0) {
+      currentIndex.value = idx;
+    } else {
+      stage.value = "preview";
+    }
   } else {
-    stage.value = "preview";
+    if (currentIndex.value < total.value - 1) {
+      currentIndex.value += 1;
+    } else {
+      stage.value = "preview";
+    }
   }
 }
 function prev() {
@@ -275,6 +286,7 @@ function onPreviewAction() {
     bump("jumps");
     const idx = allItems.value.findIndex((it) => it.result === null);
     if (idx >= 0) currentIndex.value = idx;
+    resumeMode.value = true;
     stage.value = "wizard";
   } else {
     stage.value = "result";
