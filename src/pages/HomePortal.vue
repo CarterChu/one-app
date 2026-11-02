@@ -117,7 +117,7 @@ function onClear() {
 
 .hero {
   padding: 4px 20px 20px;
-  background: linear-gradient(135deg, #007bfe, #37a0ff);
+  background: #007bfe;
   color: #fff;
 }
 
