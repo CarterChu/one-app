@@ -94,34 +94,36 @@
           </button>
         </div>
 
-        <div class="rs__card">
-          <div class="rs__card-label">本单检查结果</div>
-          <div class="rs__card-value" :class="stats.result === '通过' ? 'rs__card-value--pass' : 'rs__card-value--fail'">
-            {{ stats.result }}
+        <div class="rs__body">
+          <div class="rs__card">
+            <div class="rs__card-label">本单检查结果</div>
+            <div class="rs__card-value" :class="stats.result === '通过' ? 'rs__card-value--pass' : 'rs__card-value--fail'">
+              {{ stats.result }}
+            </div>
+            <div class="rs__divider" />
+            <div class="rs__stats">
+              <div class="rs__stat">
+                <span class="rs__stat-k">CR(严重)</span>
+                <span class="rs__stat-v">{{ stats.cr }}<em>个</em></span>
+              </div>
+              <div class="rs__stat">
+                <span class="rs__stat-k">MA(主要)</span>
+                <span class="rs__stat-v">{{ stats.ma }}<em>个</em></span>
+              </div>
+              <div class="rs__stat">
+                <span class="rs__stat-k">MI(轻微)</span>
+                <span class="rs__stat-v">{{ stats.mi }}<em>个</em></span>
+              </div>
+            </div>
+            <div class="rs__formula">{{ formula }}</div>
           </div>
-          <div class="rs__divider" />
-          <div class="rs__stats">
-            <div class="rs__stat">
-              <span class="rs__stat-k">CR(严重)</span>
-              <span class="rs__stat-v">{{ stats.cr }}<em>个</em></span>
-            </div>
-            <div class="rs__stat">
-              <span class="rs__stat-k">MA(主要)</span>
-              <span class="rs__stat-v">{{ stats.ma }}<em>个</em></span>
-            </div>
-            <div class="rs__stat">
-              <span class="rs__stat-k">MI(轻微)</span>
-              <span class="rs__stat-v">{{ stats.mi }}<em>个</em></span>
-            </div>
-          </div>
-          <div class="rs__formula">{{ formula }}</div>
-        </div>
 
-        <div class="rs__reviewer" @click="showReviewer = true">
-          <span class="rs__reviewer-label"><span class="req">*</span>整改复验人</span>
-          <div class="rs__reviewer-right">
-            <span :class="reviewer ? 'rs__reviewer-val' : 'rs__reviewer-ph'">{{ reviewer || "请选择后续复验人" }}</span>
-            <van-icon name="arrow" color="#a7a5b0" />
+          <div class="rs__reviewer" @click="showReviewer = true">
+            <div class="rs__reviewer-label"><span class="req">*</span>整改复验人</div>
+            <div class="rs__reviewer-row">
+              <span :class="reviewer ? 'rs__reviewer-val' : 'rs__reviewer-ph'">{{ reviewer || "请选择后续复验人" }}</span>
+              <van-icon name="arrow" color="#a7a5b0" />
+            </div>
           </div>
         </div>
 
@@ -464,10 +466,18 @@ function onTransferConfirm(person: string) {
   border-radius: 50%;
   border: none;
   padding: 0;
+  cursor: pointer;
+}
+
+.rs__body {
+  background: #f7f8fa;
+  padding: 12px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .rs__card {
-  margin: 12px 16px 0;
   background: #fff;
   border-radius: 12px;
   padding: 16px;
@@ -541,40 +551,36 @@ function onTransferConfirm(person: string) {
 }
 
 .rs__reviewer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 12px 16px 0;
-  padding: 14px 16px;
   background: #fff;
-  border-radius: 10px;
+  border-radius: 12px;
+  padding: 14px 16px;
+  cursor: pointer;
 }
 
 .rs__reviewer-label {
-  font-size: 15px;
-  font-weight: 500;
-  color: #2f2d33;
+  font-size: 12px;
+  color: #767282;
+  margin-bottom: 8px;
 }
 
-.rs__reviewer-right {
+.rs__reviewer-row {
   display: flex;
   align-items: center;
-  gap: 4px;
+  justify-content: space-between;
 }
 
 .rs__reviewer-ph {
-  font-size: 14px;
+  font-size: 15px;
   color: #a7a5b0;
 }
 
 .rs__reviewer-val {
-  font-size: 14px;
+  font-size: 15px;
   color: #2f2d33;
 }
 
 .rs__foot {
   padding: 8px 16px;
-  margin-top: 12px;
   border-top: 1px solid #f0f0f2;
 }
 
