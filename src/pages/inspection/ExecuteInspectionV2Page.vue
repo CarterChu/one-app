@@ -30,7 +30,7 @@
           <div class="progress__bar"><div class="progress__fill" :style="{ width: progressPct }" /></div>
         </div>
         <div class="sec-chip">{{ locate.section.title }}</div>
-        <WizardItem :item="currentItem" :index="locate.localIndex + 1" />
+        <WizardItem :item="currentItem" :index="locate.localIndex + 1" @pass="next" />
       </div>
       <div class="v2-footer">
         <a-button-group type="white-bg">
@@ -416,6 +416,7 @@ function onTransferConfirm(person: string) {
 
 .prev-row {
   position: relative;
+  padding-right: 20px;
 
   & + & {
     border-top: 1px solid #f3f3f5;
