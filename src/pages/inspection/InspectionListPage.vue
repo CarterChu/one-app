@@ -74,7 +74,7 @@ onMounted(() => setSchemeFromQuery(route.query.scheme));
 const TODAY = new Date(2026, 9, 28); // 原型基准"今天"
 
 const keyword = ref("");
-const activeTab = ref<TabKey>("all");
+const activeTab = ref<TabKey>("pending");
 
 const filter = reactive<{
   region: string[];
