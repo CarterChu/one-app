@@ -12,6 +12,7 @@ export interface ChecklistItemData {
   severity: Severity;
   name: string;
   result: ItemResult;
+  abnormalType: string;
   /** 不合格时的缺陷描述 */
   defectDesc: string;
   /** 不合格时的缺陷图片(对象 URL / mock) */

@@ -99,6 +99,10 @@ defineExpose({ scrollTo });
   background: #fff;
   border-radius: 12px;
   padding: 0 16px;
+
+  :deep(.ci + .ci) {
+    border-top: 1px solid #f3f3f5;
+  }
 }
 
 .checklist__pad {

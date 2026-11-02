@@ -109,17 +109,16 @@ function onConfirm() {
   align-items: center;
   justify-content: space-between;
   height: 48px;
-  padding: 0 14px;
-  background: #f7f8fa;
-  border-radius: 8px;
+  padding: 0 2px;
+  border-bottom: 1px solid #cccbd1;
 
   &__ph {
     color: #a7a5b0;
-    font-size: 14px;
+    font-size: 15px;
   }
   &__val {
     color: #2f2d33;
-    font-size: 14px;
+    font-size: 15px;
   }
 }
 

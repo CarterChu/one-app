@@ -416,6 +416,10 @@ function onTransferConfirm(person: string) {
 
 .prev-row {
   position: relative;
+
+  & + & {
+    border-top: 1px solid #f3f3f5;
+  }
 }
 
 .prev-row__arrow {
@@ -460,7 +464,6 @@ function onTransferConfirm(person: string) {
 .rs__card {
   margin: 12px 16px 0;
   background: #fff;
-  border: 1px solid #ebedf0;
   border-radius: 12px;
   padding: 16px;
 }
@@ -539,7 +542,6 @@ function onTransferConfirm(person: string) {
   margin: 12px 16px 0;
   padding: 14px 16px;
   background: #fff;
-  border: 1px solid #ebedf0;
   border-radius: 10px;
 }
 

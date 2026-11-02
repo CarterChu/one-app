@@ -26,6 +26,7 @@ function item(severity: Severity, name: string) {
     severity,
     name,
     result: null,
+    abnormalType: "",
     defectDesc: "",
     defectImages: [] as string[],
   };
