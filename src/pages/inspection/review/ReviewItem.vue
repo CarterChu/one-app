@@ -149,13 +149,13 @@ function pick(opt: string) {
 
 .defect { margin-top: 4px; }
 .field-box {
-  border: 1px solid #cccbd1; border-radius: 8px; overflow: hidden;
+  border: 1px solid #e6e6eb; border-radius: 8px; overflow: hidden;
   :deep(.van-cell) { background: transparent; }
   :deep(.van-cell::after) { display: none; }
 }
 .picker-field {
   display: flex; align-items: center; justify-content: space-between;
-  height: 44px; padding: 0; border-bottom: 1px solid #ebedf0;
+  height: 44px; padding: 0; border-bottom: 1px solid #e6e6eb;
   &__ph { color: #a7a5b0; font-size: 15px; }
   &__val { color: #2f2d33; font-size: 15px; }
 }
