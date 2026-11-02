@@ -33,10 +33,10 @@
         <WizardItem :item="currentItem" :index="locate.localIndex + 1" @pass="next" />
       </div>
       <div class="v2-footer v2-footer--bare">
-        <a-button-group>
+        <div class="bare-btns">
           <a-button variant="secondary" size="large" @click="prev">上一项</a-button>
           <a-button variant="primary" size="large" @click="next">下一项</a-button>
-        </a-button-group>
+        </div>
       </div>
     </template>
 
@@ -361,6 +361,16 @@ function onTransferConfirm(person: string) {
     box-shadow: none;
   }
   padding-bottom: env(safe-area-inset-bottom);
+}
+
+.bare-btns {
+  display: flex;
+  gap: 12px;
+  padding: 12px 16px;
+
+  :deep(.a-button) {
+    flex: 1;
+  }
 }
 
 .progress {
