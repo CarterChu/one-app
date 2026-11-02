@@ -196,14 +196,18 @@ const locate = computed(() => {
 
 const stats = computed(() => {
   const fails = allItems.value.filter((it) => it.result === "fail");
+  const cr = fails.filter((it) => it.severity === "CR").length;
+  const ma = fails.filter((it) => it.severity === "MA").length;
+  const mi = fails.filter((it) => it.severity === "MI").length;
+  const score = cr * 1 + ma * 0.5 + mi * 0.33;
   return {
-    result: (fails.length > 0 ? "不通过" : "通过") as "通过" | "不通过",
+    result: (score >= 1 ? "不通过" : "通过") as "通过" | "不通过",
     total: total.value,
     pass: allItems.value.filter((it) => it.result === "pass").length,
     fail: fails.length,
-    cr: fails.filter((it) => it.severity === "CR").length,
-    ma: fails.filter((it) => it.severity === "MA").length,
-    mi: fails.filter((it) => it.severity === "MI").length,
+    cr,
+    ma,
+    mi,
   };
 });
 
