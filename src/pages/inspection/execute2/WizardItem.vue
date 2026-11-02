@@ -71,6 +71,7 @@ import { ABNORMAL_TYPES } from "@/mock/review";
 import type { ChecklistItemData, ItemResult } from "@/types/execute";
 
 const props = defineProps<{ item: ChecklistItemData; index: number }>();
+const emit = defineEmits<{ (e: "pass"): void }>();
 
 const showPicker = ref(false);
 
@@ -80,6 +81,7 @@ function setResult(r: Exclude<ItemResult, null>) {
     props.item.abnormalType = "";
     props.item.defectDesc = "";
     props.item.defectImages = [];
+    emit("pass");
   }
 }
 function pick(opt: string) {
