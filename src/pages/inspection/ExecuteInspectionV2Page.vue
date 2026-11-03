@@ -30,7 +30,7 @@
           <div class="progress__bar"><div class="progress__fill" :style="{ width: progressPct }" /></div>
         </div>
         <div class="sec-chip">{{ locate.section.title }}</div>
-        <WizardItem :item="currentItem" :index="locate.localIndex + 1" @pass="next" @fail="next" />
+        <WizardItem :item="currentItem" :index="locate.localIndex + 1" />
       </div>
       <div class="v2-footer v2-footer--bare">
         <div class="bare-btns">
