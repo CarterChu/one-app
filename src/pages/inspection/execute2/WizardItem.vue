@@ -67,7 +67,7 @@
 
         <div class="ds__footer">
           <button class="ds__btn ds__btn--cancel" @click="onCancel">取消</button>
-          <button class="ds__btn ds__btn--confirm" @click="showDefectSheet = false">确定</button>
+          <button class="ds__btn ds__btn--confirm" @click="onConfirm">确定</button>
         </div>
         <div class="ds__home" />
       </div>
@@ -105,7 +105,7 @@ import { ABNORMAL_TYPES } from "@/mock/review";
 import type { ChecklistItemData, ItemResult } from "@/types/execute";
 
 const props = defineProps<{ item: ChecklistItemData; index: number }>();
-const emit = defineEmits<{ (e: "pass"): void }>();
+const emit = defineEmits<{ (e: "pass"): void; (e: "fail"): void }>();
 
 const showPicker = ref(false);
 const showDefectSheet = ref(false);
@@ -128,6 +128,12 @@ function onCancel() {
   props.item.defectDesc = "";
   props.item.defectImages = [];
   showDefectSheet.value = false;
+}
+
+function onConfirm() {
+  if (!props.item.abnormalType) return;
+  showDefectSheet.value = false;
+  emit("fail");
 }
 
 function pick(opt: string) {
