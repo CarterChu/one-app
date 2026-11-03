@@ -25,12 +25,14 @@
       </div>
       <div class="v2__body">
         <StationCard :info="basicInfo" @open="openInfo" />
-        <div class="progress">
-          <div class="progress__num"><b>{{ currentIndex + 1 }}</b><span>/{{ total }}</span></div>
-          <div class="progress__bar"><div class="progress__fill" :style="{ width: progressPct }" /></div>
+        <div class="wizard-card">
+          <div class="progress">
+            <div class="progress__num"><b>{{ currentIndex + 1 }}</b><span>/{{ total }}</span></div>
+            <div class="progress__bar"><div class="progress__fill" :style="{ width: progressPct }" /></div>
+          </div>
+          <div class="sec-chip">{{ locate.section.title }}</div>
+          <WizardItem :item="currentItem" :index="locate.localIndex + 1" />
         </div>
-        <div class="sec-chip">{{ locate.section.title }}</div>
-        <WizardItem :item="currentItem" :index="locate.localIndex + 1" />
       </div>
       <div class="v2-footer v2-footer--bare">
         <div class="bare-btns">
@@ -385,8 +387,15 @@ function onTransferConfirm(person: string) {
   }
 }
 
+.wizard-card {
+  margin-top: 12px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px 16px 20px;
+}
+
 .progress {
-  margin: 16px 2px 0;
+  margin: 0 2px;
 
   &--inline {
     margin: 0;
