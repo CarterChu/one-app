@@ -69,6 +69,12 @@
         </a-button-group>
       </div>
     </section>
+
+    <!-- 主持人模式入口 -->
+    <div class="host-entry" @click="router.push({ name: 'host' })">
+      <span>主持人模式</span>
+      <van-icon name="arrow" color="#a7a5b0" size="12" />
+    </div>
   </div>
 </template>
 
@@ -83,6 +89,7 @@ import { startFlow } from "@/stores/flow";
 
 const router = useRouter();
 const count = ref(sessionCount());
+
 
 function go(query: Record<string, string>) {
   router.push({ name: "inspection-list", query });
@@ -247,5 +254,16 @@ function onClear() {
   border-radius: 12px;
   padding: 4px 0;
   overflow: hidden;
+}
+
+.host-entry {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 24px;
+  padding-bottom: 8px;
+  font-size: 13px;
+  color: #a7a5b0;
 }
 </style>
