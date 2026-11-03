@@ -341,8 +341,12 @@ function onTransferConfirm(person: string) {
   min-height: 100vh;
   background: #f7f8fa;
   padding-bottom: 96px;
-}
 
+  &--wizard {
+    display: flex;
+    flex-direction: column;
+  }
+}
 
 .v2__header {
   position: sticky;
@@ -353,7 +357,14 @@ function onTransferConfirm(person: string) {
 
 .v2__body {
   padding: 16px;
+
+  .v2--wizard & {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
 }
+
 
 .v2__body--preview {
   padding: 0 16px 16px;
@@ -392,6 +403,7 @@ function onTransferConfirm(person: string) {
   background: #fff;
   border-radius: 12px;
   padding: 16px 16px 20px;
+  flex: 1;
 }
 
 .progress {
