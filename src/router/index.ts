@@ -80,6 +80,12 @@ const routes: RouteRecordRaw[] = [
     component: () => import("@/pages/inspection/FlowDonePage.vue"),
     meta: { title: "流程完成" },
   },
+  {
+    path: "/host",
+    name: "host",
+    component: () => import("@/pages/host/HostPage.vue"),
+    meta: { title: "主持人模式" },
+  },
 ];
 
 const router = createRouter({
