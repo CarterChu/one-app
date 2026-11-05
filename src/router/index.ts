@@ -86,6 +86,12 @@ const routes: RouteRecordRaw[] = [
     component: () => import("@/pages/host/HostPage.vue"),
     meta: { title: "主持人模式" },
   },
+  {
+    path: "/survey",
+    name: "survey",
+    component: () => import("@/pages/host/SurveyPage.vue"),
+    meta: { title: "测后问卷" },
+  },
 ];
 
 const router = createRouter({
