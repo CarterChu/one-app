@@ -17,6 +17,8 @@ export interface ChecklistItemData {
   defectDesc: string;
   /** 不合格时的缺陷图片(对象 URL / mock) */
   defectImages: string[];
+  /** 合格时的现场图片（选填） */
+  passImages: string[];
 }
 
 /** 检查分组 */
