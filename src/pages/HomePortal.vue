@@ -70,11 +70,14 @@
       </div>
     </section>
 
-    <!-- 主持人模式入口 -->
-    <div class="host-entry" @click="router.push({ name: 'host' })">
-      <span>主持人模式</span>
-      <van-icon name="arrow" color="#a7a5b0" size="12" />
-    </div>
+    <!-- 测后问卷 -->
+    <section class="grp">
+      <div class="grp__head"><span class="grp__title">测后问卷</span></div>
+      <div class="ecard" @click="router.push({ name: 'survey' })">
+        <div class="ecard__main"><span class="ecard__k">填写问卷</span><span class="ecard__d">测试完成后由受访者填写</span></div>
+        <van-icon name="arrow" color="#a7a5b0" />
+      </div>
+    </section>
   </div>
 </template>
 
@@ -256,14 +259,4 @@ function onClear() {
   overflow: hidden;
 }
 
-.host-entry {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  margin-top: 24px;
-  padding-bottom: 8px;
-  font-size: 13px;
-  color: #a7a5b0;
-}
 </style>

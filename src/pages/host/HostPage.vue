@@ -84,38 +84,6 @@
         </div>
       </div>
 
-      <!-- ========== Tab 3: 测后问卷 ========== -->
-      <div v-else-if="activeTab === 'survey'" class="tab-content">
-        <!-- 受访者选择 -->
-        <div class="pno-row">
-          <span class="pno-label">受访者</span>
-          <div class="pno-chips">
-            <div
-              v-for="n in PARTICIPANTS"
-              :key="n"
-              class="pno-chip"
-              :class="{ 'pno-chip--on': participantNo === n }"
-              @click="selectParticipant(n)"
-            >{{ n }}号</div>
-          </div>
-        </div>
-
-        <div class="card" v-for="(q, i) in QUESTIONS" :key="i">
-          <div class="q-label"><span class="q-no">Q{{ i + 1 }}</span>{{ q }}</div>
-          <textarea
-            class="q-input"
-            v-model="currentRecord[`q${i + 1}` as QKey]"
-            placeholder="记录回答…"
-            rows="3"
-            @input="save"
-          />
-        </div>
-
-        <div class="export-row">
-          <a-button variant="secondary" size="large" @click="onExport">导出问卷 CSV</a-button>
-        </div>
-      </div>
-
     </div>
   </div>
 </template>
@@ -124,7 +92,7 @@
 import { ref, computed, watch } from "vue";
 import { useRouter } from "vue-router";
 import AppNavBar from "@/pages/inspection/components/AppNavBar.vue";
-import { getOrCreate, updateRecord, exportHostCsv } from "@/stores/hostTracker";
+import { getOrCreate, updateRecord } from "@/stores/hostTracker";
 import type { HostRecord } from "@/stores/hostTracker";
 
 const router = useRouter();
@@ -132,18 +100,10 @@ const router = useRouter();
 const TABS = [
   { key: "script", label: "任务剧本" },
   { key: "observe", label: "观察记录" },
-  { key: "survey", label: "测后问卷" },
 ] as const;
 type TabKey = typeof TABS[number]["key"];
 
 const PARTICIPANTS = ["1", "2", "3", "4", "5", "6"];
-const QUESTIONS = [
-  "两个方案哪个更容易上手，为什么？",
-  "哪个方案让你更有信心不会漏检？",
-  '方案二的「不合格原因」弹层操作顺不顺？',
-  "有没有哪一步让你不知道该怎么操作？",
-];
-type QKey = "q1" | "q2" | "q3" | "q4";
 
 const activeTab = ref<TabKey>("script");
 const participantNo = ref("1");
@@ -166,10 +126,6 @@ function toggleObs(i: number) {
 
 function save() {
   updateRecord(currentRecord.value);
-}
-
-function onExport() {
-  exportHostCsv();
 }
 
 watch(participantNo, () => {
