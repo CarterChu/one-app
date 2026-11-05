@@ -191,6 +191,14 @@ function onSubmit() {
     showToast(`还有 ${remaining.value} 项未检查`);
     return;
   }
+  const incomplete = allItems.value.find(
+    (it) => it.result === "fail" &&
+      (!it.abnormalType || !it.defectDesc.trim() || !it.defectImages.length),
+  );
+  if (incomplete) {
+    showToast(`请完善「${incomplete.name}」的必填信息`);
+    return;
+  }
   showSubmit.value = true;
 }
 function onConfirmSubmit(reviewer: string) {

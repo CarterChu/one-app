@@ -43,7 +43,7 @@
         <van-icon name="arrow" color="#a7a5b0" />
       </div>
 
-      <div class="defect__label">缺陷说明</div>
+      <div class="defect__label"><span v-if="!readonly" class="req">*</span>缺陷说明</div>
       <div v-if="readonly" class="defect__text">{{ item.defectDesc || "无" }}</div>
       <div v-else class="defect-field">
         <a-field
@@ -58,9 +58,19 @@
       </div>
 
       <template v-if="readonly ? item.defectImages.length : true">
-        <div class="defect__label">缺陷图片</div>
+        <div class="defect__label"><span v-if="!readonly" class="req">*</span>缺陷图片</div>
         <PhotoUpload v-model="item.defectImages" :readonly="readonly" />
       </template>
+    </div>
+
+    <!-- 合格：可选现场图片 -->
+    <div v-if="item.result === 'pass' && !readonly" class="pass-photos">
+      <div class="pass-photos__label">添加现场图片<span class="pass-photos__opt">（选填）</span></div>
+      <PhotoUpload v-model="item.passImages" />
+    </div>
+    <div v-if="item.result === 'pass' && readonly && item.passImages?.length" class="pass-photos">
+      <div class="pass-photos__label">现场图片</div>
+      <PhotoUpload v-model="item.passImages" :readonly="true" />
     </div>
 
     <!-- 异常分类选择弹层 -->
@@ -106,6 +116,7 @@ function setResult(r: Exclude<ItemResult, null>) {
     props.item.abnormalType = "";
     props.item.defectDesc = "";
     props.item.defectImages = [];
+    // passImages 保留，切换结果不清空
   }
 }
 function pick(opt: string) {
@@ -236,6 +247,22 @@ function pick(opt: string) {
 .req {
   color: #eb372a;
   margin-right: 2px;
+}
+
+.pass-photos {
+  margin-top: 12px;
+
+  &__label {
+    font-size: 14px;
+    color: #767282;
+    margin-bottom: 8px;
+  }
+
+  &__opt {
+    color: #a7a5b0;
+    font-size: 12px;
+    margin-left: 4px;
+  }
 }
 
 .defect-field {
