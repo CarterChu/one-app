@@ -15,6 +15,12 @@
       不合格
     </button>
 
+    <!-- 合格：可选图片 -->
+    <div v-if="item.result === 'pass'" class="pass-photos">
+      <div class="pass-photos__label">添加现场图片<span class="pass-photos__opt">（选填）</span></div>
+      <PhotoUpload v-model="item.passImages" />
+    </div>
+
     <!-- 已填写摘要 -->
     <div v-if="item.result === 'fail' && item.abnormalType" class="fail-summary" @click="showDefectSheet = true">
       <span class="fail-summary__tag">{{ item.abnormalType }}</span>
@@ -44,7 +50,7 @@
 
           <!-- 缺陷描述 -->
           <div class="ds__field">
-            <div class="ds__label">缺陷描述</div>
+            <div class="ds__label"><span class="req">*</span>缺陷描述</div>
             <div class="ds__textarea-box">
               <a-field
                 v-model="item.defectDesc"
@@ -60,7 +66,7 @@
 
           <!-- 缺陷图片 -->
           <div class="ds__field">
-            <div class="ds__label">缺陷图片</div>
+            <div class="ds__label"><span class="req">*</span>缺陷图片</div>
             <PhotoUpload v-model="item.defectImages" />
           </div>
         </div>
@@ -100,6 +106,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { showToast } from "a-design-h5";
 import PhotoUpload from "../execute/PhotoUpload.vue";
 import { ABNORMAL_TYPES } from "@/mock/review";
 import type { ChecklistItemData, ItemResult } from "@/types/execute";
@@ -114,6 +121,7 @@ function setResult(r: Exclude<ItemResult, null>) {
     props.item.abnormalType = "";
     props.item.defectDesc = "";
     props.item.defectImages = [];
+    // passImages 保留，切回合格不清空已上传的图片
   } else {
     showDefectSheet.value = true;
   }
@@ -128,7 +136,9 @@ function onCancel() {
 }
 
 function onConfirm() {
-  if (!props.item.abnormalType) return;
+  if (!props.item.abnormalType) { showToast("请选择异常分类"); return; }
+  if (!props.item.defectDesc.trim()) { showToast("请填写缺陷描述"); return; }
+  if (!props.item.defectImages.length) { showToast("请上传缺陷图片"); return; }
   showDefectSheet.value = false;
 }
 
@@ -192,6 +202,23 @@ function pick(opt: string) {
     border-color: #fcac9c;
     background: #fff5f2;
     font-weight: 500;
+  }
+}
+
+.pass-photos {
+  margin-top: 4px;
+  padding: 12px 0 4px;
+
+  &__label {
+    font-size: 14px;
+    color: #2f2d33;
+    margin-bottom: 10px;
+  }
+
+  &__opt {
+    color: #a7a5b0;
+    font-size: 12px;
+    margin-left: 4px;
   }
 }
 
