@@ -1,9 +1,11 @@
 // 主持人模式：观察记录 + 测后问卷数据，存 localStorage，可独立导出 CSV。
 
+export type ObsStatus = "ok" | "issue" | "na" | null;
+
 export interface ObsItem {
   key: string;
   label: string;
-  checked: boolean;
+  status: ObsStatus;
   note: string;
 }
 
@@ -36,7 +38,7 @@ export const OBS_S2_LABELS = [
 ];
 
 function makeObs(labels: string[]): ObsItem[] {
-  return labels.map((label, i) => ({ key: `obs_${i}`, label, checked: false, note: "" }));
+  return labels.map((label, i) => ({ key: `obs_${i}`, label, status: null, note: "" }));
 }
 
 export function loadRecords(): HostRecord[] {
@@ -88,9 +90,9 @@ export function exportHostCsv() {
     return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
   };
   const obsHeader = (prefix: string, labels: string[]) =>
-    labels.flatMap((_, i) => [`${prefix}_${i + 1}_checked`, `${prefix}_${i + 1}_note`]);
+    labels.flatMap((_, i) => [`${prefix}_${i + 1}_status`, `${prefix}_${i + 1}_note`]);
   const obsValues = (obs: ObsItem[]) =>
-    obs.flatMap((o) => [o.checked ? "1" : "0", o.note]);
+    obs.flatMap((o) => [o.status ?? "", o.note]);
 
   const headers = [
     "participantNo", "createdAt",
