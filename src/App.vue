@@ -16,7 +16,7 @@ import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
 const router = useRouter();
-const isHostPage = computed(() => route.name === "host" || route.name === "survey");
+const isHostPage = computed(() => route.name !== "home");
 </script>
 
 <style>

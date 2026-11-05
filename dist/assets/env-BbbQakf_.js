@@ -1,1 +1,0 @@
-import{f as o}from"./app-CKGgW6sV.js";const e="one-app-env",s=o(localStorage.getItem(e)==="test"?"test":"dev");function n(t){s.value=t,localStorage.setItem(e,t)}function r(){return s.value==="test"}export{s as e,r as i,n as s};
