@@ -66,13 +66,11 @@
 
         <!-- 观察项 -->
         <div class="card obs-card" v-for="(item, i) in currentObs" :key="item.key">
-          <div class="obs-row">
-            <div class="obs-check" :class="{ 'obs-check--on': item.checked }" @click="toggleObs(i)">
-              <svg v-if="item.checked" viewBox="0 0 16 16" width="14" height="14">
-                <path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div class="obs-label">{{ item.label }}</div>
+          <div class="obs-label">{{ item.label }}</div>
+          <div class="obs-opts">
+            <div class="obs-opt obs-opt--ok" :class="{ on: item.status === 'ok' }" @click="setStatus(i, 'ok')">顺畅</div>
+            <div class="obs-opt obs-opt--issue" :class="{ on: item.status === 'issue' }" @click="setStatus(i, 'issue')">异常</div>
+            <div class="obs-opt obs-opt--na" :class="{ on: item.status === 'na' }" @click="setStatus(i, 'na')">未观察到</div>
           </div>
           <textarea
             class="obs-note"
@@ -93,7 +91,7 @@ import { ref, computed, watch } from "vue";
 import { useRouter } from "vue-router";
 import AppNavBar from "@/pages/inspection/components/AppNavBar.vue";
 import { getOrCreate, updateRecord } from "@/stores/hostTracker";
-import type { HostRecord } from "@/stores/hostTracker";
+import type { HostRecord, ObsStatus } from "@/stores/hostTracker";
 
 const router = useRouter();
 
@@ -119,8 +117,9 @@ const currentObs = computed(() =>
   obsScheme.value === "1" ? currentRecord.value.scheme1Obs : currentRecord.value.scheme2Obs,
 );
 
-function toggleObs(i: number) {
-  currentObs.value[i].checked = !currentObs.value[i].checked;
+function setStatus(i: number, val: Exclude<ObsStatus, null>) {
+  const obs = currentObs.value[i];
+  obs.status = obs.status === val ? null : val;
   save();
 }
 
@@ -320,37 +319,38 @@ watch(participantNo, () => {
 /* observation items */
 .obs-card {
   padding: 14px 16px;
-}
-
-.obs-row {
   display: flex;
-  align-items: flex-start;
+  flex-direction: column;
   gap: 10px;
-  margin-bottom: 10px;
-}
-
-.obs-check {
-  width: 22px;
-  height: 22px;
-  flex-shrink: 0;
-  border-radius: 6px;
-  border: 1.5px solid #cccbd1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 1px;
-
-  &--on {
-    background: #007bfe;
-    border-color: #007bfe;
-    color: #fff;
-  }
 }
 
 .obs-label {
   font-size: 13px;
   color: #2f2d33;
   line-height: 1.6;
+}
+
+.obs-opts {
+  display: flex;
+  gap: 8px;
+}
+
+.obs-opt {
+  flex: 1;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1.5px solid #e6e6eb;
+  color: #767282;
+  background: #f7f8fa;
+
+  &--ok.on  { background: #e6f7f0; border-color: #00b87a; color: #00875a; }
+  &--issue.on { background: #fff1f0; border-color: #ff4d4f; color: #cf1322; }
+  &--na.on  { background: #f3f3f5; border-color: #a7a5b0; color: #767282; }
 }
 
 .obs-note {
