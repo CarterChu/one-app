@@ -59,17 +59,6 @@
       </div>
     </section>
 
-    <!-- 测试数据(仅测试环境显示) -->
-    <section v-if="env === 'test'" class="grp">
-      <div class="grp__head"><span class="grp__title">测试数据</span><span class="grp__tag">已记录 {{ count }} 条</span></div>
-      <div class="data">
-        <a-button-group type="white-bg">
-          <a-button variant="secondary" size="large" :disabled="count === 0" @click="onClear">清空</a-button>
-          <a-button variant="primary" size="large" :disabled="count === 0" @click="onExport">导出 CSV</a-button>
-        </a-button-group>
-      </div>
-    </section>
-
     <!-- 测后问卷 -->
     <section class="grp">
       <div class="grp__head"><span class="grp__title">测后问卷</span></div>
@@ -83,16 +72,11 @@
 
 <script setup lang="ts">
 import StatusBar from "./inspection/components/StatusBar.vue";
-import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { showToast } from "a-design-h5";
 import { env, setEnv } from "@/stores/env";
-import { exportCsv, sessionCount, clearSessions } from "@/stores/tracker";
 import { startFlow } from "@/stores/flow";
 
 const router = useRouter();
-const count = ref(sessionCount());
-
 
 function go(query: Record<string, string>) {
   router.push({ name: "inspection-list", query });
@@ -106,15 +90,6 @@ function goReview() {
 function goFlow() {
   startFlow();
   router.push({ name: "inspection-execute-v2", params: { id: "flow" }, query: { flow: "1" } });
-}
-function onExport() {
-  if (sessionCount() === 0) return;
-  exportCsv();
-}
-function onClear() {
-  clearSessions();
-  count.value = 0;
-  showToast("已清空");
 }
 </script>
 
@@ -252,11 +227,5 @@ function onClear() {
   border-radius: 6px;
 }
 
-.data {
-  background: #fff;
-  border-radius: 12px;
-  padding: 4px 0;
-  overflow: hidden;
-}
 
 </style>
