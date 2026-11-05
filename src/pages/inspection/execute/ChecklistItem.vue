@@ -65,7 +65,7 @@
 
     <!-- 合格：可选现场图片 -->
     <div v-if="item.result === 'pass' && !readonly" class="pass-photos">
-      <div class="pass-photos__label">添加现场图片<span class="pass-photos__opt">（选填）</span></div>
+      <div class="pass-photos__label">现场图片<span class="pass-photos__opt">（选填）</span></div>
       <PhotoUpload v-model="item.passImages" />
     </div>
     <div v-if="item.result === 'pass' && readonly && item.passImages?.length" class="pass-photos">
