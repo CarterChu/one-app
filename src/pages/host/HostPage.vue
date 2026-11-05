@@ -82,6 +82,27 @@
         </div>
       </div>
 
+      <!-- ========== Tab 3: 数据 ========== -->
+      <div v-else-if="activeTab === 'data'" class="tab-content">
+        <div class="card data-row">
+          <div class="data-label">受访者行为数据</div>
+          <div class="data-desc">飞检操作路径、用时、错误等埋点记录</div>
+          <div class="data-count">已记录 {{ behaviorCount }} 条</div>
+          <a-button variant="primary" size="large" :disabled="behaviorCount === 0" @click="onExportBehavior">导出 CSV</a-button>
+        </div>
+        <div class="card data-row">
+          <div class="data-label">观察记录 + 测后问卷</div>
+          <div class="data-desc">主持人观察评级、备注及受访者问卷回答</div>
+          <div class="data-count">已记录 {{ hostCount }} 位受访者</div>
+          <a-button variant="primary" size="large" :disabled="hostCount === 0" @click="onExportHost">导出 CSV</a-button>
+        </div>
+        <div class="card">
+          <div class="data-label danger">清空所有数据</div>
+          <div class="data-desc">删除本设备上的全部测试记录，不可恢复。</div>
+          <a-button variant="secondary" size="large" :disabled="behaviorCount === 0 && hostCount === 0" @click="onClearAll" style="margin-top: 12px;">清空</a-button>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -89,15 +110,18 @@
 <script setup lang="ts">
 import { ref, computed, watch } from "vue";
 import { useRouter } from "vue-router";
+import { showToast } from "a-design-h5";
 import AppNavBar from "@/pages/inspection/components/AppNavBar.vue";
-import { getOrCreate, updateRecord } from "@/stores/hostTracker";
+import { getOrCreate, updateRecord, exportHostCsv, clearHostRecords, loadRecords } from "@/stores/hostTracker";
 import type { HostRecord, ObsStatus } from "@/stores/hostTracker";
+import { exportCsv, sessionCount, clearSessions } from "@/stores/tracker";
 
 const router = useRouter();
 
 const TABS = [
   { key: "script", label: "任务剧本" },
   { key: "observe", label: "观察记录" },
+  { key: "data", label: "数据" },
 ] as const;
 type TabKey = typeof TABS[number]["key"];
 
@@ -130,6 +154,26 @@ function save() {
 watch(participantNo, () => {
   currentRecord.value = getOrCreate(participantNo.value);
 });
+
+// 数据 tab
+const behaviorCount = ref(sessionCount());
+const hostCount = ref(loadRecords().length);
+
+function onExportBehavior() {
+  if (sessionCount() === 0) { showToast("暂无数据"); return; }
+  exportCsv();
+}
+function onExportHost() {
+  if (loadRecords().length === 0) { showToast("暂无数据"); return; }
+  exportHostCsv();
+}
+function onClearAll() {
+  clearSessions();
+  clearHostRecords();
+  behaviorCount.value = 0;
+  hostCount.value = 0;
+  showToast("已清空");
+}
 </script>
 
 <style lang="scss" scoped>
@@ -407,8 +451,33 @@ watch(participantNo, () => {
   &:focus { outline: none; border-color: #007bfe; background: #fff; }
 }
 
-.export-row {
-  padding: 4px 0 20px;
-  :deep(.a-button) { width: 100%; }
+.data-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.data-label {
+  font-size: 15px;
+  font-weight: 700;
+  color: #2f2d33;
+  &.danger { color: #cf1322; }
+}
+
+.data-desc {
+  font-size: 12px;
+  color: #a7a5b0;
+  line-height: 1.5;
+}
+
+.data-count {
+  font-size: 13px;
+  color: #767282;
+  margin-bottom: 4px;
+}
+
+.data-row :deep(.a-button),
+.card :deep(.a-button) {
+  width: 100%;
 }
 </style>
